@@ -1,0 +1,398 @@
+div.start
+{
+    position: relative;
+    margin: 50px auto;
+    width: 90%;
+    z-index: 100;
+    min-height: 100%;
+}
+
+div.navigation
+{
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    top: 0px;
+    z-index: 99;
+    background: brown;
+    text-align: center;
+    border-top: 2px #FFFFFF solid;
+    border-left: 2px #FFFFFF solid;
+    border-right: 2px #FFFFFF solid;
+    border-radius: 15px 15px 0px 0px;
+    -moz-border-radius: 15px 15px 0px 0px;
+    -webkit-border-radius: 15px 15px 0px 0px;
+}
+
+div.nav_item
+{
+    background: burlywood;
+    display: inline-block;
+    width: 150px;
+    text-align: center;
+    height: 46px;
+    border: 2px #FFFFFF solid;
+}
+
+div.blog_area
+{
+    position: absolute;
+    top: 52px;
+    width: 100%;
+    min-height: 350px;
+    border-left: 2px #FFFFFF solid;
+    border-right: 2px #FFFFFF solid;
+    border-bottom: 2px #FFFFFF solid;
+    border-radius: 0px 0px 15px 15px;
+    -moz-border-radius: 0px 0px 15px 15px;
+    -webkit-border-radius: 0px 0px 15px 15px;
+    background: #EBEBEB; 
+}
+
+div.blog_posts
+{
+    position: relative;
+    width: 771px;
+    background: #FFFFFF;
+    min-height: 450px;
+    border-radius: 0px 15px 0px 15px;
+    -moz-border-radius: 0px 15px 0px 15px;
+    -webkit-border-radius: 0px 15px 0px 15px;
+}
+div.blog_post_container
+{
+    width: 774px;
+    background: #FFFFFF;
+    margin-top: 1px;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+    /*    min-height: 200px;*/
+}
+
+div.post_tags
+{
+    position: relative;
+    top: 10px;
+    left: 25px;
+    padding-bottom: 20px;
+}
+
+div.blog_post
+{
+    position: relative;
+    width: 99%;
+    min-height: 130px;
+    margin-bottom: 10px;
+
+
+    border: 2px solid rgb(0, 0, 0);
+    border: 2px solid rgba(0, 0, 0, .2);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+}
+
+div.blog_post:hover
+{
+    box-shadow: 0px 0px 2px 5px rgba(255, 87, 0, 0.5);
+}
+
+div.blog_post_single
+{
+    width: 100%;
+    min-height: 150px;
+
+    border: 2px solid rgb(0, 0, 0);
+    border: 2px solid rgba(0, 0, 0, .2);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+}
+
+div.post_title
+{
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+div.post_date
+{
+    position: absolute;
+    top: 24px;
+    left: 635px;
+}
+
+div.post_text
+{
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 735px;
+}
+
+div.blog_functions
+{
+    position: absolute;
+    top: 0px;
+    left: 780px;
+    width: 142px;
+    height: 200px;
+    border-radius: 0px 0px 15px 15px;
+    -moz-border-radius: 0px 0px 15px 15px;
+    -webkit-border-radius: 0px 0px 15px 15px;
+    text-align: center;
+
+    background: rgba(165,42,42,1);
+    background: -moz-linear-gradient(top, rgba(165,42,42,1) 0%, rgba(102,97,97,1) 40%, rgba(102,97,97,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(165,42,42,1)), color-stop(40%, rgba(102,97,97,1)), color-stop(100%, rgba(102,97,97,1)));
+    background: -webkit-linear-gradient(top, rgba(165,42,42,1) 0%, rgba(102,97,97,1) 40%, rgba(102,97,97,1) 100%);
+    background: -o-linear-gradient(top, rgba(165,42,42,1) 0%, rgba(102,97,97,1) 40%, rgba(102,97,97,1) 100%);
+    background: -ms-linear-gradient(top, rgba(165,42,42,1) 0%, rgba(102,97,97,1) 40%, rgba(102,97,97,1) 100%);
+    background: linear-gradient(to bottom, rgba(165,42,42,1) 0%, rgba(102,97,97,1) 40%, rgba(102,97,97,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a52a2a', endColorstr='#666161', GradientType=0 );
+}
+
+div.blog_functions > a
+{
+    text-decoration: underline;
+}
+
+div.blog_functions_single
+{
+    position: absolute;
+    top: 5px;
+    left: 780px;
+    width: 195px;
+    height: 200px;
+    background: brown;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+}
+
+/*///////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////*/
+
+
+div.comment_section
+{
+    position: relative;
+    margin-top: 5px;
+    background: #FFFFFF;
+    min-height: 100px;
+    margin-bottom: 15px;
+    width: 774px;
+    border: 2px solid rgb(0, 0, 0);
+    border: 2px solid rgba(0, 0, 0, .2);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+
+
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+}
+
+div.comments_container_for_post
+{
+    position: relative;
+    margin-top: 15px;
+}
+
+div.post_comment
+{
+    position: relative;
+    min-height: 50px;
+    width: 625px;
+    background: #FFFFFF;
+    margin-top: 2px;
+    left: 120px;
+    padding: 10px;
+    border-bottom: 1px darkorange solid;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+}
+
+div.post_comment_name
+{
+    position: absolute;
+    top: 5px;
+}
+
+div.post_comment_date
+{
+    position: absolute;
+    top: 5px;
+    left: 475px;
+}
+
+div.post_comment_text
+{
+    position: relative;
+    width: 500px;
+    top: 25px;
+    left: 15px;
+    padding-bottom: 25px;
+}
+
+div.comment_input_container
+{
+    position: relative;
+    height: 350px;
+    width: 600px;
+    left: 120px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: #f1f1f1;
+
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+}
+
+div.comment_user_name
+{
+    position: absolute;
+    top: 15px;
+    height: 22px;
+    width: 250px;
+    left: 50px;
+}
+
+div.comment_user_mail
+{
+    position: absolute;
+    top: 55px;
+    left: 50px;
+    height: 22px;
+    width: 250px;
+}
+
+div.comment_user_text
+{
+    position: absolute;
+    top: 90px;
+    left: 50px;
+}
+
+input.comment_user_send
+{
+    position: absolute;
+    top: 315px;
+    left: 50px;
+    padding: 3px;
+    background: #FFFFFF;
+    border: 1px solid #D3D1D1;
+    padding: 3px 10px;
+    color: #505050;
+    font-size: 14px;
+    font-family: products_2;
+}
+
+div.comment_user_name > input
+{
+    width: 250px;
+}
+
+div.comment_user_mail > input
+{
+    width: 250px;
+}
+
+div.comment_user_text > textarea
+{
+    width: 450px;
+    height: 215px;
+    resize: none;
+}
+
+/*///////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////*/
+
+span.post_title_t
+{
+    font-size: 28px;
+    text-decoration: underline;
+    font-family: products_2;
+    color: darkorange;
+}
+
+span.post_date_text
+{
+    font-family: products_2;
+}
+
+span.post_text_t
+{
+    font-family: products_2;
+}
+
+span.nav_text
+{
+    position: relative;
+    display: inline;
+    top: 11px;
+}
+
+img.gws_banner
+{
+    position: relative;
+    display: block;
+    margin: 0 auto;
+}
+
+img.rss_img_nav
+{
+    position: absolute;
+    left: -30px;
+    top: -1px;
+}
+
+a
+{
+    text-decoration: none;
+    color: #000000;
+    outline: 0;
+}
+
+a.blog_link
+{
+    outline: 0px;
+}
+
+a.blog_link_single
+{
+    text-decoration: underline;
+}
+
+@font-face {
+    font-family: products_1;
+    src: url('../fonts/Fipps-Regular.ttf');
+}
+
+@font-face {
+    font-family: products_2;
+    src: url('../fonts/coolvetica rg.ttf');
+}
+
+@font-face {
+    font-family: text_s;
+    src: url('../fonts/grapple.ttf');
+}
+
+@font-face {
+    font-family: text_d;
+    src: url('../fonts/Facet_Ultra.ttf');
+}

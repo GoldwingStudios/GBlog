@@ -1,0 +1,207 @@
+/**
+ * GBlog
+ *
+ * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
+ * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
+ * 
+ */
+
+body
+{
+    font-family: Calibri;
+    font-size: 17px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #7F5726;
+}
+
+div.image_container
+{
+    position: relative;
+    margin: 0 auto;
+    height: 89px;
+    width: 400px;
+}
+
+div.container
+{
+    position: relative;
+    top: 0px;
+    height: 75%;
+    width: 80%;
+    margin: 0 auto;
+    display: block;
+}
+
+div.navi_blocker
+{
+    position: absolute;
+    background: #ffffff;
+    top: 0px;
+    left: -225px;
+    width: 225px;
+    height: 768px;
+    z-index: 9999;
+}
+
+div.content_layout
+{
+    position: relative;
+    margin: 0 auto;
+    top: 50px;
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 0px 0px 15px 15px;
+    -moz-border-radius: 0px 0px 15px 15px;
+    -webkit-border-radius: 0px 0px 15px 15px;
+    border-bottom: 2px #FE2E2E solid;
+    border-left: 2px #FE2E2E solid;
+    border-right: 2px #FE2E2E solid;
+}
+
+div.page_content_
+{
+    position: absolute;
+    top: 35px;
+    width: 100%;
+}
+
+div.navigation
+{
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    top: 0px;
+    z-index: 99;
+    background: brown;
+    text-align: center;
+    border-top: 2px #FFFFFF solid;
+    border-left: 2px #FFFFFF solid;
+    border-right: 2px #FFFFFF solid;
+    border-bottom: 3px #FE2E2E solid;
+    border-radius: 15px 15px 0px 0px;
+    -moz-border-radius: 15px 15px 0px 0px;
+    -webkit-border-radius: 15px 15px 0px 0px;
+}
+
+div.site_name
+{
+    width: 450px;
+    text-align: left;
+    height: 100%;
+    margin-left: 25px;
+}
+
+div.logout
+{
+    position: absolute;
+    left: 93%;
+    top: 14px;
+}
+
+div.home
+{
+    position: absolute;
+    left: 87.5%;
+    top: 14px;
+}
+
+div.start
+{
+    position: relative;
+    margin: 50px auto;
+    width: 90%;
+    z-index: 100;
+    min-height: 100%;
+}
+
+div.page_title
+{
+    position: relative;
+    top: 50px;
+    left: 75px;
+    width: 400px;
+}
+
+div.page_content
+{
+    position: relative;
+    margin: 5% auto;
+    width: 80%;
+    height: 55%;
+}
+
+span.page_title
+{
+    color: darkred;
+    font-size: 20px;
+}
+
+span.page_description
+{
+    position: relative;
+    top: 4px;
+    color: #000000;
+    font-size: 15px;
+}
+
+img.gws_banner
+{
+    position: relative;
+    display: block;
+    margin: 0 auto;
+}
+
+span.site_name_text
+{
+    position: relative;
+    top: 14px;
+    font-size: 20px;
+}
+
+img.rss_img_nav
+{
+    position: absolute;
+    left: -30px;
+    top: -1px;
+}
+
+a
+{
+    text-decoration: none;
+    color: #000000;
+}
+
+a.blog_link
+{
+    outline: 0px;
+}
+
+a.blog_link_single
+{
+    text-decoration: underline;
+}
+
+@font-face {
+    font-family: products_1;
+    src: url('../fonts/Fipps-Regular.ttf');
+}
+
+@font-face {
+    font-family: products_2;
+    src: url('../fonts/coolvetica rg.ttf');
+}
+
+@font-face {
+    font-family: text_s;
+    src: url('../fonts/grapple.ttf');
+}
+
+@font-face {
+    font-family: text_d;
+    src: url('../fonts/Facet_Ultra.ttf');
+}

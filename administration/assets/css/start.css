@@ -1,0 +1,216 @@
+/**
+ * GBlog
+ *
+ * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
+ * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
+ * 
+ */
+
+div.start
+{
+    position: relative;
+    margin: 50px auto;
+    width: 90%;
+    z-index: 100;
+    min-height: 100%;
+}
+
+div.blog_posts
+{
+    position: relative;
+    width: 771px;
+    background: #FFFFFF;
+    min-height: 450px;
+    border-radius: 0px 15px 0px 15px;
+    -moz-border-radius: 0px 15px 0px 15px;
+    -webkit-border-radius: 0px 15px 0px 15px;
+}
+div.blog_post_container
+{
+    width: 774px;
+    background: #FFFFFF;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+    /*    min-height: 200px;*/
+}
+
+div.post_tags
+{
+    position: relative;
+    top: 10px;
+    left: 25px;
+    padding-bottom: 20px;
+}
+
+div.blog_post
+{
+    position: relative;
+    width: 99%;
+    min-height: 130px;
+    margin-bottom: 10px;
+
+
+    border: 2px solid rgb(0, 0, 0);
+    border: 2px solid rgba(0, 0, 0, .2);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+}
+
+div.function_category
+{
+    position: relative;
+    left: 45px;
+    margin-top: 45px;
+    background: orange;
+    width: 225px;
+    min-height: 100px;
+    padding: 15px;
+
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+}
+
+div.function_category > ul
+{
+    list-style: none;
+}
+
+div.post_title
+{
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+div.post_date
+{
+    position: absolute;
+    top: 24px;
+    left: 635px;
+}
+
+div.post_text
+{
+    margin-top: 50px;
+    margin-left: 10px;
+    width: 735px;
+}
+/*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN//LOGIN/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+div.login_header
+{
+    position: relative;
+    top: 35px;
+    left: 45px;
+}
+
+div.login_text
+{
+    position: relative;
+    top: 25px;
+    left: 45px;
+}
+
+div.login_form
+{
+    position: relative;
+    margin: 0 auto;
+    top: 80px;
+    /*    left: 45px;*/
+    width: 800px;
+    height: 300px;
+    background: #F7F2E0;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border: 2px #000000 dashed;
+}
+
+div.login_form_input_usr
+{
+    position: relative;
+    left: 45px;
+    top: 45px;
+}
+
+div.login_form_input_psw
+{
+    position: relative;
+    left: 45px;
+    top: 115px;
+}
+
+div.login_form_submit
+{
+    position: relative;
+    top: 135px;
+    left: 700px;
+}
+
+input.login_input
+{
+    width: 250px;
+}
+
+input.login_input_red
+{
+    width: 250px;
+    border: 1px #FF0000 solid;
+}
+
+span.login_form_text
+{
+    font-size: 22px;
+    margin-left: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+span.post_title_t
+{
+    font-size: 28px;
+    text-decoration: underline;
+    font-family: products_2;
+    color: darkorange;
+}
+
+span.post_date_text
+{
+    font-family: products_2;
+}
+
+span.post_text_t
+{
+    font-family: products_2;
+}
+
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/

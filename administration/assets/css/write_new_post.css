@@ -1,0 +1,105 @@
+/**
+ * GBlog
+ *
+ * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
+ * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
+ * 
+ */
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 04.04.2015, 15:50:10
+    Author     : Himken
+*/
+div.post_photo
+{
+    position: absolute;
+    top: 50px;
+    left: 500px;
+    background: #9f9f9f;
+    height: 100px;
+    width: 300px;
+}
+
+div.post_title
+{
+    position: relative;
+    margin-top: 15px;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border: 1px darkred solid;
+    width: 445px;
+    height: 25px;
+}
+
+div.post_text
+{
+    position: relative;
+    margin-top: 15px;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border: 1px darkred solid;
+    width: 445px;
+    height: 102px;
+}
+
+div.post_tags
+{
+    position: relative;
+    margin-top: 25px;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border: 1px darkred solid;
+    width: 445px;
+    height: 25px;
+}
+
+div.post_finish
+{
+    position: relative;
+    margin-top: 15px;
+}
+
+span.post_text
+{
+    display: block;
+    position: absolute;
+    margin-top: 2px;
+    left: 15px;
+}
+
+span.post_textarea
+{
+    display: block;
+    position: absolute;
+    margin-top: 35px;
+    left: 15px;
+}
+
+textarea.input_field
+{
+    position: absolute;
+    top: -2px;
+    left: 100px;
+    width: 350px;
+    height: 104px;
+    resize: none;
+    border: 1px darkred solid;
+}
+
+input.input_field
+{
+    position: absolute;
+    left: 100px;
+    width: 350px;
+    height: 27px;
+    top: -1px;
+    border: 1px darkred solid;
+}
