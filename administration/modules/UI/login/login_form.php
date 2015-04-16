@@ -1,3 +1,11 @@
+<--/**
+ * GBlog
+ *
+ * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
+ * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
+ * 
+ */-->
+
 <div class="login_header">
     <h1>Login</h1>
 </div>

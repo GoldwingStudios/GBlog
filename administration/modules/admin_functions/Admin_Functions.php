@@ -1,3 +1,11 @@
+<--/**
+ * GBlog
+ *
+ * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
+ * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
+ * 
+ */-->
+
 <div class="function_category">
     <u><b><span>Posts</span></b></u>
     <ul>

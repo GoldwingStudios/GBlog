@@ -44,6 +44,7 @@ class Edit_Post {
             $stmt = null;
 
             if ($return) {
+                $date = $this->date_xml();
                 $id_ = $this->post_id;
                 $title_ = utf8_encode(utf8_decode($this->post_title));
                 $text_ = utf8_encode(utf8_decode($this->post_text));
@@ -125,6 +126,14 @@ class Edit_Post {
         $date_str = $date_cal . ", " . $date_time;
         $date = new DateTime($date_str);
         return $date->format("Y-m-d, H:i:s");
+    }
+
+    private function date_xml() {
+        $date_cal = $this->post_date_calendar;
+        $date_time = $this->post_date_time;
+        $date_str = $date_cal . ", " . $date_time;
+        $date = new DateTime($date_str);
+        return $date->format("d.m.Y, H:i");
     }
 
     private function check_input($input, $name) {

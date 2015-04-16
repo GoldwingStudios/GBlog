@@ -1,10 +1,10 @@
-/**
+<!--/**
  * GBlog
  *
  * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
- */
+ */-->
 
 <div class="image_container">
     <a href="http://www.goldwingstudios.de" target="_blank">

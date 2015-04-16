@@ -33,7 +33,7 @@ class Check_Input {
     }
 
     private function Check_Input_For_Sql($string) {
-        $array = ["SELECT", "UPDATE", "DELETE"];
+        $array = array("SELECT", "UPDATE", "DELETE");
         if (in_array($string, $array)) {
             return true;
         } else {
