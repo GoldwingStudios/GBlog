@@ -1,13 +1,12 @@
-﻿/**
+<?php
+
+/**
  * GBlog
  *
  * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-
-<?php
-
 class Save_Comment_Request {
 
     public function write_comment_to_file($post_id) {

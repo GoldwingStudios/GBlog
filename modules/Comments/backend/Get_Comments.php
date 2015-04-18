@@ -1,3 +1,5 @@
+<?php
+
 /**
  * GBlog
  *
@@ -5,9 +7,6 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-
-<?php
-
 class Get_Comments {
 
     public function Comments_Count($post) {
@@ -18,7 +17,7 @@ class Get_Comments {
         $comments = $xml->comments;
         foreach ($comments->comment as $com) {
             if ($com->valid == 1) {
-                array_push($com, $count);
+                array_push($count, $com);
             }
         }
         return count($count);
@@ -33,7 +32,7 @@ class Get_Comments {
             foreach ($comment as $com) {
                 if ($com->valid == 1) {
                     $name = $com->comment_name;
-                    $date = $com->comment_date;
+                    $date = $this->get_date($com->comment_date);
                     $text = $com->comment_text;
                     echo '<div class="post_comment">'
                     . '<div class="post_comment_name">'
@@ -49,6 +48,11 @@ class Get_Comments {
                 }
             }
         }
+    }
+
+    private function get_date($date) {
+        $date = new DateTime($date);
+        return $date->format("d.m.Y H:i");
     }
 
 }

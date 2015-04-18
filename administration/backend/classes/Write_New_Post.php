@@ -1,10 +1,10 @@
-﻿/**
+<!--/**
  * GBlog
  *
  * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
- */
+ */-->
 
 <?php
 
@@ -87,6 +87,7 @@ class Write_Post {
         $xml_date = $xml->createElement("date");
         $xml_text = $xml->createElement("text");
         $xml_visible = $xml->createElement("visible");
+        $xml_comments = $xml->createElement("comments");
 
 
         $xml_title->nodeValue = $title;
@@ -94,6 +95,7 @@ class Write_Post {
         $xml_date->nodeValue = $date;
         $xml_text->nodeValue = $text;
         $xml_visible->nodeValue = "1";
+        $xml_comments->nodeValue = " ";
 
 
         $xml_post->appendChild($xml_title);
@@ -101,6 +103,7 @@ class Write_Post {
         $xml_post->appendChild($xml_date);
         $xml_post->appendChild($xml_text);
         $xml_post->appendChild($xml_visible);
+        $xml_post->appendChild($xml_comments);
 
 
 
