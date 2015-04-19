@@ -1,3 +1,5 @@
+<?php
+
 /**
  * GBlog
  *
@@ -5,9 +7,6 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-
-<?php
-
 session_start();
 if (!$_SESSION["Logged_In"]) {
     $_SESSION["Logged_In"] = null;

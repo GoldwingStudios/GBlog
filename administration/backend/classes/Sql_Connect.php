@@ -1,3 +1,5 @@
+<?php
+
 /**
  * GBlog
  *
@@ -5,13 +7,10 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-
-<?php
-
 class Sql_Connect {
 
     public function connect_to_database() {
-        $connect = mysqli_connect("", "", "", "");
+        $connect = mysqli_connect("localhost", "db_connect", "Zx6%3_!y", "blog");
         return $connect;
     }
 
@@ -20,7 +19,7 @@ class Sql_Connect {
     }
 
     public function mysqli() {
-        $connect = new mysqli("", "", "", "");
+        $connect = new mysqli("localhost", "db_connect", "Zx6%3_!y", "blog");
         return $connect;
     }
 

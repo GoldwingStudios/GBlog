@@ -1,3 +1,5 @@
+<?php
+
 /**
  * GBlog
  *
@@ -5,9 +7,6 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-
-<?php
-
 class Get_Tag_Posts {
 
     private function get_post_for_tag($tag) {

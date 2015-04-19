@@ -1,11 +1,3 @@
-﻿/**
- * GBlog
- *
- * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
- * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
- * 
- */
-
 <?php
 
 class Show_Post {
@@ -67,7 +59,7 @@ class Show_Post {
     }
 
     private function set_up($c_post_data) {
-        
+
         $output_post = '<div class="blog_post_container">'
                 . '<div class="blog_post_single">'
                 . '<div class="post_title"><span class="post_title_t">' . $c_post_data["title"] . '</span></div>'

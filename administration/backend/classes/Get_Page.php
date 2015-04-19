@@ -1,3 +1,5 @@
+<?php
+
 /**
  * GBlog
  *
@@ -5,9 +7,6 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-
-<?php
-
 class Page {
 
     public function _Page() {
@@ -43,7 +42,7 @@ class Page {
         } else {
             $page_name = strtolower($_SESSION["current_page"]);
             $page_name_ = str_replace(" ", "_", $page_name);
-            $content = "modules/admin_functions/" . $page_name_ . ".php";
+            $content = "modules/admin_functions/sites/" . $page_name_ . ".php";
             $css = $page_name_ . ".css";
         }
     }

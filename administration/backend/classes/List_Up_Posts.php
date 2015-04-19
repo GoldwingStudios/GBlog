@@ -1,3 +1,5 @@
+<?php
+
 /**
  * GBlog
  *
@@ -5,9 +7,6 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-
-<?php
-
 class List_Up_Posts {
 
     public function List_Up_All_Posts($edit_return = null, $post_id = null) {

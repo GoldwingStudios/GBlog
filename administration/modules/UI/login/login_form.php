@@ -1,4 +1,4 @@
-<--/**
+<!--/**
  * GBlog
  *
  * Autor: GOLDWINGSTUDIOS - goldwingstudios.de

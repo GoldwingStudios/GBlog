@@ -121,6 +121,7 @@ div.post_title
     position: relative;
     top: 10px;
     left: 10px;
+    width: 600px;
 }
 
 div.post_date

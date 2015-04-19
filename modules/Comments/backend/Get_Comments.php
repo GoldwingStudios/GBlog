@@ -31,20 +31,22 @@ class Get_Comments {
         foreach ($comments as $comment) {
             foreach ($comment as $com) {
                 if ($com->valid == 1) {
-                    $name = $com->comment_name;
-                    $date = $this->get_date($com->comment_date);
-                    $text = $com->comment_text;
-                    echo '<div class="post_comment">'
-                    . '<div class="post_comment_name">'
-                    . '<span>' . $name . '</span>'
-                    . '</div>'
-                    . '<div class="post_comment_date">'
-                    . '<span>' . $date . '</span>'
-                    . '</div>'
-                    . '<div class="post_comment_text">'
-                    . '<span>' . $text . '</span>'
-                    . '</div>'
-                    . '</div>';
+                    if (!$this->check($com->comment_name) && !$this->check($com->comment_text)) {
+                        $name = $com->comment_name;
+                        $date = $this->get_date($com->comment_date);
+                        $text = $com->comment_text;
+                        echo '<div class="post_comment">'
+                        . '<div class="post_comment_name">'
+                        . '<span>' . $name . '</span>'
+                        . '</div>'
+                        . '<div class="post_comment_date">'
+                        . '<span>' . $date . '</span>'
+                        . '</div>'
+                        . '<div class="post_comment_text">'
+                        . '<span>' . $text . '</span>'
+                        . '</div>'
+                        . '</div>';
+                    }
                 }
             }
         }
@@ -53,6 +55,35 @@ class Get_Comments {
     private function get_date($date) {
         $date = new DateTime($date);
         return $date->format("d.m.Y H:i");
+    }
+
+    private function check($input) {
+        if (!$html = $this->Check_Input_For_Html($input)) {
+            if (!$sql = $this->Check_Input_For_Sql($input)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return true;
+        }
+    }
+
+    private function Check_Input_For_Html($string) {
+        if ($string != strip_tags($string)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private function Check_Input_For_Sql($string) {
+        $array = array("SELECT", "UPDATE", "DELETE");
+        if (in_array($string, $array)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

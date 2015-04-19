@@ -1,10 +1,10 @@
-/**
+<!--/**
  * GBlog
  *
  * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
- */
+ */-->
 
 <?php
 $post = filter_input(INPUT_GET, "post");
@@ -37,6 +37,12 @@ if (!isset($mode)) {
                 <div class="nav_item">
 
                     <span class="nav_text"><img class="rss_img_nav" src="assets/images/rss.png"/>Feed</span>
+                </div>
+            </a>
+            &nbsp;
+            <a href="https://github.com/GoldwingStudios/GBlog" target="_blank">
+                <div class="nav_item" title="You will be redirected to GitHub!">
+                    <span class="nav_text">Get GBlog</span>
                 </div>
             </a>
         </div>

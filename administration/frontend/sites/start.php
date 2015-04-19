@@ -5,7 +5,6 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */-->
-
 <div class="image_container">
     <a href="http://www.goldwingstudios.de" target="_blank">
         <img class="gws_banner" src="assets/images/fgws.png"/>

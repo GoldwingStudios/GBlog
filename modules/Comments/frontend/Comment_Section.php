@@ -5,7 +5,6 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */-->
-
 <div class="comment_section">
     <div class="comments_container_for_post">
         <?php
@@ -32,15 +31,15 @@
         if ($return) {
             ?>
             <div class="comment_input_container">
-                Error occured!<br>
-                Please reload page and try again!
+                Comment created!<br>
+                Please be informed that your comment needs to be activated by the Administrator!
             </div>
             <?php
         } else {
             ?>
             <div class="comment_input_container">
-                Comment created!<br>
-                Please be informed that your comment needs to be activated by the Administrator!
+                Error occured!<br>
+                Please reload page and try again!
             </div>
             <?php
         }

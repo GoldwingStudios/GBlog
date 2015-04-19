@@ -1,3 +1,4 @@
+<?php
 /**
  * GBlog
  *
@@ -5,8 +6,6 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-
-<?php
 if (isset($edit_return) && $return_post == "") {
     $Edit_Post;
     ?>
