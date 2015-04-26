@@ -10,12 +10,12 @@
 class sql_connect {
 
     public function connect_to_database() {
-        $connect = mysqli_connect("localhost", "db_connect", "Zx6%3_!y", "blog");
+        $connect = mysqli_connect("", "", "", "");
         return $connect;
     }
 
     public function mysqli() {
-        $connect = new mysqli("localhost", "db_connect", "Zx6%3_!y", "blog");
+        $connect = new mysqli("", "", "", "");
         return $connect;
     }
 
