@@ -77,6 +77,7 @@ if (!isset($mode)) {
                 ?>
                 <div class="blog_functions">
                     <?php
+                    $Social_Media = new Show_Social_Media();
                     $Visible_Tag_Posts->output_most_related_tags();
                     $Social_Media->Show_Social_Media_Links();
                     ?>
@@ -94,7 +95,9 @@ if (!isset($mode)) {
                 </div>
                 <div class="blog_functions">
                     <?php
+                    $Social_Media = new Show_Social_Media();
                     $Visible_Tag_Posts->output_most_related_tags();
+                    $Social_Media->Show_Social_Media_Links();
                     ?>
                 </div>
             </div>
@@ -110,7 +113,9 @@ if (!isset($mode)) {
                 </div>
                 <div class="blog_functions">
                     <?php
+                    $Social_Media = new Show_Social_Media();
                     $Visible_Tag_Posts->output_most_related_tags();
+                    $Social_Media->Show_Social_Media_Links();
                     ?>
                 </div>
             </div>       
