@@ -1,3 +1,5 @@
+<?php
+
 /**
  * GBlog
  *
@@ -5,12 +7,9 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-
-<?php
-
 include 'backend/sql_connect.php';
 include 'backend/get_page.php';
-include 'backend/crawler.php';
+include 'backend/count_view.php';
 include 'modules/blog_core/get_blog_posts.php';
 include 'modules/blog_core/show_spec_post.php';
 include 'modules/blog_core/Get_Tag_Posts.php';

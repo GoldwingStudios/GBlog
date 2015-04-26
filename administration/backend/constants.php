@@ -32,6 +32,11 @@ if (isset($get)) {
             $_SESSION["sm"] = true;
             $_SESSION["current_page"] = "EDIT POST";
             break;
+        case "some":
+            $content = "";
+            $_SESSION["sm"] = true;
+            $_SESSION["current_page"] = "SOCIAL MEDIA LINKS";
+            break;
     }
 } else {
     $content = "";

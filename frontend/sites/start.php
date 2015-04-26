@@ -1,12 +1,13 @@
-<!--/**
+
+
+<?php
+/**
  * GBlog
  *
  * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
- */-->
-
-<?php
+ */
 $post = filter_input(INPUT_GET, "post");
 $tag = filter_input(INPUT_GET, "tag");
 $search = filter_input(INPUT_GET, "search");
@@ -50,17 +51,19 @@ if (!isset($mode)) {
         if (!isset($post) && !isset($tag) && !isset($search)) {
             ?>
             <div class="blog_area">
-
                 <div class="blog_posts">
+
                     <?php
                     $posts = new Blog_Posts();
                     $posts->get_blog_posts();
                     ?>
+
                 </div>
                 <div class="blog_functions">
-
                     <?php
+                    $Social_Media = new Show_Social_Media();
                     $Visible_Tag_Posts->output_most_related_tags();
+                    $Social_Media->Show_Social_Media_Links();
                     ?>
                 </div>
             </div>
@@ -71,11 +74,11 @@ if (!isset($mode)) {
                 <?php
                 $Visible_Post = new Show_Post();
                 $Visible_Post->get_spec_post($post);
-                include "modules/Comments/frontend/Comment_Section.php";
                 ?>
                 <div class="blog_functions">
                     <?php
                     $Visible_Tag_Posts->output_most_related_tags();
+                    $Social_Media->Show_Social_Media_Links();
                     ?>
                 </div>
             </div>
