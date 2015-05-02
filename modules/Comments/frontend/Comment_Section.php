@@ -9,9 +9,9 @@
     <div class="comments_container_for_post">
         <?php
         $Get_Comments = new Get_Comments();
-        $count = $Get_Comments->Comments_Count($post);
+        $count = $Get_Comments->Comments_Count($id);
         if ($count > 0) {
-            $Get_Comments->Show_Comments($post);
+            $Get_Comments->Show_Comments($id);
         } else {
             ?>
             <div class="post_comment">
