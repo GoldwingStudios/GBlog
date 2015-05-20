@@ -9,7 +9,7 @@
 $chng = filter_input(INPUT_POST, "change_password");
 if (isset($chng) && $chng == 1 && $_SESSION["Logged_In"]) {
     $Change_Password = new Change_Password();
-    $result = $Change_Password->Set_New_Password($_POST);
+    $result = $Change_Password->Set_New_Password();
 }
 ?>
 <div class="image_container">
@@ -39,6 +39,7 @@ if (isset($chng) && $chng == 1 && $_SESSION["Logged_In"]) {
                         <div class="pw_changer_container">
                             <form method="POST" action="?sm=cp">
                                 <input type="text" style="display: none;" name="change_password" value="1" />
+                                <input type="text" style="display: none;" name="current_user" value="<?php echo $_SESSION["User"] ?>" />
                                 <div class="pw_changer">
                                     Aktuelles Passwort: <input class="pw_input" name="old_pass" type="password" />
                                 </div>

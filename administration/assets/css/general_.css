@@ -15,7 +15,7 @@ body
     margin: 0px;
     overflow-x: hidden;
     overflow-y: auto;
-    background: #7F5726;
+    background: url(../images/blackmamba.png);
 }
 
 div.image_container

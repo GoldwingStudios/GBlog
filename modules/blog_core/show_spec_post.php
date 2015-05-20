@@ -16,7 +16,10 @@ class Show_Post {
         } else {
             $set_up_post = '<script>window.location.replace("index.php");</script>';
         }
+        echo '<div class="blog_post_container">';
         echo $set_up_post;
+        include "modules/Comments/frontend/Comment_Section.php";
+        echo '</div>';
     }
 
     private function get_post_data($id) {
@@ -59,15 +62,12 @@ class Show_Post {
     }
 
     private function set_up($c_post_data) {
-
-        $output_post = '<div class="blog_post_container">'
-                . '<div class="blog_post_single">'
+        $output_post = '<div class="blog_post_single">'
                 . '<div class="post_title"><span class="post_title_t">' . $c_post_data["title"] . '</span></div>'
                 . '<div class="post_date"><span class="post_date_text">' . $c_post_data["date"] . '</span></div>'
                 . '<div class="post_text"><span class="post_text_t">' . $c_post_data["text"] . '</span></div>'
                 . '<div class="post_tags">'
                 . 'Tags: ' . $c_post_data["tags"]
-                . '</div>'
                 . '</div>'
                 . '</div>';
         return $output_post;

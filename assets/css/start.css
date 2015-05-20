@@ -4,7 +4,7 @@ div.start
     margin: 50px auto;
     width: 90%;
     z-index: 100;
-    min-height: 100%;
+    min-height: 800px;
 }
 
 div.navigation
@@ -52,6 +52,7 @@ div.blog_area
 div.blog_posts
 {
     position: relative;
+    display: inline-block;
     width: 771px;
     background: #FFFFFF;
     min-height: 450px;
@@ -61,6 +62,8 @@ div.blog_posts
 }
 div.blog_post_container
 {
+    position: relative;
+    display: inline-block;
     width: 774px;
     background: #FFFFFF;
     margin-top: 1px;
@@ -142,13 +145,13 @@ div.blog_functions
 {
     position: absolute;
     top: 0px;
-    left: 780px;
+    left: 779px;
     width: 142px;
-    height: 200px;
     border-radius: 0px 0px 15px 15px;
     -moz-border-radius: 0px 0px 15px 15px;
     -webkit-border-radius: 0px 0px 15px 15px;
     text-align: center;
+    display: inline-block;
 
     background: rgba(165,42,42,1);
     background: -moz-linear-gradient(top, rgba(165,42,42,1) 0%, rgba(102,97,97,1) 40%, rgba(102,97,97,1) 100%);
@@ -176,6 +179,72 @@ div.blog_functions_single
     border-radius: 15px 15px 15px 15px;
     -moz-border-radius: 15px 15px 15px 15px;
     -webkit-border-radius: 15px 15px 15px 15px;
+}
+
+div.social_media_title
+{
+    color: #000000;
+}
+
+div.social_link_container
+{
+    position: relative;
+    height: 45px;
+    width: 130px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+    -webkit-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 4px 4px 5px 0px rgba(0,0,0,0.75);
+    background: #A52A2A;
+}
+
+div.social_media_img_centered
+{
+    position: relative;
+    display: inline-block;
+    left: 3px;
+    top: 8px;
+    width: 27px;
+    height: 27px;
+}
+
+div.social_media_img_centered_inner
+{
+    position: relative;
+    width: 25px;
+    height: 27px;
+    margin: 0 auto;
+}
+
+div.social_media_username_container
+{
+    position: relative;
+    display: inline-block;
+    top: 0px;
+    width: 95px;
+}
+
+span.social_media_text
+{
+    position: relative;
+    display: inline-block;
+    left: 0px;
+    top: 5px;
+    font-size: 12px;
+    width: 100px;
+}
+
+span.social_media_username
+{
+    position: relative;
+    left: 10px;
+    top: 2px;
+    font-size: 13px;
+    width: 110px;
 }
 
 /*///////////////////////////////////////////////////////////////////////////////////////

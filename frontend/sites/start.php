@@ -1,5 +1,3 @@
-
-
 <?php
 /**
  * GBlog
@@ -52,12 +50,10 @@ if (!isset($mode)) {
             ?>
             <div class="blog_area">
                 <div class="blog_posts">
-
                     <?php
                     $posts = new Blog_Posts();
                     $posts->get_blog_posts();
                     ?>
-
                 </div>
                 <div class="blog_functions">
                     <?php

@@ -37,6 +37,11 @@ if (isset($get)) {
             $_SESSION["sm"] = true;
             $_SESSION["current_page"] = "SOCIAL MEDIA LINKS";
             break;
+        case "ums":
+            $content = "";
+            $_SESSION["sm"] = true;
+            $_SESSION["current_page"] = "USER MANAGEMENT SYSTEM";
+            break;
     }
 } else {
     $content = "";

@@ -7,6 +7,7 @@
  */-->
 
 <meta name="description" content="Offizieller GoldwingStudios-Blog. Sie hätten gern selbst einen Blog, dann müssen Sie das sehen! Außerdem sehen Sie hier alles zu Entwicklungen aus unserem Hause." />
+<meta name="viewport" content="width=device-width, initial-scale=0.1">
 <meta name="robots" content="index,follow" />
 <meta name="language" content="de" />
 <meta name="author" content="Goldwing Studios" />

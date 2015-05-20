@@ -14,17 +14,21 @@ class Change_Password {
         $this->user_config = simplexml_load_file($user_config_path);
     }
 
-    function Set_New_Password($post) {
+    function Set_New_Password() {
         $old_pass = md5(filter_input(INPUT_POST, "old_pass"));
-        $current_pass = $this->user_config->password;
+        $current_user = filter_input(INPUT_POST, "current_user");
+        $current_user = $this->user_config->xpath("//*[username='$current_user']");
+        $current_pass = md5($current_user[0]->password);
         $same = $old_pass == $current_pass;
-        if ($old_pass == $current_pass) {
+        if ($old_pass != $current_pass) {
             $new_pass = md5(filter_input(INPUT_POST, "new_pass"));
             $new_pass_conf = md5(filter_input(INPUT_POST, "new_pass_confirmation"));
             $same_p = $new_pass == $new_pass_conf;
             if ($new_pass == $new_pass_conf && $new_pass != $current_pass) {
-                $dom = new DOMDocument;
-                $dom->loadXML(file_get_contents('./user_config/user_config.xml'));
+                $dom_user_file_ref = dom_import_simplexml($this->user_config);
+
+
+
 
                 $xpath = new DOMXPath($dom);
                 $nodes = $xpath->query('//root/password');

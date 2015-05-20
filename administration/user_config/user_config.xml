@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This is the user specific config file.
+Use it to save your own username and password
+
+Please use the MD5-Function to hash your password.
+You can use this website for MD5-Encryption: 
+-->
+<root>
+    <user type="Administrator">
+        <username>admin</username>
+        <password>81dc9bdb52d04dc20036dbd8313ed055</password>
+    </user>
+    <user type="Account Manager">
+        <username>Der Babo</username>
+        <password>81dc9bdb52d04dc20036dbd8313ed055</password>
+    </user> 
+    <user type="Account Manager">
+        <username>Hans Dieter</username>
+        <password>81dc9bdb52d04dc20036dbd8313ed055</password>
+    </user>
+    <user type="Blog-Autor">
+        <username>test</username>
+        <password>81dc9bdb52d04dc20036dbd8313ed055</password>
+    </user>
+</root>

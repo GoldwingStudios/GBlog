@@ -1,0 +1,63 @@
+/**
+ * GBlog
+ *
+ * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
+ * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
+ * 
+ */
+
+div.form_container
+{
+    font-size: 18px;
+    position: relative;
+    top: 45px;
+    height: 350px;
+    width: 550px
+}
+
+div.social_media
+{
+    position: relative;
+    margin-top: 35px;
+}
+
+div.social_media_twitch
+{
+    position: relative;
+    margin-top: 35px;
+    height: 150px;
+}
+
+div.submit_container
+{
+    position: relative;
+    width: 105px;
+    padding: 10px;
+    left: 75px;
+}
+
+input.social_media_input
+{
+    position: absolute;
+    left: 85px;
+}
+
+input.twitch_time
+{
+    position: absolute;
+    left: 85px;
+    width: 150px;
+}
+
+input
+{
+    font-family: products_2;
+    font-size: 16px;
+    width: 450px;
+}
+
+input.submit
+{
+    width: 100px;
+
+}
