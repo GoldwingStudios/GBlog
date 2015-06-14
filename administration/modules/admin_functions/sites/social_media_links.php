@@ -18,11 +18,6 @@ if ((isset($youtube_link) || isset($twitter_link) || isset($twitch_link)) && $_S
     $return = $Social_Media_Links->Set_SML();
 }
 ?>
-<div class="image_container">
-    <a href="http://www.goldwingstudios.de" target="_blank">
-        <img class="gws_banner" src="assets/images/fgws.png"/>
-    </a>
-</div>
 <div class="start">
     <div class="navigation">
         <?php

@@ -27,7 +27,8 @@
     $new_comment = filter_input(INPUT_POST, "new_comment");
     if ($new_comment) {
         $Save_Comment_Request = new Save_Comment_Request();
-        $return = $Save_Comment_Request->write_comment_to_file($post);
+        $return = $Save_Comment_Request->write_comment_to_file($id);
+        echo "<script>console.log($id);</script>";
         if ($return) {
             ?>
             <div class="comment_input_container">
@@ -46,7 +47,7 @@
     } else {
         ?>
         <div class="comment_input_container">
-            <form method="post" action="index.php?post=<?php echo $post; ?>" accept-charset="utf-8">
+            <form method="post" action="index.php?post=<?php echo $id; ?>" accept-charset="utf-8">
                 <input style="display: none;" name="new_comment" value="1" />
                 <div class="comment_user_name">
                     <input name="user_name" placeholder="Type in your name!"/>

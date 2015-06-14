@@ -7,6 +7,7 @@
  */-->
 
 <meta name="robots" content="index,follow" />
+<meta name="viewport" content="width=device-width, initial-scale=0.1">
 <meta name="language" content="de" />
 <meta name="author" content="Goldwing Studios" />
 <meta name="publisher" content="Goldwing Studios" />

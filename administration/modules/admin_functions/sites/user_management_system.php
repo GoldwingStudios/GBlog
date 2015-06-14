@@ -17,11 +17,6 @@ if (isset($mode) && (isset($username) || isset($username_))) {
 $get_roles = new Get_User_Roles();
 ?>
 <script src="modules/js/USM_AddNewUser.js"></script>
-<div class="image_container">
-    <a href="http://www.goldwingstudios.de" target="_blank">
-        <img class="gws_banner" src="assets/images/fgws.png"/>
-    </a>
-</div>
 <div class="start">
     <div class="navigation">
         <?php

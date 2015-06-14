@@ -128,10 +128,10 @@ div.login_form
 {
     position: relative;
     margin: 0 auto;
-    top: 80px;
+    top: 50px;
     /*    left: 45px;*/
-    width: 800px;
-    height: 300px;
+    width: 65%;
+    height: 285px;
     background: #F7F2E0;
     border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
@@ -150,14 +150,16 @@ div.login_form_input_psw
 {
     position: relative;
     left: 45px;
-    top: 115px;
+    top: 95px;
 }
 
 div.login_form_submit
 {
     position: relative;
+    margin: 0 auto;
     top: 135px;
-    left: 700px;
+    width: 90%;
+    text-align: right;
 }
 
 input.login_input

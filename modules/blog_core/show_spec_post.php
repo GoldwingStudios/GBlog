@@ -5,8 +5,9 @@ class Show_Post {
     function get_spec_post($id) {
         $set_up_post = "";
         if (is_numeric($id)) {
-            $id = intval($id);
-            $post_data = $this->get_post_data($id);
+            $id_ = intval($id);
+            $id = (string) $id;
+            $post_data = $this->get_post_data($id_);
             if (!empty($post_data)) {
                 $c_post_data = $this->clean_up($post_data);
                 $set_up_post = $this->set_up($c_post_data);

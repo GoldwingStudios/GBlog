@@ -12,21 +12,23 @@ class Save_Comment_Request {
     public function write_comment_to_file($post_id) {
         $id = intval($post_id);
         $name = filter_input(INPUT_POST, "user_name");
-        $mail = filter_input(INPUT_POST, "user_mail");
+        $mail = $this->check_mail(filter_input(INPUT_POST, "user_mail")) ? null : filter_input(INPUT_POST, "user_mail");
         $text = filter_input(INPUT_POST, "user_text");
         $date = $this->get_date();
         $path = "./post_data/posts/post_$id.xml";
 
-        $xstr = file_get_contents($path);
-        $sXML = new SimpleXMLElement($xstr);
-        $newchild = $sXML->comments->addChild("comment");
-        $newchild->addChild("comment_name", $name);
-        $newchild->addChild("comment_mail", $mail);
-        $newchild->addChild("comment_date", $date);
-        $newchild->addChild("comment_text", $text);
-        $newchild->addChild("valid", "0");
-        $x = file_put_contents($path, $sXML->asXML());
-        return $x > 0;
+        if ($mail != null) {
+            $xstr = file_get_contents($path);
+            $sXML = new SimpleXMLElement($xstr);
+            $newchild = $sXML->comments->addChild("comment");
+            $newchild->addChild("comment_name", $name);
+            $newchild->addChild("comment_mail", $mail);
+            $newchild->addChild("comment_date", $date);
+            $newchild->addChild("comment_text", $text);
+            $newchild->addChild("valid", "0");
+            $x = file_put_contents($path, $sXML->asXML());
+            return $x > 0;
+        }
     }
 
     private function get_date() {
@@ -40,6 +42,10 @@ class Save_Comment_Request {
         $str_ = str_replace("ü", "&uuml;", $str_);
         $str_ = str_replace("ß", "&szlig;", $str_);
         return $str_;
+    }
+
+    function check_mail($mail) {
+        return preg_match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", $mail);
     }
 
 }

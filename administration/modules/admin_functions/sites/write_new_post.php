@@ -18,11 +18,6 @@ if (isset($mode) && $mode == 1 && $_SESSION["Logged_In"]) {
     }
 }
 ?>
-<div class="image_container">
-    <a href="http://www.goldwingstudios.de" target="_blank">
-        <img class="gws_banner" src="assets/images/fgws.png"/>
-    </a>
-</div>
 <div class="start">
     <div class="navigation">
         <?php

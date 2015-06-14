@@ -94,7 +94,7 @@ class Write_Post {
         $xml_date->nodeValue = $date;
         $xml_text->nodeValue = $text;
         $xml_visible->nodeValue = "1";
-        $xml_comments->nodeValue = " ";
+        $xml_comments->nodeValue = "_";
 
 
         $xml_post->appendChild($xml_title);
