@@ -2,17 +2,19 @@
 
 class Show_Post {
 
+    var $id, $title, $text, $date, $visible;
+
     function get_spec_post($id) {
         $set_up_post = "";
         if (is_numeric($id)) {
             $id_ = intval($id);
             $id = (string) $id;
-            $post_data = $this->get_post_data($id_);
-            if (!empty($post_data)) {
-                $c_post_data = $this->clean_up($post_data);
+            $this->get_post_data($id_);
+            if (!empty($this->id) && !empty($this->title) && !empty($this->text) && !empty($this->date) && !empty($this->visible)) {
+                $c_post_data = $this->clean_up();
                 $set_up_post = $this->set_up($c_post_data);
             } else {
-                $set_up_post = '<script>window.location.replace("index.php");</script>';
+//                $set_up_post = '<script>window.location.replace("index.php");</script>';
             }
         } else {
             $set_up_post = '<script>window.location.replace("index.php");</script>';
@@ -23,63 +25,70 @@ class Show_Post {
         echo '</div>';
     }
 
-    private function get_post_data($id) {
-        $post = simplexml_load_file("post_data/posts/post_" . $id . ".xml");
-        return $post;
+    private function get_post_data($id_) {
+        $connection = new sql_connect();
+        $connection = $connection->mysqli();
+
+        $sql_string = "SELECT * FROM blog_posts WHERE post_id=? ";
+
+        if ($stmt = $connection->prepare($sql_string)) {
+            $stmt->bind_param("i", $id_);
+            $stmt->execute();
+            $stmt->bind_result($id, $title, $text, $date, $visible, $tags);
+            $stmt->fetch();
+            $this->id = $id;
+            $this->title = $title;
+            $this->text = $text;
+            $this->date = $date;
+            $this->visible = $visible;
+            $this->tags = $tags;
+        }
+        $connection->close();
     }
 
-    private function clean_up($post_data) {
+    private function clean_up() {
 
         $post = Array();
-        foreach ($post_data as $key => $value) {
+        $this->title = htmlentities($this->title, ENT_COMPAT, "UTF-8");
+        $this->text = $this->prepare_text(htmlentities($this->text, ENT_COMPAT, "UTF-8"));
+        $this->date = htmlentities($this->date, ENT_COMPAT, "UTF-8");
+        $this->visible = htmlentities($this->visible, ENT_COMPAT, "UTF-8");
 
-            $value = htmlentities($value, ENT_COMPAT, "UTF-8");
-            if ($key == "title") {
-                $value = str_replace("ä", "&auml;", $value);
-                $value = str_replace("ö", "&ouml;", $value);
-                $value = str_replace("ü", "&uuml;", $value);
-                $value = str_replace("ß", "&szlig;", $value);
-            }
-            if ($key == "text") {
-                $value = $this->prepare_text($value);
-            }
-            if ($key == "tags") {
-                $tag_str = "";
-                $tags = explode(",", $value);
-                $tags = str_replace(" ", "", $tags);
-                foreach ($tags as $t) {
-                    $tag_url = $this->switch_from_special($t);
-                    if (empty($tag_str)) {
-                        $tag_str = '<a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
-                    } else {
-                        $tag_str .= ', <a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
-                    }
+        $tags = htmlentities($this->tags, ENT_COMPAT, "UTF-8");
+        $tag_str = "";
+        $tags = explode(",", $tags);
+        $tags = str_replace(" ", "", $tags);
+        foreach ($tags as $t) {
+            if ($t != "") {
+                $tag_url = $this->switch_from_special($t);
+                if (empty($tag_str)) {
+                    $tag_str = '<a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
+                } else {
+                    $tag_str .= ', <a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
                 }
-                $value = $tag_str;
             }
-            $post[$key] = $value;
         }
-        return $post;
+        $this->tags = $tag_str;
     }
 
     private function set_up($c_post_data) {
         $output_post = '<div class="blog_post_single">'
-                . '<div class="post_title"><span class="post_title_t">' . $c_post_data["title"] . '</span></div>'
-                . '<div class="post_date"><span class="post_date_text">' . $c_post_data["date"] . '</span></div>'
-                . '<div class="post_text"><span class="post_text_t">' . $c_post_data["text"] . '</span></div>'
+                . '<div class="post_title"><span class="post_title_t">' . $this->title . '</span></div>'
+                . '<div class="post_date"><span class="post_date_text">' . $this->date . '</span></div>'
+                . '<div class="post_text"><span class="post_text_t">' . $this->text . '</span></div>'
                 . '<div class="post_tags">'
-                . 'Tags: ' . $c_post_data["tags"]
+                . 'Tags: ' . $this->tags
                 . '</div>'
                 . '</div>';
         return $output_post;
     }
 
-    private function switch_from_special($str) {
-        $str = str_replace("&auml;", "ae", $str);
-        $str = str_replace("&ouml;", "oe", $str);
-        $str = str_replace("&uuml;", "ue", $str);
-        $str = str_replace("&szlig;", "ss", $str);
-        return $str;
+    private function switch_from_special($value) {
+        $value = str_replace("ä", "&auml;", $value);
+        $value = str_replace("ö", "&ouml;", $value);
+        $value = str_replace("ü", "&uuml;", $value);
+        $value = str_replace("ß", "&szlig;", $value);
+        return $value;
     }
 
     private function prepare_text($value) {
@@ -92,9 +101,7 @@ class Show_Post {
         $value = str_replace("ü", "&uuml;", $value);
         $value = str_replace("ß", "&szlig;", $value);
 
-
         //Links
-
         while (strpos($value, '[a]') !== false) {
             $link_start_pos = strpos($value, "[a]");
             $link_end_pos = strpos($value, "[/a]");
@@ -103,10 +110,6 @@ class Show_Post {
             $link_str = str_replace("[/a]", "", $link_str);
             $value = str_replace($link, '<a class="blog_link_single" target="_blank" href="http://' . $link_str . '">' . $link_str . '</a>', $value);
         }
-
-
-
-
         return $value;
     }
 

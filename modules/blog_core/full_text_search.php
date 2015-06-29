@@ -13,7 +13,7 @@ include './post_search.php';
 $search_tag = $_POST["search_tag"];
 
 if (isset($search_tag)) {
-$post_search = new Post_Search();
-$x = $post_search->search_for_posts($search_tag);
-echo json_encode($x);
+    $post_search = new Post_Search();
+    $x = $post_search->search_for_posts($search_tag);
+    echo json_encode($x);
 }

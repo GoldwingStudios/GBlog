@@ -4,14 +4,14 @@ class Blog_Posts {
 
     function get_blog_posts() {
         $sql = new sql_connect();
-        $sql_str = "SELECT * FROM blog_posts WHERE visible='1' ORDER BY date DESC ";
+        $sql_str = "SELECT * FROM blog_posts WHERE post_visible='1' ORDER BY post_date DESC ";
         $posts = $sql->return_array($sql_str);
         foreach ($posts as $p) {
-            $id = $this->generate_blog_id($p["id"]);
-            $date = new DateTime($p["date"]);
+            $id = $this->generate_blog_id($p["post_id"]);
+            $date = new DateTime($p["post_date"]);
             $date = $date->format("d.m.Y, H:i");
             $title = htmlentities($p["post_title"], ENT_COMPAT, "UTF-8");
-            $text = htmlentities($p["post_preview"], ENT_COMPAT, "UTF-8");
+            $text = htmlentities($this->get_preview($p["post_text"]), ENT_COMPAT, "UTF-8");
             $text = str_replace("_", " ", $text);
             $text = str_replace("[a]", " ", $text);
             $text = str_replace("[/a]", " ", $text);
@@ -32,6 +32,27 @@ class Blog_Posts {
             $return = "0" . $return;
         }
         return $return;
+    }
+
+    private function get_preview($text) {
+        $steps = 100;
+        $last_space = $text[$steps];
+        if (strlen($text) < $steps) {
+            return $text;
+        } else {
+            if ($last_space == " ") {
+                return substr($text, 0, $steps);
+            } else {
+                while ($steps <= strlen($text)) {
+                    $steps = $steps + 1;
+                    $x = $text[$steps];
+                    if ($text[$steps] == " ") {
+                        return substr($text, 0, $steps);
+                    }
+                }
+                return substr($text, 0, $steps);
+            }
+        }
     }
 
 }

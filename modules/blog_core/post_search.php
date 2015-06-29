@@ -3,78 +3,14 @@
 class Post_Search {
 
     function search_for_posts($search_tag) {
+        if ($search_tag === "") {
+            return;
+        }
         if (!$this->hashtml($search_tag)) {
             $posts_with_tag = array();
-            $path = "../../post_data/posts/*.xml";
-            $posts = glob($path);
             $search_tags = explode(" ", $search_tag);
-            $i = 0;
-            foreach ($posts as $p) {
-                $post = simplexml_load_file($p);
-                foreach ($search_tags as $tag) {
-                    $x = strpos(strtolower($post->text), strtolower($tag));
-                    $x++;
-                    if ($x >= 1) {
-                        $result = array();
-                        $filename = explode("_", $p);
-                        $id = explode(".", $filename[2]);
-                        $id = $id[0];
-
-                        $sql = new sql_connect();
-                        $sql_str = "SELECT * FROM blog_posts WHERE visible='1' AND id=? ORDER BY date DESC ";
-                        $connection = $sql->mysqli();
-                        $return = 0;
-
-                        if ($stmt = $connection->prepare($sql_str)) {
-                            $stmt->bind_param("i", $id);
-                            $stmt->execute();
-                            $stmt->bind_result($id_, $post_title, $post_preview, $date, $visible);
-                            $x = 0;
-                            while ($stmt->fetch()) {
-                                $result[$x]["id"] = $id_;
-                                $result[$x]["post_title"] = $post_title;
-                                $result[$x]["post_preview"] = $post_preview;
-                                $result[$x]["date"] = $date;
-                                $result[$x]["visible"] = $visible;
-                            }
-                        }
-
-                        $posts_with_tag[$i]["xml"] = $post;
-                        $posts_with_tag[$i]["sql"] = $result;
-                        $connection->close();
-                    } else if ($x != FALSE) {
-                        $result = array();
-                        $filename = explode("_", $p);
-                        $id = explode(".", $filename[2]);
-                        $id = $id[0];
-
-                        $sql = new sql_connect();
-                        $sql_str = "SELECT * FROM blog_posts WHERE visible='1' AND id=? ORDER BY date DESC ";
-                        $connection = $sql->mysqli();
-                        $return = 0;
-
-                        if ($stmt = $connection->prepare($sql_str)) {
-                            $stmt->bind_param("i", $id);
-                            $stmt->execute();
-                            $stmt->bind_result($id_, $post_title, $post_preview, $date, $visible);
-                            $x = 0;
-                            while ($stmt->fetch()) {
-                                $result[$x]["id"] = $id_;
-                                $result[$x]["post_title"] = $post_title;
-                                $result[$x]["post_preview"] = $post_preview;
-                                $result[$x]["date"] = $date;
-                                $result[$x]["visible"] = $visible;
-                            }
-                        }
-
-                        $posts_with_tag[$i]["xml"] = $post;
-                        $posts_with_tag[$i]["sql"] = $result;
-                        $connection->close();
-                    }
-                }
-                $i++;
-            }
-            return $posts_with_tag;
+            $posts = $this->get_posts($search_tags);
+            return $posts;
         }
     }
 
@@ -83,6 +19,60 @@ class Post_Search {
             return true;
         else
             return false;
+    }
+
+    private function get_posts($search_tags) {
+        $posts = array();
+        if ($search_tags == "") {
+            return;
+        }
+        $sql_connect = new sql_connect();
+        $connection = $sql_connect->mysqli();
+        $variable_string = "";
+
+        $get_posts = "SELECT * FROM blog_posts WHERE ";
+        $additional_string = "";
+        $variables = array();
+        $variables[] = &$variable_string;
+        foreach ($search_tags as $tag) {
+            if ($additional_string == "") {
+                $variable_string .= "sss";
+                $additional_string .= "post_title LIKE ? OR post_text LIKE ? OR post_tags LIKE ? ";
+                $variables[] = "%" . $tag . "%";
+                $variables[] = "%" . $tag . "%";
+                $variables[] = "%" . $tag . "%";
+            } else {
+                $variable_string .= "sss";
+                $additional_string .= "OR post_title LIKE ? OR post_text LIKE ? OR post_tags LIKE ? ";
+                $variables[] = "%" . $tag . "%";
+                $variables[] = "%" . $tag . "%";
+                $variables[] = "%" . $tag . "%";
+            }
+        }
+        $get_posts = $get_posts . $additional_string;
+
+        if ($stmt = $connection->prepare($get_posts)) {
+//            foreach ($variables as $var) {
+//                $stmt->bind_param($var);
+//            }
+            call_user_func_array(array($stmt, 'bind_param'), $this->refs($variables));
+            $stmt->execute();
+//            $stmt->bind_result($id, $title, $text, $date, $visible, $tags);
+//            $x = $stmt->fetch();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+                $posts[] = $row;
+            }
+        }
+        return $posts;
+    }
+
+    function refs(array $ar) {
+        $r = array();
+        foreach ($ar as $k => $v) {
+            $r[$k] = &$ar[$k];
+        }
+        return $r;
     }
 
 }

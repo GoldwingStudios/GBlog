@@ -50,3 +50,5 @@ administration/user_config/user_config.xml
 backend/count_view.php
 modules/analytics/analytics.php
 backend/sql_connect.php
+administration/backend/classes/Sql_Connect.php
+administration/user_config/user_config.xml
