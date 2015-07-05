@@ -87,10 +87,8 @@ if (isset($chng) && $chng == 1 && $_SESSION["Logged_In"]) {
                     </div>
                     <div class="page_content">
                         <div class="pw_changer_container">
-                            <form method="POST" action="?sm=cp">
-                                <b>Passwort erfolgreich ge&auml;ndert!</b>
-                            </form>
-
+                            <b>Passwort erfolgreich ge&auml;ndert!</b><br><br>
+                            <a href="index.php">Zur&uuml;ck</a>
                         </div>
                     </div>
                     <?php

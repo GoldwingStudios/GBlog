@@ -27,7 +27,7 @@ class sql_connect {
         $return = array();
         $connection = $this->connect_to_database();
         $result = mysqli_query($connection, $query);
-        while ($row = mysqli_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
             $return[] = $row;
         }
         $this->disconnect_from_database($connection);
@@ -38,7 +38,7 @@ class sql_connect {
         $ergebnis = Array();
         $connection = $this->connect_to_database();
         $result = mysqli_query($connection, $query);
-        while ($row = mysqli_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
             array_push($ergebnis, $row);
         }
         $this->disconnect_from_database($connection);

@@ -27,7 +27,7 @@
     $new_comment = filter_input(INPUT_POST, "new_comment");
     if ($new_comment) {
         $Save_Comment_Request = new Save_Comment_Request();
-        $return = $Save_Comment_Request->write_comment_to_file($id);
+        $return = $Save_Comment_Request->Write_Comment($id);
         echo "<script>console.log($id);</script>";
         if ($return) {
             ?>

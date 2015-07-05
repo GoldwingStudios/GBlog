@@ -15,32 +15,34 @@ class Change_Password {
     }
 
     function Set_New_Password() {
+        $sql_connect = new sql_connect();
+        $connection = $sql_connect->mysqli();
         $old_pass = md5(filter_input(INPUT_POST, "old_pass"));
         $current_user = filter_input(INPUT_POST, "current_user");
-        $current_user = $this->user_config->xpath("//*[username='$current_user']");
-        $current_pass = md5($current_user[0]->password);
+
+        $user_config_sql = "SELECT usr_password FROM blog_users WHERE usr_username = ? ";
+
+        if ($stmt = $connection->prepare($user_config_sql)) {
+            $stmt->bind_param("s", $current_user);
+            $stmt->execute();
+            $stmt->bind_result($current_pass);
+            $stmt->fetch();
+        }
+
         $same = $old_pass == $current_pass;
-        if ($old_pass != $current_pass) {
+        if ($old_pass == $current_pass) {
             $new_pass = md5(filter_input(INPUT_POST, "new_pass"));
             $new_pass_conf = md5(filter_input(INPUT_POST, "new_pass_confirmation"));
             $same_p = $new_pass == $new_pass_conf;
             if ($new_pass == $new_pass_conf && $new_pass != $current_pass) {
-                $dom_user_file_ref = dom_import_simplexml($this->user_config);
+                $sql_connect = new sql_connect();
+                $connection = $sql_connect->mysqli();
+                $user_config_sql_ = "UPDATE blog_users SET usr_password=? WHERE usr_username=? ";
 
-
-
-
-                $xpath = new DOMXPath($dom);
-                $nodes = $xpath->query('//root/password');
-
-                // password
-                $node = $nodes->item(0);
-                $node->nodeValue = $new_pass;
-
-                $x = $dom->saveXML();
-                $y = $dom->save('./user_config/user_config.xml');
-                if ($y >= 0 && $y !== NULL) {
-                    return 1;
+                if ($stmt = $connection->prepare($user_config_sql_)) {
+                    $stmt->bind_param("ss", $new_pass, $current_user);
+                    $x = $stmt->execute();
+                    return $x;
                 }
             } else if ($new_pass == $new_pass_conf && $new_pass == $current_pass) {
                 return 2;

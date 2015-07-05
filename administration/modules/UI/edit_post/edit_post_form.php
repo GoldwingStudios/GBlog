@@ -7,7 +7,6 @@
  * 
  */
 if (isset($edit_return) && $return_post == "") {
-    $Edit_Post;
     ?>
     <form method="post" action="index.php?sm=edit&amp;m=edm&amp;id=<?php echo $post_id; ?>">
         <div class="post_title">
@@ -109,15 +108,16 @@ if (isset($edit_return) && $return_post == "") {
     </form>
     <?php
 } else if ($edit_return == "" && isset($return_post)) {
-    $post_date = explode(", ", $return_post->date);
+    $post_date = explode(" ", $return_post["date"]);
     ?>
     <form method="post" action="index.php?sm=edit&amp;m=edm&amp;id=<?php echo $post_id; ?>">
+
         <div class="post_title">
             <span class="post_title">Post-Titel:</span><br/>
             <div class="date_legend">
             </div>
             <div class="middle_object">
-                <input class="input_field_title" type="text" name="post_title" value="<?php echo $return_post->title ?>" />
+                <input class="input_field_title" type="text" name="post_title" value="<?php echo $return_post["title"] ?>" />
             </div>
         </div>
         <div class="post_date">
@@ -139,15 +139,15 @@ if (isset($edit_return) && $return_post == "") {
             <div class="input_container">
                 <span class="post_textarea">Post-Text:</span><br/>
                 <div class="middle_object_large">
-                    <textarea class="input_field_text" type="text" name="post_text" ><?php echo $return_post->text ?></textarea>
+                    <textarea class="input_field_text" type="text" name="post_text" ><?php echo $return_post["text"] ?></textarea>
                 </div>
             </div>
         </div><br/>
         <div class="post_tags">
             <span class="post_text">Post-Tags:</span><br/>
             <div class="middle_object">
-                <input class="input_field_tags" type="text" name="post_tags" value="<?php echo $return_post->tags ?>" />
-                <input style="display: none;" type="text" name="post_visible" value="<?php echo $return_post->visible ?>" />
+                <input class="input_field_tags" type="text" name="post_tags" value="<?php echo $return_post["tags"] ?>" />
+                <input style="display: none;" type="text" name="post_visible" value="<?php echo $return_post["visible"] ?>" />
             </div>
         </div>
         <div class="submit_container">
@@ -156,6 +156,7 @@ if (isset($edit_return) && $return_post == "") {
                 <div class="backlink" onclick="window.location.href = 'index.php?sm=edit';"><u><b>Zur&uuml;ck zum EDIT-Men&uuml;</b></u></div>
             </div>
         </div>
+
     </form>
     <?php
 }

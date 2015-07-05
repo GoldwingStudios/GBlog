@@ -6,7 +6,6 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-$_SERVER;
 $post_id = filter_input(INPUT_GET, "id");
 $mode = filter_input(INPUT_GET, "m");
 $return_post = "";

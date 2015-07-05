@@ -10,4 +10,9 @@
     
     
     
-<link_twitch><type>twitch</type><link>http://www.twitch.tv/goldwingstudios</link><date_time>29.05.2015, 22:00</date_time></link_twitch></links>
+    <link_twitch>
+        <type>twitch</type>
+        <link>http://www.twitch.tv/goldwingstudios</link>
+        <date_time>29.05.2015, 22:00</date_time>
+    </link_twitch>
+</links>

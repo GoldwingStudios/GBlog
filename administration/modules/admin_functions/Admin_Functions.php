@@ -14,6 +14,7 @@ if ($user_type == "Blog-Autor" || $user_type == "Administrator") {
         <ul>
             <li><a href="?sm=wnp"><b>Write a new Post!</b></a></li>
             <li><a href="?sm=edit">Edit Blogpost</a></li>
+            <li><a href="?sm=comma">Comment Manager</a></li>
         </ul>
     </div>
     <?php

@@ -19,13 +19,13 @@ class Rss_Creator {
                 <managingEditor>ocd@goldwingstudios.de</managingEditor>
                 <webMaster>ocd@goldwingstudios.de</webMaster>";
 
-        $sql_str = "SELECT * FROM blog_posts WHERE visible='1' ORDER BY date DESC ";
+        $sql_str = "SELECT * FROM blog_posts WHERE post_visible='1' ORDER BY post_date DESC ";
         $posts = $sql->return_array($sql_str);
         foreach ($posts as $p) {
-            $id = $this->generate_blog_id($p["id"]);
-            $date = new DateTime($p["date"]);
+            $id = $this->generate_blog_id($p["post_id"]);
+            $date = new DateTime($p["post_date"]);
             $title = htmlentities($p["post_title"], ENT_COMPAT, "UTF-8");
-            $text = str_replace("_", " ", $p["post_preview"]);
+            $text = str_replace("_", " ", $p["post_text"]);
 
             $date_hour = $date->format("G");
             $date_min = $date->format("i");
@@ -37,13 +37,13 @@ class Rss_Creator {
 
             $year_nr = $date->format("Y");
 
-            $rss_date = "$date_day, $date_day_nr. $month_name $year_nr 00:00";
+            $rss_date = "$date_day, $date_day_nr $month_name $year_nr $date_hour:$date_min:00 +0000";
 
             echo "<item>";
             echo "<title>" . $p["post_title"] . "</title>";
             echo "<link>http://blog.goldwingstudios.de/?post=" . $id . "</link>";
             echo "<description>" . $text . " [...]</description>";
-            echo "<pubDate>$date_day, $date_day_nr $month_name $year_nr $date_hour:$date_min:00 +0000</pubDate>";
+            echo "<pubDate>$rss_date</pubDate>";
             echo "<guid>http://blog.goldwingstudios.de</guid>";
             echo "</item>";
         }

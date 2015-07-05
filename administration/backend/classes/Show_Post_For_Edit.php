@@ -11,8 +11,18 @@ class Show_Post_For_Edit {
 
     function Load_Post_For_Edit($id) {
         $id = intval($id);
-        $load_string = "../post_data/posts/post_$id.xml";
-        $post = simplexml_load_file($load_string);
+        $post = array();
+        $connection = new sql_connect();
+        $connection = $connection->mysqli();
+
+        $sql_string = "SELECT * FROM blog_posts WHERE post_id=? ";
+
+        if ($stmt = $connection->prepare($sql_string)) {
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $stmt->bind_result($post["id"], $post["title"], $post["text"], $post["date"], $post["visible"], $post["tags"]);
+            $stmt->fetch();
+        }
         return $post;
     }
 

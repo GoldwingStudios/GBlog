@@ -6,6 +6,7 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
+$_GET;
 $post = filter_input(INPUT_GET, "post");
 $tag = filter_input(INPUT_GET, "tag");
 $search = filter_input(INPUT_GET, "search");

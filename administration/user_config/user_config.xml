@@ -8,19 +8,19 @@ You can use this website for MD5-Encryption:
 -->
 <root>
     <user type="Administrator">
-        <username>admin</username>
-        <password>81dc9bdb52d04dc20036dbd8313ed055</password>
+        <username></username>
+        <password></password>
     </user>
     <user type="Account Manager">
-        <username>Der Babo</username>
-        <password>81dc9bdb52d04dc20036dbd8313ed055</password>
+        <username></username>
+        <password></password>
     </user> 
     <user type="Account Manager">
-        <username>Hans Dieter</username>
-        <password>81dc9bdb52d04dc20036dbd8313ed055</password>
+        <username></username>
+        <password></password>
     </user>
     <user type="Blog-Autor">
-        <username>test</username>
-        <password>81dc9bdb52d04dc20036dbd8313ed055</password>
+        <username></username>
+        <password></password>
     </user>
 </root>

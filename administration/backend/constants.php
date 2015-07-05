@@ -42,6 +42,11 @@ if (isset($get)) {
             $_SESSION["sm"] = true;
             $_SESSION["current_page"] = "USER MANAGEMENT SYSTEM";
             break;
+        case "comma":
+            $content = "";
+            $_SESSION["sm"] = true;
+            $_SESSION["current_page"] = "COMMENT MANAGER";
+            break;
     }
 } else {
     $content = "";

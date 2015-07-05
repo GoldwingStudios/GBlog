@@ -69,7 +69,8 @@ if (isset($mode) && $mode == 1 && $_SESSION["Logged_In"]) {
                     <div class="page_content">
                         <div>
                             <span>Post erfolgreich erstellt!</span><br/><br/>
-                            <a href="../index.php" target="_blank">Post anschauen!</a>
+                            <a href="../index.php" target="_blank">Post anschauen!</a><br/><br/>
+                            <a href="index.php">Zur&uuml;ck</a>
                         </div>
                     </div>
                     <?php
@@ -78,7 +79,8 @@ if (isset($mode) && $mode == 1 && $_SESSION["Logged_In"]) {
                     <div class="page_content">
                         <div>
                             <span>Post konnte nicht erstellt werden!</span><br/><br/>
-                            <a href="index.php?sm=wnp" target="_self">Erneut versuchen!</a>
+                            <a href="index.php?sm=wnp" target="_self">Erneut versuchen!</a><br/><br/>
+                            <a href="index.php">Zur&uuml;ck</a>
                         </div>
                     </div>
                     <?php

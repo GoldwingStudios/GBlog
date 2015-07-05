@@ -28,7 +28,7 @@ class Get_User_Roles {
             echo "<td><b>" . $role_type . "</b></td>";
             echo "</tr>";
             $this->output_names_for_role($role_type);
-            echo '<tr><td>&nbsp;</td><td>&nbsp;</td><td style="cursor: pointer;" id="AddUser_' . $this->replace_special_char($role_type) . '">Hinzuf&uuml;gen?</td></tr>';
+            echo '<tr><td>&nbsp;</td><td>&nbsp;</td><td style="cursor: pointer;" id="AddUser_' . $this->replace_special_char($role_type) . '"><b><u>Hinzuf&uuml;gen?</u></b></td></tr>';
             if ($current_role instanceof SimpleXMLElement) {
                 $roles = $current_role->xpath("role");
             }
@@ -39,18 +39,25 @@ class Get_User_Roles {
     }
 
     private function output_names_for_role($role_type) {
-        $user_xml = $this->get_user_xml_file();
-        $user_for_type = $user_xml->xpath('user[@type="' . $role_type . '"]');
-        foreach ($user_for_type as $user) {
-            $username = $this->replace_special_char($user->username);
-            echo "<tr><td>&nbsp;</td><td>$user->username</td><td " . 'style="cursor: pointer;" onclick=\'window.location.href="index.php?sm=ums&mode=del&name=' . $username .
+        $sql_connect = new sql_connect();
+        $connection = $sql_connect->mysqli();
+        $users = array();
+        $user_config_sql = "SELECT * FROM blog_users WHERE usr_type = ? ";
+
+        if ($stmt = $connection->prepare($user_config_sql)) {
+            $stmt->bind_param("s", $role_type);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row;
+            }
+        }
+
+        foreach ($users as $user) {
+            $username = $this->replace_special_char($user["usr_username"]);
+            echo "<tr><td>&nbsp;</td><td>" . $user["usr_username"] . "</td><td " . 'style="cursor: pointer;" onclick=\'window.location.href="index.php?sm=ums&mode=del&name=' . $username .
             '"\'>Entfernen!</td></tr>';
         }
-    }
-
-    private function get_user_xml_file() {
-        $path = "user_config/user_config.xml";
-        return simplexml_load_file($path);
     }
 
     private function replace_special_char($username) {

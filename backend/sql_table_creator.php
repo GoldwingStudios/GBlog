@@ -47,4 +47,21 @@ if (empty($sites_result)) {
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
     $sites_result = $sql->execute($sites_query);
 }
+
+$blog_users_query = "SHOW TABLES LIKE 'blog_users';";
+$blog_users_result = $sql->return_row($blog_users_query);
+
+if (empty($blog_users_result)) {
+    $blog_users_query = "CREATE TABLE `blog_users` (
+  `id` int(11) NOT NULL,
+  `usr_type` varchar(45) NOT NULL,
+  `usr_username` varchar(45) NOT NULL,
+  `usr_password` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`,`usr_type`,`usr_username`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `username_UNIQUE` (`usr_username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+";
+    $blog_users_result = $sql->execute($blog_users_query);
+}
 ?>

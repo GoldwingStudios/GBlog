@@ -10,31 +10,29 @@
 class User_Management {
 
     public function Delete_User($user) {
-        $user = $this->replace_special_char($user);
-        $user_file = $this->get_user_xml_file();
-        $user_config = $user_file->xpath('user');
-        foreach ($user_config as $user_) {
-            if ($user_->username == $user) {
-                $domRef = dom_import_simplexml($user_file);
-                $remove_node = dom_import_simplexml($user_);
-                $domRef->removeChild($remove_node);
-                $user_config = simplexml_import_dom($domRef);
-                $success = $user_config->asXML("user_config/user_config.xml");
-                break;
-            }
+        $sql_connect = new sql_connect();
+        $connection = $sql_connect->mysqli();
+        $user_config_sql = "DELETE FROM blog_users WHERE usr_username = ? ";
+
+        if ($stmt = $connection->prepare($user_config_sql)) {
+            $stmt->bind_param("s", $user);
+            $deleted = $stmt->execute();
         }
     }
 
     public function Add_User() {
-        $user_file = $this->get_user_xml_file();
+        $sql_connect = new sql_connect();
+        $connection = $sql_connect->mysqli();
         $user_name = filter_input(INPUT_POST, "user_name");
         $user_password = filter_input(INPUT_POST, "user_password");
         $user_role = filter_input(INPUT_POST, "NewUser_Form_attr");
-        $newUser = $user_file->addChild('user');
-        $newUser->addAttribute('type', $user_role);
-        $newUser->addChild('username', $user_name);
-        $newUser->addChild('password', md5($user_password));
-        $success = $user_file->asXML("user_config/user_config.xml");
+
+        $user_config_sql = "INSERT INTO blog_users (`usr_type`,`usr_username`,`usr_password`) VALUES(?, ?, ?);";
+
+        if ($stmt = $connection->prepare($user_config_sql)) {
+            $stmt->bind_param("sss", $user_role, $user_name, md5($user_password));
+            $added = $stmt->execute();
+        }
     }
 
     public function Choose_Mode($mode, $user) {
@@ -46,16 +44,6 @@ class User_Management {
                 $this->Add_User();
                 break;
         }
-    }
-
-    private function get_user_xml_file() {
-        $path = "user_config/user_config.xml";
-        return simplexml_load_file($path);
-    }
-
-    private function replace_special_char($username) {
-        $clean_str = str_replace("_", " ", $username);
-        return $clean_str;
     }
 
 }
