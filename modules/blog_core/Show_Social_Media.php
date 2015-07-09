@@ -10,7 +10,6 @@
 class Show_Social_Media {
 
     public function Show_Social_Media_Links() {
-        echo '<br><div class="social_media_title"><h3>Social Media</h3></div>';
         $media = $this->get_social_media_data();
         foreach ($media as $m) {
             if ($m->link != "") {

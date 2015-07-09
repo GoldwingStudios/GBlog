@@ -16,12 +16,10 @@ class Blog_Posts {
             $text = str_replace("[a]", " ", $text);
             $text = str_replace("[/a]", " ", $text);
             $text = str_replace("http://", " ", $text);
-            echo '<a class="blog_link" href="index.php?post=' . $id . '">'
-            . '<div class="blog_post">'
-            . '<div class="post_title"><span class="post_title_t">' . $title . '</span></div>'
-            . '<div class="post_date"><span class="post_date_text">' . $date . '</span></div>'
-            . '<div class="post_text"><span class="post_text_t">' . $text . ' [...]</span></div>'
-            . '</div>'
+            echo ''
+            . '<a class="blog__entry" href="index.php?post=' . $id . '">'
+            . '<div class="blog__entry__header"><h2>' . $title . '</h2><span class="blog__entry__date">' . $date . '</span></div>'
+            . '<p>' . $text . '</p>'
             . '</a>';
         }
     }

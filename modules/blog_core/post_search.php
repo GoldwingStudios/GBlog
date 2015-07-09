@@ -61,6 +61,10 @@ class Post_Search {
 //            $x = $stmt->fetch();
             $result = $stmt->get_result();
             while ($row = $result->fetch_assoc()) {
+                $row = str_replace("_", " ", $row);
+                $row = str_replace("[a]", " ", $row);
+                $row = str_replace("[/a]", " ", $row);
+                $row = str_replace("http://", " ", $row);
                 $posts[] = $row;
             }
         }

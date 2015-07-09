@@ -10,57 +10,37 @@
 class Get_Comments {
 
     public function Comments_Count($post) {
-        $connection = new sql_connect();
-        $connection = $connection->mysqli();
-        $post_id = intval($post);
-
-        if (isset($post_id)) {
-            $sql_str = "SELECT * FROM blog_comments WHERE post_id = ?";
-            if ($stmt = $connection->prepare($sql_str)) {
-                $stmt->bind_param("i", $post_id);
-                $stmt->execute();
-                $return = $stmt->get_result();
-                while ($row = $return->fetch_assoc()) {
-                    $comments[] = $row;
-                }
+        $count = array();
+        $id = intval($post);
+        $path = "./post_data/posts/post_$id.xml";
+        $xml = simplexml_load_file($path);
+        $comments = $xml->comments;
+        foreach ($comments->comment as $com) {
+            if ($com->valid == 1) {
+                array_push($count, $com);
             }
         }
-        return count($comments);
+        return count($count);
     }
 
     public function Show_Comments($post) {
-        $connection = new sql_connect();
-        $connection = $connection->mysqli();
         $id = intval($post);
-        $sql_str = "SELECT * FROM blog_comments WHERE `post_id` = ?";
-
-        if ($stmt = $connection->prepare($sql_str)) {
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            $return = $stmt->get_result();
-            while ($row = $return->fetch_assoc()) {
-                $comments[] = $row;
-            }
-        }
-        $connection->close();
-
+        $path = "./post_data/posts/post_$id.xml";
+        $xml = simplexml_load_file($path);
+        $comments = $xml->comments;
         foreach ($comments as $comment) {
-            if ($comment["comment_valid"] == 1) {
-                if (!$this->check($comment["comment_name"]) && !$this->check($comment["comment_text"])) {
-                    $name = $comment["comment_name"];
-                    $date = $this->get_date($comment["comment_date"]);
-                    $text = $comment["comment_text"];
-                    echo '<div class="post_comment">'
-                    . '<div class="post_comment_name">'
-                    . '<span>' . $name . '</span>'
-                    . '</div>'
-                    . '<div class="post_comment_date">'
-                    . '<span>' . $date . '</span>'
-                    . '</div>'
-                    . '<div class="post_comment_text">'
-                    . '<span>' . $text . '</span>'
-                    . '</div>'
-                    . '</div>';
+            foreach ($comment as $com) {
+                if ($com->valid == 1) {
+                    if (!$this->check($com->comment_name) && !$this->check($com->comment_text)) {
+                        $name = $com->comment_name;
+                        $date = $this->get_date($com->comment_date);
+                        $text = $com->comment_text;
+                        echo '<div class="comment">'
+                        . '<div class="comment__data"><h1 class="comment__name">' . $name . '</h1>'
+                        . '<span class="comment__date">' . $date . '</span></div>'
+                        . '<p class="comment__text">' . $text . '</p>'
+                        . '</div>';
+                    }
                 }
             }
         }
@@ -68,7 +48,7 @@ class Get_Comments {
 
     private function get_date($date) {
         $date = new DateTime($date);
-        return $date->format("d.m.Y, H:i");
+        return $date->format("d.m.Y H:i");
     }
 
     private function check($input) {

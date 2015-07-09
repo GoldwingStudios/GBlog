@@ -25,7 +25,7 @@ class Rss_Creator {
             $id = $this->generate_blog_id($p["post_id"]);
             $date = new DateTime($p["post_date"]);
             $title = htmlentities($p["post_title"], ENT_COMPAT, "UTF-8");
-            $text = str_replace("_", " ", $p["post_text"]);
+            $text = $this->get_preview(str_replace("_", " ", $p["post_text"]));
 
             $date_hour = $date->format("G");
             $date_min = $date->format("i");
@@ -57,6 +57,27 @@ class Rss_Creator {
             $return = "0" . $return;
         }
         return $return;
+    }
+
+    private function get_preview($text) {
+        $steps = 125;
+        $last_space = $text[$steps];
+        if (strlen($text) < $steps) {
+            return $text;
+        } else {
+            if ($last_space == " ") {
+                return substr($text, 0, $steps);
+            } else {
+                while ($steps <= strlen($text)) {
+                    $steps = $steps + 1;
+                    $x = $text[$steps];
+                    if ($text[$steps] == " ") {
+                        return substr($text, 0, $steps);
+                    }
+                }
+                return substr($text, 0, $steps);
+            }
+        }
     }
 
 }

@@ -13,19 +13,18 @@ class Get_Tag_Posts {
         if (!$this->hashtml($tag)) {
             $get_specific_tag_posts = $this->get_post_for_tag($tag);
             foreach ($get_specific_tag_posts as $p) {
-                $id = $this->generate_blog_id($p[0]["post_id"]);
-                $date = new DateTime($p[0]["post_date"]);
+                $id = $this->generate_blog_id($p["post_id"]);
+                $date = new DateTime($p["post_date"]);
                 $date = $date->format("d.m.Y, H:i");
-                $title = htmlentities($p[0]["post_title"], ENT_COMPAT, "UTF-8");
-                $text = htmlentities($p[0]["post_text"], ENT_COMPAT, "UTF-8");
+                $title = htmlentities($p["post_title"], ENT_COMPAT, "UTF-8");
+                $text = htmlentities($this->get_preview($p["post_text"], ENT_COMPAT, "UTF-8"));
                 $text = str_replace("_", " ", $text);
-                echo '<a class="blog_link" href="index.php?post=' . $id . '">'
-                . '<div class="blog_post">'
-                . '<div class="post_title"><span class="post_title_t">' . $title . '</span></div>'
-                . '<div class="post_date"><span class="post_date_text">' . $date . '</span></div>'
-                . '<div class="post_text"><span class="post_text_t">' . $text . ' [...]</span></div>'
-                . '</div>'
-                . '</a>';
+                $output_str = ''
+                        . '<a class="blog__entry" href="index.php?post=' . $id . '">'
+                        . '<div class="blog__entry__header"><h2>' . $title . '</h2><span class="blog__entry__date">' . $date . '</span></div>'
+                        . '<p>' . $text . '</p>'
+                        . '</a>';
+                echo $output_str;
             }
         }
     }
@@ -41,28 +40,11 @@ class Get_Tag_Posts {
                     $x++;
                 }
                 if ($x != FALSE) {
-                    $result[] = $p;
-                    $posts_with_tag[] = $result;
+                    $posts_with_tag[] = $p;
                 }
             }
             return $posts_with_tag;
         }
-    }
-
-    private function get_posts() {
-        $sql_connect = new sql_connect();
-
-        $get_posts = "SELECT * FROM blog_posts";
-        $posts = $sql_connect->return_array($get_posts);
-        return $posts;
-    }
-
-    private function generate_blog_id($id) {
-        $return = $id;
-        while (strlen($return) <= 3) {
-            $return = "0" . $return;
-        }
-        return $return;
     }
 
     private function get_preview($text) {
@@ -86,16 +68,33 @@ class Get_Tag_Posts {
         }
     }
 
+    private function get_posts() {
+        $sql_connect = new sql_connect();
+
+        $get_posts = "SELECT * FROM blog_posts";
+        $posts = $sql_connect->return_array($get_posts);
+        return $posts;
+    }
+
+    private function generate_blog_id($id) {
+        $return = $id;
+        while (strlen($return) <= 3) {
+            $return = "0" . $return;
+        }
+        return $return;
+    }
+
     function output_most_related_tags() {
         $posts = $this->get_posts();
         $tags_and_count = array();
 
-        echo "<h3>Tag-Suche</h3>";
         foreach ($posts as $p) {
             if ($p["post_visible"] == 1) {
-                $tags_ = explode(",", $p["post_tags"]);
-                $tags_ = str_replace(" ", "", $tags_);
+                $tags_ = str_replace(" ", "", $p["post_tags"]);
+                $tags_ = explode(",", $tags_);
+
                 foreach ($tags_ as $t) {
+                    $t = strtolower($t);
                     $tags_and_count[$t] += 1;
                 }
             }
@@ -105,7 +104,7 @@ class Get_Tag_Posts {
         $i = 1;
         foreach ($tags_and_count as $key => $value) {
             if ($i <= 5 && $key != "") {
-                echo '<a href="?tag=' . $key . '">' . $i . ". " . $key . "</a><br/>";
+                echo '<li><a href="?tag=' . $key . '">' . $key . "</a></li>";
                 $i++;
             }
         }

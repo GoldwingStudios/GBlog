@@ -64,4 +64,28 @@ if (empty($blog_users_result)) {
 ";
     $blog_users_result = $sql->execute($blog_users_query);
 }
+
+
+$xml_files = glob("post_data/posts/*.xml");
+natsort($xml_files);
+foreach ($xml_files as $xml_file) {
+    $file = simplexml_load_file($xml_file);
+    $post_title = (string) $file->title;
+    $post_text = (string) $file->text;
+    $post_tags = (string) $file->tags;
+    $post_visible = (string) $file->visible;
+
+    $blog_post = "SELECT * FROM blog_posts WHERE `post_title`='$post_title'";
+    $blog_post_result = $sql->return_row($blog_post);
+    if (empty($blog_post_result)) {
+        $date = new DateTime((string) $file->date);
+        $post_date = $date->format("Y-m-d H:i:s");
+
+        $post_sql = "INSERT INTO blog_posts (`post_title`, `post_text`, `post_date`, `post_visible`, `post_tags`) VALUES ('$post_title', '$post_text', '$post_date', '$post_visible', '$post_tags')";
+        $set_post_result = $sql->execute($post_sql);
+
+        $post_comments = (string) $file->comments;
+        $comments = explode("</comment>", $post_comments);
+    }
+}
 ?>

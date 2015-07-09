@@ -1,18 +1,18 @@
 $(document).ready(function() {
     var search_bar = $("#search_bar");
-    var blog_posts = $(".blog_posts");
+    var blog_posts = $(".blog__content");
 
     search_bar.empty();
 
     search_bar.keyup(function() {
-        $(".blog_link").remove();
+        $(".blog__entry").remove();
         $.ajax({
             url: "modules/blog_core/full_text_search.php",
             type: "POST",
             data: {search_tag: search_bar.val()}
         })
                 .done(function(data) {
-                    $(".blog_link").remove();
+                    $(".blog__entry").remove();
                     if (data.length > 0)
                     {
                         try
@@ -25,14 +25,24 @@ $(document).ready(function() {
                                 var title = return_[i]["post_title"];
                                 var date = convert_date(return_[i]["post_date"]);
                                 var text = get_preview(return_[i]["post_text"]);
-                                var xy = '<a class="blog_link" href="index.php?post=' + id + '">\n\
-                                                <div class="blog_post">\n\
-                                                <div class="post_title"><span class="post_title_t">' + title + '</span></div>\n\
-                                                <div class="post_date"><span class="post_date_text">' + date + '</span></div>\n\
-                                                <div class="post_text"><span class="post_text_t">' + text + ' [...]</span></div>\n\
-                                                </div>\n\
+                                var xy = '<a class="blog__entry" href="index.php?post=' + id + '"> \
+                                                <div class="blog__entry__header"> \
+                                                    <h2>' + title + '</h2> \
+                                                    <span class="blog__entry__date">' + date + '</span> \
+                                                </div> \
+                                                <p>' + text + ' ...</p>\
                                                 </a>';
                                 blog_posts.append(xy);
+                            }
+                            if (return_.length == 0)
+                            {
+                                blog_posts.append('<a class="blog__entry"> \
+                                                    <div class="blog__entry__header"> \
+                                                    <h2>No Posts found!</h2> \
+                                                    <span class="blog__entry__date"></span> \
+                                                </div> \
+                                                <p></p>\
+                                                </a>');
                             }
                         } catch (e)
                         {
@@ -55,15 +65,6 @@ $(document).ready(function() {
         }
         return return_;
     }
-
-    var getObjectSize = function(obj) {
-        var len = 0, key;
-        for (key in obj) {
-            if (obj.hasOwnProperty(key))
-                len++;
-        }
-        return len;
-    };
 
     var convert_date = function(date_) {
         var date_split = date_.split(" ");

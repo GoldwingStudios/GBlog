@@ -19,10 +19,10 @@ class Show_Post {
         } else {
             $set_up_post = '<script>window.location.replace("index.php");</script>';
         }
-        echo '<div class="blog_post_container">';
+        echo '<div class="blog__fullentry">';
         echo $set_up_post;
-        include "modules/Comments/frontend/Comment_Section.php";
         echo '</div>';
+        include "modules/Comments/frontend/Comment_Section.php";
     }
 
     private function get_post_data($id_) {
@@ -47,7 +47,6 @@ class Show_Post {
     }
 
     private function clean_up() {
-
         $post = Array();
         $this->title = htmlentities($this->title, ENT_COMPAT, "UTF-8");
         $this->text = $this->prepare_text(htmlentities($this->text, ENT_COMPAT, "UTF-8"));
@@ -61,34 +60,29 @@ class Show_Post {
         foreach ($tags as $t) {
             if ($t != "") {
                 $tag_url = $this->switch_from_special($t);
-                if (empty($tag_str)) {
-                    $tag_str = '<a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
-                } else {
-                    $tag_str .= ', <a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
-                }
+                $tag_str .= '<a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
             }
         }
         $this->tags = $tag_str;
     }
 
-    private function set_up($c_post_data) {
-        $output_post = '<div class="blog_post_single">'
-                . '<div class="post_title"><span class="post_title_t">' . $this->title . '</span></div>'
-                . '<div class="post_date"><span class="post_date_text">' . $this->date . '</span></div>'
-                . '<div class="post_text"><span class="post_text_t">' . $this->text . '</span></div>'
-                . '<div class="post_tags">'
-                . 'Tags: ' . $this->tags
-                . '</div>'
+    private function set_up() {
+        $output_post = ''
+                . '<h1 class="blog__fullentry__title">' . $this->title . '</h1>'
+                . '<span class="blog__fullentry__date">' . $this->date . '</span>'
+                . '<p class="blog__fullentry__text">' . $this->text . '</p>'
+                . '<div class="blog__fullentry__tags">'
+                . $this->tags
                 . '</div>';
         return $output_post;
     }
 
-    private function switch_from_special($value) {
-        $value = str_replace("ä", "&auml;", $value);
-        $value = str_replace("ö", "&ouml;", $value);
-        $value = str_replace("ü", "&uuml;", $value);
-        $value = str_replace("ß", "&szlig;", $value);
-        return $value;
+    private function switch_from_special($str) {
+        $str = str_replace("&auml;", "ae", $str);
+        $str = str_replace("&ouml;", "oe", $str);
+        $str = str_replace("&uuml;", "ue", $str);
+        $str = str_replace("&szlig;", "ss", $str);
+        return $str;
     }
 
     private function prepare_text($value) {
@@ -101,7 +95,9 @@ class Show_Post {
         $value = str_replace("ü", "&uuml;", $value);
         $value = str_replace("ß", "&szlig;", $value);
 
+
         //Links
+
         while (strpos($value, '[a]') !== false) {
             $link_start_pos = strpos($value, "[a]");
             $link_end_pos = strpos($value, "[/a]");
@@ -110,6 +106,10 @@ class Show_Post {
             $link_str = str_replace("[/a]", "", $link_str);
             $value = str_replace($link, '<a class="blog_link_single" target="_blank" href="http://' . $link_str . '">' . $link_str . '</a>', $value);
         }
+
+
+
+
         return $value;
     }
 

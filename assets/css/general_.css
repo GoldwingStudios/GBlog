@@ -1,50 +1,11 @@
-body
-{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    font-family: Calibri;
-    font-size: 17px;
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background: url(../images/blackmamba.png);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    color: #444;
 }
 
-div.image_container
-{
-    position: relative;
-    margin: 0 auto;
-    height: 89px;
-    width: 400px;
-}
-
-div.container
-{
-    position: relative;
-    top: 0px;
-    min-height: 450px;
-    width: 1024px;
-    margin: 0 auto;
-    display: block;
-}
-
-div.navi_blocker
-{
-    position: absolute;
-    background: #ffffff;
-    top: 0px;
-    left: -225px;
-    width: 225px;
-    height: 768px;
-    z-index: 9999;
-}
-
-span.sitename
-{
-    margin-left: 25px;
-    font-size: 35px;
+body {    
+    background-color: #f4f4f4;
 }
