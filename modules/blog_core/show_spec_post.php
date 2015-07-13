@@ -89,13 +89,12 @@ class Show_Post {
 
 
         //Umlaute
-        $value = str_replace("_", "<br/>", $value);
-        $value = str_replace("ä", "&auml;", $value);
-        $value = str_replace("ö", "&ouml;", $value);
-        $value = str_replace("ü", "&uuml;", $value);
-        $value = str_replace("ß", "&szlig;", $value);
-
-
+        $value = htmlentities($value);
+        $value = str_replace("\r\n", "<br/>", $value);
+        
+//        $value = str_replace("ö", "&ouml;", $value);
+//        $value = str_replace("ü", "&uuml;", $value);
+//        $value = str_replace("ß", "&szlig;", $value);
         //Links
 
         while (strpos($value, '[a]') !== false) {
