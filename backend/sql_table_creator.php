@@ -6,15 +6,16 @@ $blog_posts_result = $sql->return_row($blog_posts_query);
 
 if (empty($blog_posts_result)) {
     $blog_posts_query = "CREATE TABLE `blog_posts` (
-  `post_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL AUTO_INCREMENT,
   `post_title` varchar(75) NOT NULL,
   `post_text` text NOT NULL,
   `post_date` datetime NOT NULL,
   `post_visible` tinyint(1) NOT NULL DEFAULT '1',
   `post_tags` varchar(45) NOT NULL,
-  PRIMARY KEY (`post_id`),
-  UNIQUE KEY `id_UNIQUE` (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+  PRIMARY KEY (`post_id`,`post_title`,`post_date`,`post_tags`),
+  UNIQUE KEY `id_UNIQUE` (`post_id`),
+  UNIQUE KEY `post_title_UNIQUE` (`post_title`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;";
     $blog_posts_result = $sql->execute($blog_posts_query);
 }
 
@@ -23,12 +24,15 @@ $blog_comments_result = $sql->return_row($blog_comments_query);
 
 if (empty($blog_comments_result)) {
     $blog_comments_query = "CREATE TABLE `blog_comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) NOT NULL,
   `comment_name` varchar(75) NOT NULL,
   `comment_mail` varchar(75) NOT NULL,
   `comment_text` longtext NOT NULL,
-  PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+  `comment_date` datetime NOT NULL,
+  `comment_valid` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;";
     $blog_comments_result = $sql->execute($blog_comments_query);
 }
 

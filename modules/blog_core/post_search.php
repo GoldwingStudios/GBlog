@@ -65,6 +65,7 @@ class Post_Search {
                 $row = str_replace("[a]", " ", $row);
                 $row = str_replace("[/a]", " ", $row);
                 $row = str_replace("http://", " ", $row);
+                $row["post_text"] = htmlentities($row["post_text"]);
                 $posts[] = $row;
             }
         }

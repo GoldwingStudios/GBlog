@@ -19,7 +19,7 @@ class Blog_Posts {
             echo ''
             . '<a class="blog__entry" href="index.php?post=' . $id . '">'
             . '<div class="blog__entry__header"><h2>' . $title . '</h2><span class="blog__entry__date">' . $date . '</span></div>'
-            . '<p>' . $text . '</p>'
+            . '<p>' . $text . ' [...]</p>'
             . '</a>';
         }
     }
