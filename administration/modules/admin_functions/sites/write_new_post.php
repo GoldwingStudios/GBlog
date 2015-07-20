@@ -39,7 +39,8 @@ if (isset($mode) && $mode == 1 && $_SESSION["Logged_In"]) {
                     <div class="page_content">
                         <form method="post" action="index.php?sm=wnp" accept-charset="utf-8" enctype="multipart/form-data">
                             <div class="post_photo">
-                                <input type="file" name="photo"/>
+                                <span>Wählen Sie hier Ihr Bild aus!</span><br>
+                                <input type="file" name="post_image"/>
                             </div>
                             <input style="display: none;" name="mode" value="1"/>
                             <span>Write new post!</span>
@@ -64,7 +65,7 @@ if (isset($mode) && $mode == 1 && $_SESSION["Logged_In"]) {
                         </form>
                     </div>
                     <?php
-                } else if (isset($return) && $return) {
+                } else if (!empty($return)) {
                     ?>
                     <div class="page_content">
                         <div>

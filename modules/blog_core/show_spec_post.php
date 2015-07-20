@@ -34,14 +34,8 @@ class Show_Post {
         if ($stmt = $connection->prepare($sql_string)) {
             $stmt->bind_param("i", $id_);
             $stmt->execute();
-            $stmt->bind_result($id, $title, $text, $date, $visible, $tags);
+            $stmt->bind_result($this->id, $this->title, $this->text, $this->date, $this->visible, $this->tags, $this->post_image_path);
             $stmt->fetch();
-            $this->id = $id;
-            $this->title = $title;
-            $this->text = $text;
-            $this->date = $date;
-            $this->visible = $visible;
-            $this->tags = $tags;
         }
         $connection->close();
     }
@@ -49,8 +43,8 @@ class Show_Post {
     private function clean_up() {
         $post = Array();
         $this->title = htmlentities($this->title, ENT_COMPAT, "UTF-8");
-        $this->text = $this->prepare_text(htmlentities($this->text, ENT_COMPAT, "UTF-8"));
-        $this->date = htmlentities($this->date, ENT_COMPAT, "UTF-8");
+        $this->text = $this->prepare_text($this->text);
+        $this->date = htmlentities($this->prepare_date($this->date), ENT_COMPAT, "UTF-8");
         $this->visible = htmlentities($this->visible, ENT_COMPAT, "UTF-8");
 
         $tags = htmlentities($this->tags, ENT_COMPAT, "UTF-8");
@@ -67,7 +61,14 @@ class Show_Post {
     }
 
     private function set_up() {
+        if (!empty($this->post_image_path)) {
+            $post_image = '<img class="blog__entry__image__spec" src="' . $this->post_image_path . '"/><br><br>';
+        } else {
+            $post_image = "";
+        }
+
         $output_post = ''
+                . $post_image
                 . '<h1 class="blog__fullentry__title">' . $this->title . '</h1>'
                 . '<span class="blog__fullentry__date">' . $this->date . '</span>'
                 . '<p class="blog__fullentry__text">' . $this->text . '</p>'
@@ -86,30 +87,36 @@ class Show_Post {
     }
 
     private function prepare_text($value) {
-
-
         //Umlaute
-        $value = htmlentities($value);
-        $value = str_replace("\r\n", "<br/>", $value);
-        
-//        $value = str_replace("ö", "&ouml;", $value);
-//        $value = str_replace("ü", "&uuml;", $value);
-//        $value = str_replace("ß", "&szlig;", $value);
+
+        $value = str_replace("\r\n", "<br>", $value);
+        $value = str_replace("_", "<br>", $value);
+
         //Links
-
-        while (strpos($value, '[a]') !== false) {
-            $link_start_pos = strpos($value, "[a]");
-            $link_end_pos = strpos($value, "[/a]");
-            $link = substr($value, $link_start_pos, (($link_end_pos - $link_start_pos) + 4));
-            $link_str = str_replace("[a]", "", $link);
-            $link_str = str_replace("[/a]", "", $link_str);
-            $value = str_replace($link, '<a class="blog_link_single" target="_blank" href="http://' . $link_str . '">' . $link_str . '</a>', $value);
+        $substring_count = substr_count($value, 'http');
+        $pos = 0;
+        for ($i = 0; $i < $substring_count; $i++) {
+            $link_start = strpos($value, 'http', $pos);
+            $link_length = (strpos($value, " ", $link_start) - $link_start);
+            $link = substr($value, $link_start, $link_length);
+            $link_url = htmlentities($link, ENT_COMPAT, "UTF-8");
+            $link_text = $this->prepare_link($link);
+            $output_link = '<a href="' . $link_url . '">' . $link_text . '</a>';
+            $value = str_replace($link, $output_link, $value);
+            $pos = $link_start + $link_length;
         }
-
-
-
-
         return $value;
+    }
+
+    private function prepare_date($date) {
+        $date_object = date("d.m.Y, H:i:s", strtotime($date));
+        return $date_object;
+    }
+
+    private function prepare_link($link) {
+        $return_link = substr($link, 3 + strpos($link, '://'));
+        $return_link = str_replace("www.", "", $return_link);
+        return $return_link;
     }
 
 }

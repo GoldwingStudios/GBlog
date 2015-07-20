@@ -16,9 +16,17 @@ class Blog_Posts {
             $text = str_replace("[a]", " ", $text);
             $text = str_replace("[/a]", " ", $text);
             $text = str_replace("http://", " ", $text);
+            if (!empty($p["post_image_path"])) {
+                $post_image = '<div class="blog__entry__image" style="background-image: url(\'' . $p["post_image_path"] . '\'"></div><br><br>';
+            } else {
+                $post_image = "";
+            }
+
             echo ''
             . '<a class="blog__entry" href="index.php?post=' . $id . '">'
-            . '<div class="blog__entry__header"><h2>' . $title . '</h2><span class="blog__entry__date">' . $date . '</span></div>'
+            . '<div class="blog__entry__header">'
+            . $post_image
+            . '<h2>' . $title . '</h2><span class="blog__entry__date">' . $date . '</span></div>'
             . '<p>' . $text . ' [...]</p>'
             . '</a>';
         }

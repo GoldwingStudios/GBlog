@@ -114,6 +114,7 @@
     display: block;
     padding: 20px;
     text-decoration: none;
+    outline: none;
 }
 
 .blog__entry:not(:first-child) {    
@@ -150,6 +151,19 @@
     width: 80%;
     line-height: 1.5;
     color: #5E5E5E;
+}
+
+.blog__entry__image
+{
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+/*    background-position: center;*/
+}
+
+.blog__entry__image__spec
+{
+    width: 100%;
 }
 
 .blog__fullentry {
@@ -349,4 +363,3 @@
     display: block;
     text-align: center;
 }
-    

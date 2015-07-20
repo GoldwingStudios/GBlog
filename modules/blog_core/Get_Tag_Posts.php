@@ -19,9 +19,18 @@ class Get_Tag_Posts {
                 $title = htmlentities($p["post_title"], ENT_COMPAT, "UTF-8");
                 $text = htmlentities($this->get_preview($p["post_text"], ENT_COMPAT, "UTF-8"));
                 $text = str_replace("_", " ", $text);
+                if (!empty($p["post_image_path"])) {
+                    $post_image = '<div class="blog__entry__image" style="background-image: url(\'' . $p["post_image_path"] . '\'"></div><br><br>';
+                } else {
+                    $post_image = "";
+                }
+
+
                 $output_str = ''
                         . '<a class="blog__entry" href="index.php?post=' . $id . '">'
-                        . '<div class="blog__entry__header"><h2>' . $title . '</h2><span class="blog__entry__date">' . $date . '</span></div>'
+                        . '<div class="blog__entry__header">'
+                        . $post_image
+                        . '<h2>' . $title . '</h2><span class="blog__entry__date">' . $date . '</span></div>'
                         . '<p>' . $text . '</p>'
                         . '</a>';
                 echo $output_str;
