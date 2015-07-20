@@ -20,7 +20,7 @@ class Show_Post_For_Edit {
         if ($stmt = $connection->prepare($sql_string)) {
             $stmt->bind_param("i", $id);
             $stmt->execute();
-            $stmt->bind_result($post["id"], $post["title"], $post["text"], $post["date"], $post["visible"], $post["tags"]);
+            $stmt->bind_result($post["id"], $post["title"], $post["text"], $post["date"], $post["visible"], $post["tags"], $post["image_path"]);
             $stmt->fetch();
         }
         return $post;
