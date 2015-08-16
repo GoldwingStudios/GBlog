@@ -7,7 +7,9 @@
 }
 
 .main__image {
-    width: 100%;
+    position: relative;
+    width: 25%;
+    margin: 0 auto;
 }
 
 .main__image > a > img {
@@ -243,8 +245,9 @@
 }
 
 .social__media__badge__icon {
-    height: 60px;
-    width: 60px;
+    height: 45px;
+    width: 45px;
+    margin: 7px;
 }
 
 .social__media__badge__content {

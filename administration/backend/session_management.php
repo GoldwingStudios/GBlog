@@ -8,47 +8,39 @@
  * 
  */
 session_start();
-if (!isset($_SESSION["Logged_In"]) && !$_SESSION["Logged_In"]) {
-    $sql_connect = new sql_connect();
-    $connection = $sql_connect->mysqli();
-    $_SESSION["Logged_In"] = null;
-    $_SESSION["Login_Error"] = null;
-    $usr = filter_input(INPUT_POST, "usr_post");
-    $psw = filter_input(INPUT_POST, "psw_post");
-}
+$Username = filter_input(INPUT_POST, "Username_Post");
+$Password = filter_input(INPUT_POST, "Password_Post");
+if (isset($Username) && isset($Password)) {
+    if (!isset($_SESSION["Logged_In"])) {
+        $_SESSION["Logged_In"] = null;
+        $_SESSION["Login_Error"] = null;
+        $DB_Connect = new DB_Connect();
+        $User_Config_Sql = "SELECT * FROM blog_users WHERE usr_username = :UserName ";
+        $Parameters = array(":UserName" => $Username);
 
+        $User_DB_Config = $DB_Connect->Return_PDO_Row($User_Config_Sql, $Parameters);
 
-
-if (!isset($_SESSION["Logged_In"]) && !$_SESSION["Logged_In"] && isset($usr) && isset($psw)) {
-    $user_config_sql = "SELECT * FROM blog_users WHERE usr_username = ? ";
-
-    if ($stmt = $connection->prepare($user_config_sql)) {
-        $stmt->bind_param("s", $usr);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        while ($row = $result->fetch_assoc()) {
-            $user_config = $row;
+        $User_Password = md5($Password);
+        $Config_Username = $User_DB_Config["usr_username"];
+        $Config_Password = $User_DB_Config["usr_password"];
+        $User_Type = $User_DB_Config["usr_type"];
+        if ($Username == $Config_Username && $User_Password == $Config_Password) {
+            $_SESSION["Logged_In"] = TRUE;
+            $_SESSION["Login_Error"] = FALSE;
+            $_SESSION["User"] = $Username;
+            $_SESSION["User_Type"] = $User_Type;
+            unset($_POST["usr_post"]);
+            unset($_POST["psw_post"]);
+        } else {
+            echo '<script>alert("There was an error during the Login-Process!\nPlease check your input and try again!");</script>';
+            $_SESSION["Login_Error"] = TRUE;
         }
-    }
-
-    $usr_psw = md5($psw);
-    $confg_usr = $user_config["usr_username"];
-    $confg_psw = $user_config["usr_password"];
-    $user_type = $user_config["usr_type"];
-    if ($usr == $confg_usr && $usr_psw == $confg_psw) {
-        $_SESSION["Logged_In"] = TRUE;
-        $_SESSION["Login_Error"] = FALSE;
-        $_SESSION["User"] = $usr;
-        $_SESSION["User_Type"] = $user_type;
-        unset($_POST["usr_post"]);
-        unset($_POST["psw_post"]);
-    } else {
-        echo '<script>alert("There was an error during the Login-Process!\nPlease check your input and try again!");</script>';
-        $_SESSION["Login_Error"] = TRUE;
-    }
-} else if (!$_SESSION["Logged_In"] && !isset($usr) && !isset($psw)) {
-    if (!$_SESSION["Logged_In"] && isset($_SESSION) && $_SESSION["Login_Error"] !== null) {
-        echo '<script>alert("There was an error during the Login-Process!\nPlease check your input and try again!");</script>';
-        $_SESSION["Login_Error"] = TRUE;
+        $Username = null;
+        $Password = null;
+    } else if (!$_SESSION["Logged_In"] && !isset($Username) && !isset($Password)) {
+        if (!$_SESSION["Logged_In"] && isset($_SESSION) && $_SESSION["Login_Error"] !== null) {
+            echo '<script>alert("There was an error during the Login-Process!\nPlease check your input and try again!");</script>';
+            $_SESSION["Login_Error"] = TRUE;
+        }
     }
 }

@@ -9,7 +9,7 @@
 div.post_list
 {
     position: relative;
-    top: 75px;
+    margin-top: 75px;
     min-height: 250px;
     width: 100%;
 }
@@ -58,6 +58,42 @@ div.delete_blog_post
     -webkit-border-radius: 2px 2px 2px 2px;
     background: #9F9F9F;
     text-align: center;
+}
+
+div.edit_post_keys__visible
+{
+    width: 125px;
+    line-height: 25px;
+}
+
+div.edit_post_keys__visible *
+{
+
+}
+
+div.edit_post_keys__delete
+{
+    width: 110px;
+}
+
+div.edit_post_keys__delete_example
+{
+    position: relative;
+    float: right;
+    padding: 1px;
+    height: 20px;
+    width: 16px;
+    z-index: 9999;
+    border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    background: #9F9F9F;
+    text-align: center;
+}
+
+img.edit_post_keys__visible_example
+{
+    float: right;
 }
 
 div.show_hide_blog_post

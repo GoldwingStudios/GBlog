@@ -17,7 +17,7 @@ class Get_Tag_Posts {
                 $date = new DateTime($p["post_date"]);
                 $date = $date->format("d.m.Y, H:i");
                 $title = htmlentities($p["post_title"], ENT_COMPAT, "UTF-8");
-                $text = htmlentities($this->get_preview($p["post_text"], ENT_COMPAT, "UTF-8"));
+                $text = $this->get_preview($p["post_text"], ENT_COMPAT, "UTF-8");
                 $text = str_replace("_", " ", $text);
                 if (!empty($p["post_image_path"])) {
                     $post_image = '<div class="blog__entry__image" style="background-image: url(\'' . $p["post_image_path"] . '\'"></div><br><br>';
@@ -31,7 +31,7 @@ class Get_Tag_Posts {
                         . '<div class="blog__entry__header">'
                         . $post_image
                         . '<h2>' . $title . '</h2><span class="blog__entry__date">' . $date . '</span></div>'
-                        . '<p>' . $text . '</p>'
+                        . '<p>' . $text . ' [...]</p>'
                         . '</a>';
                 echo $output_str;
             }

@@ -9,42 +9,28 @@
  */
 class Change_Password {
 
-    function __construct() {
-        $user_config_path = "./user_config/user_config.xml";
-        $this->user_config = simplexml_load_file($user_config_path);
+    public function __construct() {
+        $this->Connection = new DB_Connect();
     }
 
-    function Set_New_Password() {
-        $sql_connect = new sql_connect();
-        $connection = $sql_connect->mysqli();
-        $old_pass = md5(filter_input(INPUT_POST, "old_pass"));
-        $current_user = filter_input(INPUT_POST, "current_user");
+    public function Set_New_Password() {
+        $Old_Password = md5(filter_input(INPUT_POST, "old_pass"));
+        $UserName = filter_input(INPUT_POST, "current_user");
 
-        $user_config_sql = "SELECT usr_password FROM blog_users WHERE usr_username = ? ";
+        $Sql_Query = "SELECT usr_password FROM blog_users WHERE usr_username = :UserName ";
+        $Parameter = array(":UserName" => $UserName);
+        $Current_Password = $this->Connection->Return_PDO_Row($Sql_Query, $Parameter);
 
-        if ($stmt = $connection->prepare($user_config_sql)) {
-            $stmt->bind_param("s", $current_user);
-            $stmt->execute();
-            $stmt->bind_result($current_pass);
-            $stmt->fetch();
-        }
-
-        $same = $old_pass == $current_pass;
-        if ($old_pass == $current_pass) {
-            $new_pass = md5(filter_input(INPUT_POST, "new_pass"));
-            $new_pass_conf = md5(filter_input(INPUT_POST, "new_pass_confirmation"));
-            $same_p = $new_pass == $new_pass_conf;
-            if ($new_pass == $new_pass_conf && $new_pass != $current_pass) {
-                $sql_connect = new sql_connect();
-                $connection = $sql_connect->mysqli();
-                $user_config_sql_ = "UPDATE blog_users SET usr_password=? WHERE usr_username=? ";
-
-                if ($stmt = $connection->prepare($user_config_sql_)) {
-                    $stmt->bind_param("ss", $new_pass, $current_user);
-                    $x = $stmt->execute();
-                    return $x;
-                }
-            } else if ($new_pass == $new_pass_conf && $new_pass == $current_pass) {
+        $same = $Old_Password == $Current_Password;
+        if ($Old_Password == $Current_Password["usr_password"]) {
+            $New_Password = md5(filter_input(INPUT_POST, "new_pass"));
+            $New_Password_Confirm = md5(filter_input(INPUT_POST, "new_pass_confirmation"));
+            $same_p = $New_Password == $New_Password_Confirm;
+            if ($New_Password == $New_Password_Confirm && $New_Password != $Current_Password) {
+                $Sql_Query = "UPDATE blog_users SET usr_password = :User_Password WHERE usr_username = :Username ";
+                $Parameter = array(":Username" => $UserName, ":User_Password" => $New_Password);
+                return $this->Connection->Execute_PDO_Command($Sql_Query, $Parameter);
+            } else if ($New_Password == $New_Password_Confirm && $New_Password == $Current_Password) {
                 return 2;
             } else {
                 return 0;

@@ -17,7 +17,7 @@ class Blog_Posts {
             $text = str_replace("[/a]", " ", $text);
             $text = str_replace("http://", " ", $text);
             if (!empty($p["post_image_path"])) {
-                $post_image = '<div class="blog__entry__image" style="background-image: url(\'' . $p["post_image_path"] . '\'"></div><br><br>';
+                $post_image = '<div class="blog__entry__image" style="background-image: url(\'' . $p["post_image_path"] . '\')"></div><br><br>';
             } else {
                 $post_image = "";
             }

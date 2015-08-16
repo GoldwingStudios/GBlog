@@ -64,8 +64,7 @@ div.blog_post
 div.function_category
 {
     position: relative;
-    left: 45px;
-    margin-top: 45px;
+    margin: 35px;
     background: orange;
     width: 225px;
     min-height: 100px;
@@ -110,17 +109,53 @@ div.post_text
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
+div.login_form__login
+{
+    position: relative;
+    float: left;
+    height: 100%;
+    width: 45%;
+    margin: 0 auto;
+}
+
+div.login_form__explanation
+{
+    position: relative;
+    float: right;
+    width: 45%;
+    height: 100%;
+    /*    text-align: center;*/
+    margin: 0 auto;
+}
+
+div.login_form__explanation > h1
+{
+    width: 100%;
+    height: 43px;
+    margin: 45px auto;
+    text-align: center;
+}
+
+div.login_form__explanation > h3
+{
+    position: relative;
+    text-align: center;
+    width: 85%;
+    height: 35%;
+    margin: 0 auto;
+}
+
 div.login_header
 {
     position: relative;
-    top: 35px;
+    margin-top: 35px;
     left: 45px;
 }
 
 div.login_text
 {
     position: relative;
-    top: 25px;
+    margin-top: 25px;
     left: 45px;
 }
 
@@ -128,10 +163,11 @@ div.login_form
 {
     position: relative;
     margin: 0 auto;
-    top: 50px;
+    margin-top: 50px;
+    margin-bottom: 20px;
     /*    left: 45px;*/
-    width: 65%;
-    height: 285px;
+    width: 55%;
+    height: 375px;
     background: #F7F2E0;
     border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
@@ -142,29 +178,29 @@ div.login_form
 div.login_form_input_usr
 {
     position: relative;
-    left: 45px;
-    top: 45px;
+    margin-left: 45px;
+    margin-top: 45px;
 }
 
 div.login_form_input_psw
 {
     position: relative;
-    left: 45px;
-    top: 95px;
+    margin-left: 45px;
+    margin-top: 25px;
 }
 
 div.login_form_submit
 {
     position: relative;
     margin: 0 auto;
-    top: 135px;
+    margin-top: 35px;
     width: 90%;
     text-align: right;
 }
 
 input.login_input
 {
-    width: 250px;
+    width: 75%;
 }
 
 input.login_input_red

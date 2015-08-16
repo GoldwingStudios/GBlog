@@ -10,24 +10,21 @@ $post_id = filter_input(INPUT_GET, "id");
 $mode = filter_input(INPUT_GET, "m");
 $return_post = "";
 $edit_return = "";
-if ((isset($mode) || isset($post_id)) && $_SESSION["Logged_In"]) {
+if ((isset($mode) || isset($post_id)) && USER_LOGGED_IN) {
     if (!isset($mode) && isset($post_id)) {
-        $Show_Post_For_Edit = new Show_Post_For_Edit();
-        $return_post = $Show_Post_For_Edit->Load_Post_For_Edit($post_id);
+        $Post_Edit = new Post_Edit();
+        $return_post = $Post_Edit->Load_Post_For_Edit($post_id);
     } else {
+        $Post_Edit = new Post_Edit();
         switch ($mode) {
             case "edm":
-                $Edit_Post = new Edit_Post();
-                $edit_return = $Edit_Post->Edit();
+                $edit_return = $Post_Edit->Recreate_Post();
                 break;
             case "del":
-                $Delete_Post = new Delete_Post();
-                $removed = $Delete_Post->Delete_Specific_Post($post_id);
+                $removed = $Post_Edit->Delete_Post($post_id);
                 break;
-            case "soh"://show or hide - to change the visibillity in the post-xml
-                $function = filter_input(INPUT_GET, "func");
-                $Show_Hide_Post = new Show_Hide_Post();
-                $Show_Hide_Post->Set_Visibility($post_id, $function);
+            case "soh":
+                $visibility_changed = $Post_Edit->Set_Visibility($post_id);
                 break;
         }
     }
@@ -41,22 +38,28 @@ if ((isset($mode) || isset($post_id)) && $_SESSION["Logged_In"]) {
     </div>
     <div class="start_content">
         <?php
-        if ($_SESSION["Logged_In"]) {
+        if (USER_LOGGED_IN) {
             ?>
             <div class="content_layout">
                 <div class="page_title">
-                    <span class="page_title"><?php echo ucwords(strtolower($_SESSION["current_page"])); ?></span><br/>
-                    <span class="page_description">Hier k&ouml;nnen Sie bestehende Posts editieren!</span>
+                    <span class="page_description">Here you can adapt existing Posts!</span>
                 </div>
                 <div class="page_content">
-
+                    <div class="edit_post_keys">
+                        <div class="edit_post_keys__visible">
+                            Visibility: <img class="edit_post_keys__visible_example" src="./assets/images/edit_post/visible.png"/>
+                        </div>
+                        <div class="edit_post_keys__delete">
+                            Delete: <div class="edit_post_keys__delete_example">X</div>
+                        </div>
+                    </div>
                     <?php
                     if (isset($return_post) && $return_post == "" && !is_array($edit_return)) {
                         ?> 
                         <div class="post_list">
                             <?php
-                            $luap = new List_Up_Posts();
-                            $luap->List_Up_All_Posts($edit_return, $post_id);
+                            $Post_Edit = new Post_Edit();
+                            $Post_Edit->List_Up_All_Valid_Posts($edit_return, $post_id);
                             ?>
                         </div>
                         <?php
@@ -67,9 +70,6 @@ if ((isset($mode) || isset($post_id)) && $_SESSION["Logged_In"]) {
 
                 </div>
                 <?php
-            } else if (($_SESSION["Logged_In"] && isset($_GET["logout"])) || (!$_SESSION["Logged_In"] && isset($_GET["logout"]))) {
-                $Logout_Module = new Logout();
-                $Logout_Module->Run();
             } else {
                 echo "<script>window.location.replace('./index.php');</script>";
             }

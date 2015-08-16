@@ -9,12 +9,11 @@
 $mode = filter_input(INPUT_GET, "mode");
 $username = filter_input(INPUT_GET, "name");
 $username_ = filter_input(INPUT_POST, "user_name");
+$user_management = new User_Management();
 if (isset($mode) && (isset($username) || isset($username_))) {
     $username = isset($username) ? $username : $username_;
-    $user_management = new User_Management();
     $user_management->Choose_Mode($mode, $username);
 }
-$get_roles = new Get_User_Roles();
 ?>
 <script src="modules/js/USM_AddNewUser.js"></script>
 <div class="start">
@@ -25,15 +24,14 @@ $get_roles = new Get_User_Roles();
     </div>
     <div class="start_content">
         <?php
-        if ($_SESSION["Logged_In"]) {
+        if (USER_LOGGED_IN) {
             ?>
             <div class="content_layout">
                 <div class="page_title">
-                    <span class="page_title"><?php echo ucwords(strtolower($_SESSION["current_page"])); ?></span><br/>
-                    <span class="page_description">Hier k&ouml;nnen Sie die aktuellen Blog-Benutzerrollen verwalten!</span>
+                    <span class="page_description">Manage the user roles for your blog administration!</span>
                 </div>
                 <div class="page_content">
-                    <br><span>Aktuelle Benutzerrolle: <?php echo $_SESSION["User_Type"]; ?></span>
+                    <br><span>Current User-role: <?php echo $_SESSION["User_Type"]; ?></span>
                     <table>
                         <tr>
                             <td>Benutzer-Rolle</td>
@@ -41,7 +39,7 @@ $get_roles = new Get_User_Roles();
                             <td>Entfernen?</td>
                         </tr>
                         <?php
-                        $get_roles->User_Roles();
+                        $user_management->User_Roles();
                         ?>
                     </table>
                     <div class="AddUserForm">
@@ -64,9 +62,6 @@ $get_roles = new Get_User_Roles();
                     </div>
                 </div>
                 <?php
-            } else if (($_SESSION["Logged_In"] && isset($_GET["logout"])) || (!$_SESSION["Logged_In"] && isset($_GET["logout"]))) {
-                $Logout_Module = new Logout();
-                $Logout_Module->Run();
             } else {
                 echo "<script>window.location.replace('./index.php');</script>";
             }

@@ -13,37 +13,43 @@
     <span><b>Bitte melden Sie sich an, um den Administrationsbereich zu benutzen.</b></span>
 </div>
 <div class="login_form">
-    <form method="post" action="index.php?m=home">
-        <div class="login_form_input_usr">
-            <span class="login_form_text">Benutzername:</span><br/>
-            <?php
-            if ($_SESSION["Login_Error"]) {
-                ?>
-                <input class="login_input_red" name="usr_post" />
+    <div class="login_form__login">
+        <form method="post" action="index.php?m=home">
+            <div class="login_form_input_usr">
+                <span class="login_form_text">Benutzername:</span><br/>
                 <?php
-            } else {
+                if (USER_LOGIN_ERROR) {
+                    ?>
+                    <input class="login_input_red" name="Username_Post" />
+                    <?php
+                } else {
+                    ?>
+                    <input class="login_input" name="Username_Post" />
+                    <?php
+                }
                 ?>
-                <input class="login_input" name="usr_post" />
+            </div>
+            <div class="login_form_input_psw">
+                <span class="login_form_text">Passwort:</span><br/>
                 <?php
-            }
-            ?>
-        </div>
-        <div class="login_form_input_psw">
-            <span class="login_form_text">Passwort:</span><br/>
-            <?php
-            if ($_SESSION["Login_Error"]) {
+                if (USER_LOGIN_ERROR) {
+                    ?>
+                    <input class="login_input_red" type="password" name="Password_Post" />
+                    <?php
+                } else {
+                    ?>
+                    <input class="login_input" type="password" name="Password_Post" />
+                    <?php
+                }
                 ?>
-                <input class="login_input_red" type="password" name="psw_post" />
-                <?php
-            } else {
-                ?>
-                <input class="login_input" type="password" name="psw_post" />
-                <?php
-            }
-            ?>
-        </div>
-        <div class="login_form_submit">
-            <input type="image" src="./assets/images/login/login_submit.png" />
-        </div>
-    </form>
+            </div>
+            <div class="login_form_submit">
+                <input type="image" src="./assets/images/login/login_submit.png" />
+            </div>
+        </form>
+    </div>
+    <div class="login_form__explanation">
+        <h1>How to Login</h1>
+        <h3>Type in your Username / Password and press Login.</h3>
+    </div>
 </div>

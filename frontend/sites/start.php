@@ -6,12 +6,10 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-$_GET;
 $post = filter_input(INPUT_GET, "post");
 $tag = filter_input(INPUT_GET, "tag");
 $search = filter_input(INPUT_GET, "search");
 $mode = filter_input(INPUT_GET, "gH3uXC");
-$Visible_Tag_Posts = new Get_Tag_Posts();
 if (!isset($mode)) {
     ?>
     <div class="main__image">
@@ -34,9 +32,9 @@ if (!isset($mode)) {
                 <li class="nav__item">
                     <a href="https://github.com/GoldwingStudios/GBlog" target="_blank">GitHub</a>
                 </li>
-<!--                <li class="nav__item">
-                    <a href="#" target="_blank">Impressum</a>
-                </li>-->
+                <!--                <li class="nav__item">
+                                    <a href="#" target="_blank">Impressum</a>
+                                </li>-->
             </ul>
         </div>
 
@@ -94,19 +92,18 @@ if (!isset($mode)) {
                 <h2>Popular Tags</h2>
                 <ul class="blog__popular__tags">
                     <?php
-                    $Social_Media = new Show_Social_Media();
+                    $Visible_Tag_Posts = new Get_Tag_Posts();
                     $Visible_Tag_Posts->output_most_related_tags();
                     ?>
                 </ul>
+                <?php
+                $Social_Media = new Show_Social_Media();
+                ?>
                 <h2>Social Media</h2>
                 <div class="blog__social__media">
-                    <div class="social__media__badge">
-                        <img class="social__media__badge__icon" src="assets/images/twitch-256-black.png">
-                        <div class="social__media__badge__content">
-                            <h1 class="social__media__badge__title">Twitch</h1>
-                            <a href="http://www.twitch.tv/goldwingstudios" class="social__media__badge__desc">twitch.tv/goldwingstudios</a>
-                        </div>
-                    </div>
+                    <?php
+                    $Social_Media->Show_Social_Media_Links();
+                    ?>
                     <!--                    <div class="social__media__badge">
                                                 <img class="social__media__badge__icon" src="assets/images/youtube-256.png">
                                                 <div class="social__media__badge__content">

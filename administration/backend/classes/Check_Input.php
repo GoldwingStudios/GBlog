@@ -9,34 +9,34 @@
  */
 class Check_Input {
 
-    function Check($input) {
+    public function Check($input) {
         if (!$html = $this->Check_Input_For_Html($input)) {
             if (!$sql = $this->Check_Input_For_Sql($input)) {
-                $this->status = true;
+                $this->status = TRUE;
             } else {
-                $this->status = false;
+                $this->status = FALSE;
                 $this->message = "Contains SQL!";
             }
         } else {
-            $this->status = false;
+            $this->status = FALSE;
             $this->message = "Contains HTML!";
         }
     }
 
     private function Check_Input_For_Html($string) {
         if ($string != strip_tags($string)) {
-            return true;
+            return TRUE;
         } else {
-            return false;
+            return FALSE;
         }
     }
 
     private function Check_Input_For_Sql($string) {
         $array = array("SELECT", "UPDATE", "DELETE");
         if (in_array($string, $array)) {
-            return true;
+            return TRUE;
         } else {
-            return false;
+            return FALSE;
         }
     }
 

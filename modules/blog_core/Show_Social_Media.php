@@ -12,19 +12,26 @@ class Show_Social_Media {
     public function Show_Social_Media_Links() {
         $media = $this->get_social_media_data();
         foreach ($media as $m) {
-            if ($m->link != "") {
-                if ($m->type == "twitch") {
-                    echo '<a href="' . $m->link . '" target="_blank"><div class="social_link_container"><div class="social_media_img_centered"><div class="social_media_img_centered_inner"><img class="social_media_link" src="assets/images/social_media/' . $m->type . '_logo.png" ></div></div><span class="social_media_text">N&auml;chster Stream<br>' . $m->date_time . '</span></div></a>';
-                } else {
-                    echo '<a href="' . $m->link . '" target="_blank"><div class="social_link_container"><div class="social_media_img_centered"><div class="social_media_img_centered_inner"><img class="social_media_link" src="assets/images/social_media/' . $m->type . '_logo.png" ></div></div><div class="social_media_username_container"><span class="social_media_username">' . $m->username . '</span></div></div></a>';
-                }
+            if ($m["sml_link"] != "") {
+                $output = '' .
+                        '<div class="social__media__badge">' .
+                        '<img class="social__media__badge__icon" src="assets/images/' . $m["sml_type"] . '.svg">' .
+                        '<div class="social__media__badge__content">' .
+                        '<h1 class="social__media__badge__title">' . ucfirst($m["sml_type"]) . '</h1>' .
+                        '<a href="http://' . $m["sml_link"] . '" class="social__media__badge__desc">' . $m["sml_link_text"] . '</a>' .
+                        '</div>' .
+                        '</div>';
+                echo $output;
             }
         }
     }
 
     private function get_social_media_data() {
-        $media = simplexml_load_file("administration/blog_config/social_media_links.xml");
-        return $media;
+        $connection = new sql_connect();
+
+        $sql_str = "SELECT * FROM blog_social_media_links ORDER BY sml_id ASC";
+        $links = $connection->return_array($sql_str);
+        return $links;
     }
 
 }

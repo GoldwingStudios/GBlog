@@ -9,69 +9,106 @@
  */
 class Social_Media_Links {
 
-    public function __construct($links, $dates) {
-        $this->links = $links;
-        $this->dates = $dates;
+    public function __construct() {
+        $this->Connection = new DB_Connect();
+        $this->Get_Links();
     }
 
-    public function Set_SML() {
-        $path = "./blog_config/social_media_links.xml";
-
-        $xstr = file_get_contents($path); // XML-String
-        $sXML = new SimpleXMLElement($xstr);
-        foreach ($this->links as $link) {
-            if ($link != "") {
-
-                switch ($type = $this->get_type($link)) {
-                    case "youtube":
-                        if (strpos($xstr, "link_youtube") !== false) {
-                            unset($sXML->link_youtube);
+    public function Get_Links() {
+        foreach ($_POST as $SML_key => $SML_link) {
+            $contains_type = strpos($SML_key, "_type");
+            $contains_link = strpos($SML_key, "_link");
+            if (($contains_type === 0 || $contains_type !== FALSE) || ($contains_link === 0 || $contains_link != FALSE)) {
+                $type = str_replace("_type", "", $SML_key);
+                if ($contains_type === 0 || $contains_type !== FALSE) {
+                    if (!isset($this->links[$type])) {
+                        $this->links[$type]["type"] = $type;
+                    }
+                } else if ((int) $contains_link == 0 || $contains_link != FALSE) {
+                    $type = str_replace("_link", "", $SML_key);
+                    if (!isset($this->links[$type])) {
+                        return;
+                    } else {
+                        if ($SML_link != "") {
+                            $this->links[$type]["link"] = $SML_link;
                         }
-                        $username = $this->get_sm_username($type, $link);
-                        $newchild = $sXML->addChild("link_youtube");
-                        $type = $newchild->addChild("type", "youtube");
-                        $username = $newchild->addChild("username", $username);
-                        $link = $newchild->addChild("link", $link);
-                        break;
-                    case "twitter":
-                        if (strpos($xstr, "link_twitter") !== false) {
-                            unset($sXML->link_twitter);
-                        }
-
-                        $username = $this->get_sm_username($type, $link);
-                        $newchild = $sXML->addChild("link_twitter");
-                        $type = $newchild->addChild("type", "twitter");
-                        $username = $newchild->addChild("username", $username);
-                        $link = $newchild->addChild("link", $link);
-                        break;
-                    case "twitch":
-                        if (strpos($xstr, "link_twitch") !== false) {
-                            unset($sXML->link_twitch);
-                        }
-
-                        $date = $this->dates[0] . ", " . $this->dates[1];
-                        $newchild = $sXML->addChild("link_twitch");
-                        $type = $newchild->addChild("type", "twitch");
-                        $link = $newchild->addChild("link", $link);
-                        $dates = $newchild->addchild("date_time", $date);
-                        break;
+                    }
                 }
             }
         }
-        $x = file_put_contents($path, $sXML->asXML());
-        return $x > 0;
+        if (isset($_POST["submitted"])) {
+            $this->delete_links($_POST);
+        }
     }
 
-    private function get_type($link) {
-        $link = $this->link_setup($link);
-        if ($x = strpos($link, ".de")) {
-            $part_2 = explode(".de", $link);
-        } else if ($x = strpos($link, ".com")) {
-            $part_2 = explode(".com", $link);
-        } else if ($x = strpos($link, ".tv")) {
-            $part_2 = explode(".tv", $link);
+    public function Set_SML() {
+        foreach ($this->links as $key => $value) {
+            $type = $value["type"];
+            $link = $value["link"];
+            if ($type != "" && $link != "") {
+                $link_text = $this->link_setup($link);
+
+                if ($this->is_link_active($key)) {
+                    $sql_str = "UPDATE blog_social_media_links SET `sml_link`=?, `sml_link_text`=? WHERE `sml_type`=?";
+
+                    if ($stmt = $connection->prepare($sql_str)) {
+                        $stmt->bind_param("sss", $link, $link_text, $key);
+                        $return = $stmt->execute(); //returns true if succeed and otherwise false
+                    }
+                } else {
+                    $sql_str = "INSERT INTO blog_social_media_links (`sml_type`, `sml_link`, `sml_link_text`) VALUES (?, ?, ?)";
+
+                    if ($stmt = $connection->prepare($sql_str)) {
+                        $stmt->bind_param("sss", $key, $link_text, $link);
+                        $return = $stmt->execute(); //returns true if succeed and otherwise false
+                    }
+                }
+                $connection->close();
+                $connection = null;
+                break;
+            }
         }
-        return $part_2[0];
+    }
+
+    public function Get_SML() {
+        $Sql_Query = "SELECT * FROM blog_social_media_links ORDER BY sml_id ASC";
+        $links = $this->Connection->Return_PDO_Array($Sql_Query);
+        return $links;
+    }
+
+    private function is_link_active($link_type) {
+        $connection = new sql_connect();
+        $connection = $connection->mysqli();
+        $sql_str = "SELECT sml_link as link FROM blog_social_media_links WHERE sml_type = '$link_type'";
+
+        if ($stmt = $connection->prepare($sql_str)) {
+            $stmt->execute(); //returns true if succeed and otherwise false
+            $stmt->bind_result($link);
+            $stmt->fetch();
+            $return = !empty($link);
+        }
+        $connection->close();
+        return $return;
+    }
+
+    private function delete_links($post) {
+        $links = $this->Get_SML();
+        foreach ($links as $link) {
+            $type = $link["sml_type"] . "_type";
+            if (!isset($post["$type"])) {
+                $connection = new sql_connect();
+                $connection = $connection->mysqli();
+
+                $sql_type = $link["sml_type"];
+                $SML_delete_sql = "DELETE FROM blog_social_media_links WHERE sml_type = ? ";
+
+                if ($stmt = $connection->prepare($SML_delete_sql)) {
+                    $stmt->bind_param("s", $sql_type);
+                    $return = $stmt->execute(); //returns true if succeed and otherwise false
+                }
+                $connection->close();
+            }
+        }
     }
 
     private function get_sm_username($type, $link) {

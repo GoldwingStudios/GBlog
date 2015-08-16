@@ -6,8 +6,8 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-$chng = filter_input(INPUT_POST, "change_password");
-if (isset($chng) && $chng == 1 && $_SESSION["Logged_In"]) {
+$Password_Changed = filter_input(INPUT_POST, "change_password");
+if (isset($Password_Changed) && $Password_Changed == 1 && USER_LOGGED_IN) {
     $Change_Password = new Change_Password();
     $result = $Change_Password->Set_New_Password();
 }
@@ -20,14 +20,13 @@ if (isset($chng) && $chng == 1 && $_SESSION["Logged_In"]) {
     </div>
     <div class="start_content">
         <?php
-        if ($_SESSION["Logged_In"]) {
+        if (USER_LOGGED_IN) {
             ?>
             <div class="content_layout">
                 <?php
                 if (!isset($result)) {
                     ?>
                     <div class="page_title">
-                        <span class="page_title"><?php echo ucwords(strtolower($_SESSION["current_page"])); ?></span><br/>
                         <span class="page_description">Hier k&ouml;nnen Sie ihr bestehendes Passwort &auml;ndern!</span>
                     </div>
                     <div class="page_content">
@@ -55,7 +54,6 @@ if (isset($chng) && $chng == 1 && $_SESSION["Logged_In"]) {
                 } else if ($result == 0) {
                     ?>
                     <div class="page_title">
-                        <span class="page_title"><?php echo ucwords(strtolower($_SESSION["current_page"])); ?></span><br/>
                         <span class="page_description">Hier k&ouml;nnen Sie ihr bestehendes Passwort &auml;ndern!</span>
                     </div>
                     <div class="page_content">
@@ -82,7 +80,6 @@ if (isset($chng) && $chng == 1 && $_SESSION["Logged_In"]) {
                 } else if ($result == 1) {
                     ?>
                     <div class="page_title">
-                        <span class="page_title"><?php echo ucwords(strtolower($_SESSION["current_page"])); ?></span><br/>
                         <span class="page_description">Hier k&ouml;nnen Sie ihr bestehendes Passwort &auml;ndern!</span>
                     </div>
                     <div class="page_content">
@@ -95,7 +92,6 @@ if (isset($chng) && $chng == 1 && $_SESSION["Logged_In"]) {
                 } else if ($result == 2) {
                     ?>
                     <div class="page_title">
-                        <span class="page_title"><?php echo ucwords(strtolower($_SESSION["current_page"])); ?></span><br/>
                         <span class="page_description">Hier k&ouml;nnen Sie ihr bestehendes Passwort &auml;ndern!</span>
                     </div>
                     <div class="page_content">
@@ -113,9 +109,6 @@ if (isset($chng) && $chng == 1 && $_SESSION["Logged_In"]) {
                 ?>
             </div>
             <?php
-        } else if (($_SESSION["Logged_In"] && isset($_GET["logout"])) || (!$_SESSION["Logged_In"] && isset($_GET["logout"]))) {
-            $Logout_Module = new Logout();
-            $Logout_Module->Run();
         } else {
             echo "<script>window.location.replace('./index.php');</script>";
         }

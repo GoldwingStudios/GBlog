@@ -5,7 +5,7 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */-->
-
+<!DOCTYPE html>
 <html>
     <head>
         <title>Blog - GoldwingStudios</title>

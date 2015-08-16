@@ -14,14 +14,14 @@
     <div class="content_layout">
         <div class="page_content_">
             <?php
-            if (!$_SESSION["Logged_In"] && !$_SESSION["Login_Error"]) {
+            if (!USER_LOGGED_IN && !USER_LOGIN_ERROR) {
                 include("modules/UI/login/login_form.php");
-            } else if ($_SESSION["Logged_In"] && !isset($_GET["logout"])) {
+            } else if (USER_LOGGED_IN && !isset($_GET["logout"])) {
                 include './modules/admin_functions/Admin_Functions.php';
-            } else if ($_SESSION["Logged_In"] && isset($_GET["logout"])) {
+            } else if (USER_LOGGED_IN && isset($_GET["logout"])) {
                 $Logout_Module = new Logout();
                 $Logout_Module->Run();
-            } else if ($_SESSION["Login_Error"]) {
+            } else if (USER_LOGIN_ERROR) {
                 $Logout_Module = new Logout();
                 $Logout_Module->Run();
             }

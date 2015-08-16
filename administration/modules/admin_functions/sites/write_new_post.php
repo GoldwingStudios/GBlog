@@ -6,15 +6,15 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-$return = null;
-$mode = filter_input(INPUT_POST, "mode");
-if (isset($mode) && $mode == 1 && $_SESSION["Logged_In"]) {
-    $title = filter_input(INPUT_POST, "title");
-    $text = $_POST["text"];
-    $tags = filter_input(INPUT_POST, "tags");
-    if (isset($title) && isset($text)) {
-        $writer = new Write_Post();
-        $return = $writer->Write_Post_($title, $text, $tags);
+$Write_Return = null;
+$post_submit = filter_input(INPUT_POST, "post_submit");
+if (isset($post_submit) && $post_submit == 1 && USER_LOGGED_IN) {
+    $post_title = filter_input(INPUT_POST, "post_title");
+    $post_text = filter_input(INPUT_POST, "post_text");
+    $post_tags = filter_input(INPUT_POST, "post_tags");
+    if (isset($post_title) && isset($post_text)) {
+        $Write_Post = new Write_Post();
+        $Write_Return = $Write_Post->Write_New_Post($post_title, $post_text, $post_tags);
     }
 }
 ?>
@@ -26,46 +26,46 @@ if (isset($mode) && $mode == 1 && $_SESSION["Logged_In"]) {
     </div>
     <div class="start_content">
         <?php
-        if ($_SESSION["Logged_In"]) {
+        if (USER_LOGGED_IN) {
             ?>
             <div class="content_layout">
                 <div class="page_title">
-                    <span class="page_title"><?php echo ucwords(strtolower($_SESSION["current_page"])); ?></span><br/>
-                    <span class="page_description">Hier k&ouml;nnen Sie einen neuen Post schreiben und hinzuf&uuml;gen!</span>
+                    <span class="page_description">Here you can add new posts to your blog site!</span>
                 </div>
                 <?php
-                if (!isset($return) && !$return) {
+                if (!isset($Write_Return) && !$Write_Return) {
                     ?>
                     <div class="page_content">
                         <form method="post" action="index.php?sm=wnp" accept-charset="utf-8" enctype="multipart/form-data">
-                            <div class="post_photo">
-                                <span>Wählen Sie hier Ihr Bild aus!</span><br>
-                                <input type="file" name="post_image"/>
-                            </div>
-                            <input style="display: none;" name="mode" value="1"/>
+
+                            <input style="display: none;" name="post_submit" value="1"/>
                             <span>Write new post!</span>
                             <div class="post_title">
                                 <span class="post_text">Post-Titel:</span>
-                                <input class="input_field" type="text" name="title" />
+                                <input class="input_field" type="text" name="post_title" />
                             </div>
                             <div class="post_text">
                                 <div class="input_container">
                                     <span class="post_textarea">Post-Text:</span>
-                                    <textarea class="input_field" type="text" name="text" ></textarea>
+                                    <textarea class="input_field" type="text" name="post_text" ></textarea>
                                 </div>
                             </div>
                             <div class="post_tags">
                                 <span class="post_text">Post-Tags:</span>
-                                <input class="input_field" type="text" name="tags" />
+                                <input class="input_field" type="text" name="post_tags" />
                             </div>
+                            <div class="post_photo">
+                                <span class="post_photo_text">Choose your upload image!</span>
+                                <input class="post_photo_upload" type="file" name="post_image"/>
+                            </div><br/>
                             <div class="post_finish">
-                                <div>Fertig?</div>
-                                <input type="submit" value="Ver&ouml;ffentlichen!"/>
+                                <p>Ready?</p>
+                                <input type="submit" value="Submit!"/>
                             </div>
                         </form>
                     </div>
                     <?php
-                } else if (!empty($return)) {
+                } else if (!empty($Write_Return)) {
                     ?>
                     <div class="page_content">
                         <div>
@@ -75,7 +75,7 @@ if (isset($mode) && $mode == 1 && $_SESSION["Logged_In"]) {
                         </div>
                     </div>
                     <?php
-                } else if (isset($return) && !$return) {
+                } else if (isset($Write_Return) && !$Write_Return) {
                     ?>
                     <div class="page_content">
                         <div>
@@ -89,9 +89,6 @@ if (isset($mode) && $mode == 1 && $_SESSION["Logged_In"]) {
                 ?>
             </div>
             <?php
-        } else if (($_SESSION["Logged_In"] && isset($_GET["logout"])) || (!$_SESSION["Logged_In"] && isset($_GET["logout"]))) {
-            $Logout_Module = new Logout();
-            $Logout_Module->Run();
         } else {
             echo "<script>window.location.replace('./index.php');</script>";
         }

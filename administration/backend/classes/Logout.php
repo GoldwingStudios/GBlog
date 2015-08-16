@@ -9,12 +9,12 @@
  */
 class Logout {
 
-    function __construct() {
+    public function __construct() {
         
     }
 
     public function Run() {
-        session_start();
+//        session_start();
         session_destroy();
         $cookieParams = session_get_cookie_params();
         setcookie(session_name(), '', 0, $cookieParams['path'], $cookieParams['domain'], $cookieParams['secure'], $cookieParams['httponly']);

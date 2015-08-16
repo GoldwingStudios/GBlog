@@ -10,46 +10,52 @@
 header("Content-type:text/html; charset=utf-8");
 define("lang", "en");
 date_default_timezone_set("Europe/Berlin");
+define("PAGE_TEXT_LANGUAGE", filter_input(INPUT_GET, "l"));
+define("PAGE_SPECIAL_MODE_TYPE", filter_input(INPUT_GET, "sm"));
 
-$content;
-$css;
+if ($_SESSION != null) {
+    define("USER_LOGGED_IN", (isset($_SESSION["Logged_In"]) & $_SESSION["Logged_In"]));
+    define("USER_LOGIN_ERROR", (isset($_SESSION["Login_Error"]) & $_SESSION["Login_Error"]));
+} else {
+    define("USER_LOGGED_IN", FALSE);
+    define("USER_LOGIN_ERROR", FALSE);
+}
 
-$get = filter_input(INPUT_GET, "sm");
-if (isset($get)) {
-    switch ($get) {
+if (PAGE_SPECIAL_MODE_TYPE != "") {
+    switch (PAGE_SPECIAL_MODE_TYPE) {
         case "cp":
             $content = "";
-            $_SESSION["sm"] = true;
-            $_SESSION["current_page"] = "CHANGE PASSWORD";
+            define("PAGE_SPECIAL_MODE", TRUE);
+            define("PAGE_CURRENT_SITE", "CHANGE PASSWORD");
             break;
         case "wnp":
             $content = "";
-            $_SESSION["sm"] = true;
-            $_SESSION["current_page"] = "WRITE NEW POST";
+            define("PAGE_SPECIAL_MODE", TRUE);
+            define("PAGE_CURRENT_SITE", "WRITE NEW POST");
             break;
         case "edit":
             $content = "";
-            $_SESSION["sm"] = true;
-            $_SESSION["current_page"] = "EDIT POST";
+            define("PAGE_SPECIAL_MODE", TRUE);
+            define("PAGE_CURRENT_SITE", "EDIT POST");
             break;
         case "some":
             $content = "";
-            $_SESSION["sm"] = true;
-            $_SESSION["current_page"] = "SOCIAL MEDIA LINKS";
+            define("PAGE_SPECIAL_MODE", TRUE);
+            define("PAGE_CURRENT_SITE", "SOCIAL MEDIA LINKS");
             break;
         case "ums":
             $content = "";
-            $_SESSION["sm"] = true;
-            $_SESSION["current_page"] = "USER MANAGEMENT SYSTEM";
+            define("PAGE_SPECIAL_MODE", TRUE);
+            define("PAGE_CURRENT_SITE", "USER MANAGEMENT SYSTEM");
             break;
         case "comma":
             $content = "";
-            $_SESSION["sm"] = true;
-            $_SESSION["current_page"] = "COMMENT MANAGER";
+            define("PAGE_SPECIAL_MODE", TRUE);
+            define("PAGE_CURRENT_SITE", "COMMENT MANAGER");
             break;
     }
 } else {
     $content = "";
-    $_SESSION["sm"] = false;
-    $_SESSION["current_page"] = "Home";
+    define("PAGE_SPECIAL_MODE", FALSE);
+    define("PAGE_CURRENT_SITE", "Home");
 }
