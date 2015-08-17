@@ -1,14 +1,9 @@
-/**
- * GBlog
- *
- * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
- * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
- * 
- */
+[GBlog](http://blog.goldwingstudios.de/) Blog Software
+====================
 
 This is the official Blog Software created by Goldwing Studios.
 
-Set-Up:
+## Installation
 
 1. Create a schema in MySQL named "Blog"
 2. Adapt the Sql_Connect-Classes for BLOG-Core and Administration to your local needs (MySQL-Username, MySQL-Username and so on)
@@ -17,6 +12,5 @@ Set-Up:
 5. Create a db_user with Priviliges for "SELECT, UPDATE, INSERT AND EXECUTE" to let GBlog do its work without Problems
 6. Check for functionallity and post the issues given on the GitHub-Site
 7. Have fun!
-
 
 Powered by GOLDWINGSTUDIOS
