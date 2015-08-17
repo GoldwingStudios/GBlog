@@ -19,7 +19,7 @@ class DB_Connect {
      */
 
     private function connect_to_database() {
-        $connect = new PDO('mysql:host=localhost;dbname=blog', "", "");
+        $connect = new PDO('mysql:host=localhost;dbname=blog', "db_connect", "2y3Ox?$#1");
         return $connect;
     }
 
