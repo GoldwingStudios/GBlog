@@ -1,3 +1,6 @@
-<Files "*.*">
-Deny from all
-</Files>
+SetEnvIfNoCase Request_URI "^/*$" ALLOWED
+
+Satisfy        any
+Order          deny,allow
+Deny from      all
+Allow from     env=ALLOWED
