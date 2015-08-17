@@ -53,47 +53,39 @@ if (!isset($mode)) {
                 <?php
             } else if (isset($post)) {
                 ?>
-
                 <div class="blog__content">
                     <?php
                     $Visible_Post = new Show_Post();
                     $Visible_Post->get_spec_post($post);
                     ?>
                 </div>
-
                 <?php
             } else if (isset($tag)) {
                 ?>
-
                 <div class="blog__content">
                     <?php
                     $Visible_Tag_Posts = new Get_Tag_Posts();
-                    $Visible_Tag_Posts->show_posts_for_tag($tag);
+                    $Visible_Tag_Posts->Show_Tagged_Posts();
                     ?>
                 </div>
-
                 <?php
             } else if (isset($search)) {
                 ?>
-
                 <script src="modules/js/get_posts_by_search.js"></script>
-
                 <div class="blog__content">
                     <div class="blog__search">
                         <input id="search_bar" placeholder="Search..." class="blog__search__bar" />
                     </div>
                 </div>
-
                 <?php
             }
             ?>
-
             <div class="blog__sidebar">
                 <h2>Popular Tags</h2>
                 <ul class="blog__popular__tags">
                     <?php
                     $Visible_Tag_Posts = new Get_Tag_Posts();
-                    $Visible_Tag_Posts->output_most_related_tags();
+                    $Visible_Tag_Posts->Show_Related_Tags($tag);
                     ?>
                 </ul>
                 <?php

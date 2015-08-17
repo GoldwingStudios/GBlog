@@ -1,11 +1,11 @@
 <?php
 
-$sql = new sql_connect();
-$blog_posts_query = "SHOW TABLES LIKE 'blog_posts';";
-$blog_posts_result = $sql->return_row($blog_posts_query);
+$DB_Connect = new DB_Connect;
+$Blog_Posts_Query = "SHOW TABLES LIKE 'blog_posts';";
+$Blog_posts_Result = $DB_Connect->Return_PDO_Row($Blog_Posts_Query);
 
-if (empty($blog_posts_result)) {
-    $blog_posts_query = "CREATE TABLE `blog_posts` (
+if (empty($Blog_posts_Result)) {
+    $Blog_Posts_Query = "CREATE TABLE `blog_posts` (
   `post_id` int(11) NOT NULL AUTO_INCREMENT,
   `post_title` varchar(75) NOT NULL,
   `post_text` text NOT NULL,
@@ -16,14 +16,14 @@ if (empty($blog_posts_result)) {
   UNIQUE KEY `id_UNIQUE` (`post_id`),
   UNIQUE KEY `post_title_UNIQUE` (`post_title`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;";
-    $blog_posts_result = $sql->execute($blog_posts_query);
+    $Blog_posts_Result = $DB_Connect->Execute_PDO_Command($Blog_Posts_Query);
 }
 
-$blog_comments_query = "SHOW TABLES LIKE 'blog_comments';";
-$blog_comments_result = $sql->return_row($blog_comments_query);
+$Blog_Comments_Query = "SHOW TABLES LIKE 'blog_comments';";
+$Blog_Comments_Result = $DB_Connect->Return_PDO_Row($Blog_Comments_Query);
 
-if (empty($blog_comments_result)) {
-    $blog_comments_query = "CREATE TABLE `blog_comments` (
+if (empty($Blog_Comments_Result)) {
+    $Blog_Comments_Query = "CREATE TABLE `blog_comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) NOT NULL,
   `comment_name` varchar(75) NOT NULL,
@@ -33,14 +33,14 @@ if (empty($blog_comments_result)) {
   `comment_valid` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;";
-    $blog_comments_result = $sql->execute($blog_comments_query);
+    $Blog_Comments_Result = $DB_Connect->Execute_PDO_Command($Blog_Comments_Query);
 }
 
-$sites_query = "SHOW TABLES LIKE 'sites';";
-$sites_result = $sql->return_row($sites_query);
+$Sites_Query = "SHOW TABLES LIKE 'sites';";
+$Sites_Result = $DB_Connect->Execute_PDO_Command($Sites_Query);
 
-if (empty($sites_result)) {
-    $sites_query = "CREATE TABLE `sites` (
+if (empty($Sites_Result)) {
+    $Sites_Query = "CREATE TABLE `sites` (
   `id` int(11) NOT NULL,
   `template` varchar(45) NOT NULL,
   `visible` tinyint(1) NOT NULL,
@@ -49,14 +49,14 @@ if (empty($sites_result)) {
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `templates_UNIQUE` (`template`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-    $sites_result = $sql->execute($sites_query);
+    $Sites_Result = $DB_Connect->Execute_PDO_Command($Sites_Query);
 }
 
-$blog_users_query = "SHOW TABLES LIKE 'blog_users';";
-$blog_users_result = $sql->return_row($blog_users_query);
+$Blog_Users_Query = "SHOW TABLES LIKE 'blog_users';";
+$Blog_Users_Result = $DB_Connect->Execute_PDO_Command($Blog_Users_Query);
 
-if (empty($blog_users_result)) {
-    $blog_users_query = "CREATE TABLE `blog_users` (
+if (empty($Blog_Users_Result)) {
+    $Blog_Users_Query = "CREATE TABLE `blog_users` (
   `id` int(11) NOT NULL,
   `usr_type` varchar(45) NOT NULL,
   `usr_username` varchar(45) NOT NULL,
@@ -66,7 +66,7 @@ if (empty($blog_users_result)) {
   UNIQUE KEY `username_UNIQUE` (`usr_username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ";
-    $blog_users_result = $sql->execute($blog_users_query);
+    $Blog_Users_Result = $DB_Connect->Execute_PDO_Command($Blog_Users_Query);
 }
 
 
@@ -79,14 +79,14 @@ foreach ($xml_files as $xml_file) {
     $post_tags = (string) $file->tags;
     $post_visible = (string) $file->visible;
 
-    $blog_post = "SELECT * FROM blog_posts WHERE `post_title`='$post_title'";
-    $blog_post_result = $sql->return_row($blog_post);
-    if (empty($blog_post_result)) {
-        $date = new DateTime((string) $file->date);
-        $post_date = $date->format("Y-m-d H:i:s");
+    $Blog_Post = "SELECT * FROM blog_posts WHERE `post_title`='$post_title'";
+    $Blog_Post_Result = $DB_Connect->Return_PDO_Row($Blog_Post);
+    if (empty($Blog_Post_Result)) {
+        $Date = new DateTime((string) $file->date);
+        $Post_Date_Formatted = $Date->format("Y-m-d H:i:s");
 
-        $post_sql = "INSERT INTO blog_posts (`post_title`, `post_text`, `post_date`, `post_visible`, `post_tags`) VALUES ('$post_title', '$post_text', '$post_date', '$post_visible', '$post_tags')";
-        $set_post_result = $sql->execute($post_sql);
+        $Create_Post_Sql = "INSERT INTO blog_posts (`post_title`, `post_text`, `post_date`, `post_visible`, `post_tags`) VALUES ('$post_title', '$post_text', '$post_date', '$post_visible', '$post_tags')";
+        $set_post_result = $DB_Connect->Execute_PDO_Command($Create_Post_Sql);
 
         $post_comments = (string) $file->comments;
         $comments = explode("</comment>", $post_comments);
