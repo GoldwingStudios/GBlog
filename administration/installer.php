@@ -78,7 +78,12 @@ class Installer {
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
             if ($r = $this->mysqli->query($q)) {
-                return true;
+                $q_site = "INSERT INTO sites (`template`, `visible`, `name`) VALUES ('start', '1', 'Start');";
+                if ($r_site = $this->mysqli->query($q_site)) {
+                    return true;
+                } else {
+                    return (string) $this->mysqli->error;
+                }
             } else {
                 return (string) $this->mysqli->error;
             }
@@ -155,7 +160,7 @@ class Installer {
                         <div class="panel-body">
 
 
-                            <?php if (!isset($_POST["setdb"])) { ?>
+<?php if (!isset($_POST["setdb"])) { ?>
                                 <form action="installer.php" method="post">
                                     <p>Database</p>
                                     <div class="form-group">
@@ -176,80 +181,80 @@ class Installer {
                                     </div>
                                     <button type="submit" name="setdb" class="btn btn-success">Create</button>
                                 </form>
-                                <?php
-                            } else {
-                                $installer = new Installer($_POST["host"], $_POST["user"], $_POST["pass"], $_POST["db"]);
+    <?php
+} else {
+    $installer = new Installer($_POST["host"], $_POST["user"], $_POST["pass"], $_POST["db"]);
 
-                                $r = $installer->create_blog_posts();
-                                if ($r === true) {
-                                    echo "<div class='alert alert-success'>table blog_posts successfully created.</div>";
-                                } else {
-                                    echo '<div class="alert alert-danger">', $r, '</div>';
-                                }
-                                $r = null;
+    $r = $installer->create_blog_posts();
+    if ($r === true) {
+        echo "<div class='alert alert-success'>table blog_posts successfully created.</div>";
+    } else {
+        echo '<div class="alert alert-danger">', $r, '</div>';
+    }
+    $r = null;
 
-                                $r = $installer->create_blog_comments();
-                                if ($r === true) {
-                                    echo "<div class='alert alert-success'>table blog_comments successfully created.</div>";
-                                } else {
-                                    echo '<div class="alert alert-danger">', $r, '</div>';
-                                }
-                                $r = null;
+    $r = $installer->create_blog_comments();
+    if ($r === true) {
+        echo "<div class='alert alert-success'>table blog_comments successfully created.</div>";
+    } else {
+        echo '<div class="alert alert-danger">', $r, '</div>';
+    }
+    $r = null;
 
-                                $r = $installer->create_blog_sites();
-                                if ($r === true) {
-                                    echo "<div class='alert alert-success'>table sites successfully created.</div>";
-                                } else {
-                                    echo '<div class="alert alert-danger">', $r, '</div>';
-                                }
-                                $r = null;
+    $r = $installer->create_blog_sites();
+    if ($r === true) {
+        echo "<div class='alert alert-success'>table sites successfully created.</div>";
+    } else {
+        echo '<div class="alert alert-danger">', $r, '</div>';
+    }
+    $r = null;
 
-                                $r = $installer->create_blog_users();
-                                if ($r === true) {
-                                    echo "<div class='alert alert-success'>table blog_users successfully created.</div>";
-                                } else {
-                                    echo '<div class="alert alert-danger">', $r, '</div>';
-                                }
-                                $r = null;
+    $r = $installer->create_blog_users();
+    if ($r === true) {
+        echo "<div class='alert alert-success'>table blog_users successfully created.</div>";
+    } else {
+        echo '<div class="alert alert-danger">', $r, '</div>';
+    }
+    $r = null;
 
-                                $r = $installer->create_account($_POST["admin"]);
-                                if ($r === true) {
-                                    echo "<div class='alert alert-success'>admin account successfully created.<br />
+    $r = $installer->create_account($_POST["admin"]);
+    if ($r === true) {
+        echo "<div class='alert alert-success'>admin account successfully created.<br />
 									<strong>Login password is <em>#pass_1234</em></strong>
                                                                         </div>";
-                                } else {
-                                    echo '<div class="alert alert-danger">', $r, '</div>';
-                                }
+    } else {
+        echo '<div class="alert alert-danger">', $r, '</div>';
+    }
 
 
-                                /*
-                                  define("DB_HOST","");
-                                  define("DB_USER","");
-                                  define("DB_PASSWORD","");
-                                  define("DB_DATABASE","");
-                                 */
+    /*
+      define("DB_HOST","");
+      define("DB_USER","");
+      define("DB_PASSWORD","");
+      define("DB_DATABASE","");
+     */
 
-                                $connector = fopen("./database_config.php", "w");
-                                $dbinfo = '<?php
+    $connector = fopen("./database_config.php", "w");
+    $dbinfo = '<?php
 ';
-                                $dbinfo .= 'define("DB_HOST","' . $_POST["host"] . '");
+    $dbinfo .= 'define("DB_HOST","' . $_POST["host"] . '");
 ';
-                                $dbinfo .= 'define("DB_USER","' . $_POST["user"] . '");
+    $dbinfo .= 'define("DB_USER","' . $_POST["user"] . '");
 ';
-                                $dbinfo .= 'define("DB_PASSWORD","' . $_POST["pass"] . '");
+    $dbinfo .= 'define("DB_PASSWORD","' . $_POST["pass"] . '");
 ';
-                                $dbinfo .= 'define("DB_DATABASE","' . $_POST["db"] . '");
+    $dbinfo .= 'define("DB_DATABASE","' . $_POST["db"] . '");
 ';
-                                $dbinfo .= '?>';
-                                if (fwrite($connector, $dbinfo)) {
-                                    echo "<div class='alert alert-success'>Connector created.</div>"
-                                    . "<a class='btn btn-success' href='./index.php'>Login</a>";
-                                } else {
-                                    echo "<div class='alert alert-danger'>Failed to create the connector.</div>";
-                                }
-                                fclose($connector);
-                            }
-                            ?>
+    $dbinfo .= '?>';
+    if (fwrite($connector, $dbinfo)) {
+        echo "<div class='alert alert-success'>Connector created.</div>"
+        . "<a class='btn btn-success' href='./index.php'>Login</a>";
+    } else {
+        echo "<div class='alert alert-danger'>Failed to create the connector.</div>";
+    }
+    fclose($connector);
+}
+?>
                         </div>
                     </div>
                 </div>

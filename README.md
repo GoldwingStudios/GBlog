@@ -5,12 +5,10 @@ This is the official Blog Software created by Goldwing Studios.
 
 ## Installation
 
-1. Create a schema in MySQL named "Blog"
-2. Adapt the Sql_Connect-Classes for BLOG-Core and Administration to your local needs (MySQL-Username, MySQL-Username and so on)
-3. Create the tables "blog_posts" and "sites" like the given examples (the pictures "blog_sites_table.png" and "blog_post_table.png")
-4. Create an item in the table "sites": '1', 'start', '1', 'Start'
-5. Create a db_user with Priviliges for "SELECT, UPDATE, INSERT AND EXECUTE" to let GBlog do its work without Problems
-6. Check for functionallity and post the issues given on the GitHub-Site
-7. Have fun!
+1. Create a schema in MySQL named "blog"
+2. Create a db_user with Priviliges for "CREATE, SELECT, UPDATE, INSERT AND EXECUTE" to let GBlog do its work without Problems
+3. Run the Installer
+4. Check for functionality and post the issues given on the GitHub-Site
+5. Have fun!
 
 Powered by GOLDWINGSTUDIOS
