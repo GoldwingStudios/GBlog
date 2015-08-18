@@ -7,8 +7,9 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */
-include 'backend/classes/DB_Connect.php';
-include 'backend/classes/post_search.php';
+include '../administration/database_config.php';
+include 'classes/DB_Connect.php';
+include 'classes/post_search.php';
 
 $search_tag = $_POST["search_tag"];
 

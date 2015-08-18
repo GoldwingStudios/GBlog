@@ -4,15 +4,19 @@ class Show_Post {
 
     var $id, $title, $text, $date, $visible;
 
+    public function __construct() {
+        $this->Connection = new DB_Connect();
+    }
+
     public function GetSpecificPost($ID) {
         $set_up_post = "";
         if (is_numeric($ID)) {
             $id_ = intval($ID);
             $id = (string) $ID;
             $this->get_post_data($id_);
-            if (!empty($this->id) && !empty($this->title) && !empty($this->text) && !empty($this->date) && !empty($this->visible)) {
-                $c_post_data = $this->clean_up();
-                $set_up_post = $this->set_up($c_post_data);
+            if (!empty($this->Post_Data)) {
+                $this->clean_up();
+                $set_up_post = $this->set_up();
             }
         } else {
             $set_up_post = '<script>window.location.replace("index.php");</script>';
@@ -24,28 +28,20 @@ class Show_Post {
     }
 
     private function get_post_data($id_) {
-        $connection = new sql_connect();
-        $connection = $connection->mysqli();
 
-        $sql_string = "SELECT * FROM blog_posts WHERE post_id=? ";
+        $SQL_String = "SELECT * FROM blog_posts WHERE post_id = :Post_ID ";
+        $Parameter = array(":Post_ID" => $id_);
 
-        if ($stmt = $connection->prepare($sql_string)) {
-            $stmt->bind_param("i", $id_);
-            $stmt->execute();
-            $stmt->bind_result($this->id, $this->title, $this->text, $this->date, $this->visible, $this->tags, $this->post_image_path);
-            $stmt->fetch();
-        }
-        $connection->close();
+        $this->Post_Data = $this->Connection->Return_PDO_Array($SQL_String, $Parameter);
     }
 
     private function clean_up() {
-        $post = Array();
-        $this->title = htmlentities($this->title, ENT_COMPAT, "UTF-8");
-        $this->text = $this->prepare_text($this->text);
-        $this->date = htmlentities($this->prepare_date($this->date), ENT_COMPAT, "UTF-8");
-        $this->visible = htmlentities($this->visible, ENT_COMPAT, "UTF-8");
+        $this->Title = htmlentities($this->Post_Data[0]["post_title"], ENT_COMPAT, "UTF-8");
+        $this->Text = $this->prepare_text($this->Post_Data[0]["post_text"]);
+        $this->Date = htmlentities($this->prepare_date($this->Post_Data[0]["post_date"]), ENT_COMPAT, "UTF-8");
+        $this->Visible = htmlentities($this->Post_Data[0]["post_visible"], ENT_COMPAT, "UTF-8");
 
-        $tags = htmlentities($this->tags, ENT_COMPAT, "UTF-8");
+        $tags = htmlentities($this->Post_Data[0]["post_tags"], ENT_COMPAT, "UTF-8");
         $tag_str = "";
         $tags = explode(",", $tags);
         $tags = str_replace(" ", "", $tags);
@@ -55,23 +51,23 @@ class Show_Post {
                 $tag_str .= '<a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
             }
         }
-        $this->tags = $tag_str;
+        $this->Tags = $tag_str;
     }
 
     private function set_up() {
-        if (!empty($this->post_image_path)) {
-            $post_image = '<img class="blog__entry__image__spec" src="' . $this->post_image_path . '"/><br><br>';
+        if (!empty($this->Post_Data[0]["post_image_path"])) {
+            $post_image = '<img class="blog__entry__image__spec" src="' . $this->Post_Data[0]["post_image_path"] . '"/><br><br>';
         } else {
             $post_image = "";
         }
 
         $output_post = ''
                 . $post_image
-                . '<h1 class="blog__fullentry__title">' . $this->title . '</h1>'
-                . '<span class="blog__fullentry__date">' . $this->date . '</span>'
-                . '<p class="blog__fullentry__text">' . $this->text . '</p>'
+                . '<h1 class="blog__fullentry__title">' . $this->Title . '</h1>'
+                . '<span class="blog__fullentry__date">' . $this->Date . '</span>'
+                . '<p class="blog__fullentry__text">' . $this->Text . '</p>'
                 . '<div class="blog__fullentry__tags">'
-                . $this->tags
+                . $this->Tags
                 . '</div>';
         return $output_post;
     }

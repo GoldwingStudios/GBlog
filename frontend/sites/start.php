@@ -56,7 +56,7 @@ if (!isset($mode)) {
                 <div class="blog__content">
                     <?php
                     $Visible_Post = new Show_Post();
-                    $Visible_Post->get_spec_post($post);
+                    $Visible_Post->GetSpecificPost($post);
                     ?>
                 </div>
                 <?php
@@ -65,7 +65,7 @@ if (!isset($mode)) {
                 <div class="blog__content">
                     <?php
                     $Visible_Tag_Posts = new Get_Tag_Posts();
-                    $Visible_Tag_Posts->Show_Tagged_Posts();
+                    $Visible_Tag_Posts->Show_Tagged_Posts($tag);
                     ?>
                 </div>
                 <?php

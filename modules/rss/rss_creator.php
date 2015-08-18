@@ -2,9 +2,12 @@
 
 class Rss_Creator {
 
-    function show_rss() {
+    public function __construct() {
+        $this->Connection = new DB_Connect();
+    }
+
+    public function show_rss() {
         header("Content-type: text/xml");
-        $sql = new sql_connect();
         echo '<?xml version="1.0" encoding="UTF-8" ?>';
         echo '<rss version="2.0">';
         echo "<channel>";
@@ -20,7 +23,7 @@ class Rss_Creator {
                 <webMaster>ocd@goldwingstudios.de</webMaster>";
 
         $sql_str = "SELECT * FROM blog_posts WHERE post_visible='1' ORDER BY post_date DESC ";
-        $posts = $sql->return_array($sql_str);
+        $posts = $this->Connection->Return_PDO_Array($sql_str);
         foreach ($posts as $p) {
             $id = $this->generate_blog_id($p["post_id"]);
             $date = new DateTime($p["post_date"]);
@@ -60,7 +63,7 @@ class Rss_Creator {
     }
 
     private function get_preview($text) {
-        $steps = 125;
+        $steps = 100;
         $last_space = $text[$steps];
         if (strlen($text) < $steps) {
             return $text;

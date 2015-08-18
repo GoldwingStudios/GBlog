@@ -2,7 +2,11 @@
 
 class Post_Search {
 
-    function search_for_posts($search_tag) {
+    public function __construct() {
+        $this->Connection = new DB_Connect();
+    }
+
+    public function search_for_posts($search_tag) {
         if ($search_tag === "") {
             return;
         }
@@ -26,58 +30,55 @@ class Post_Search {
         if ($search_tags == "") {
             return;
         }
-        $sql_connect = new sql_connect();
-        $connection = $sql_connect->mysqli();
-        $variable_string = "";
 
-        $get_posts = "SELECT * FROM blog_posts WHERE ";
         $additional_string = "";
         $variables = array();
-        $variables[] = &$variable_string;
+        $i = 0;
         foreach ($search_tags as $tag) {
             if ($additional_string == "") {
-                $variable_string .= "sss";
-                $additional_string .= "post_title LIKE ? OR post_text LIKE ? OR post_tags LIKE ? ";
-                $variables[] = "%" . $tag . "%";
-                $variables[] = "%" . $tag . "%";
-                $variables[] = "%" . $tag . "%";
+                $tag_1 = ":TAG" . $i++;
+                $tag_2 = ":TAG" . $i++;
+                $tag_3 = ":TAG" . $i++;
+                $additional_string .= "post_title LIKE $tag_1 OR post_text LIKE $tag_2 OR post_tags LIKE $tag_3 ";
+                $variables[$tag_1] = "%" . $tag . "%";
+                $variables[$tag_2] = "%" . $tag . "%";
+                $variables[$tag_3] = "%" . $tag . "%";
             } else {
-                $variable_string .= "sss";
-                $additional_string .= "OR post_title LIKE ? OR post_text LIKE ? OR post_tags LIKE ? ";
-                $variables[] = "%" . $tag . "%";
-                $variables[] = "%" . $tag . "%";
-                $variables[] = "%" . $tag . "%";
+                $tag_1 = ":TAG" . $i++;
+                $tag_2 = ":TAG" . $i++;
+                $tag_3 = ":TAG" . $i++;
+                $additional_string .= "OR post_title LIKE $tag_1 OR post_text LIKE $tag_2 OR post_tags LIKE $tag_3 ";
+                $variables[$tag_1] = "%" . $tag . "%";
+                $variables[$tag_2] = "%" . $tag . "%";
+                $variables[$tag_3] = "%" . $tag . "%";
             }
         }
-        $get_posts = $get_posts . $additional_string;
+        $get_posts = "SELECT * FROM blog_posts WHERE " . $additional_string;
 
-        if ($stmt = $connection->prepare($get_posts)) {
-//            foreach ($variables as $var) {
-//                $stmt->bind_param($var);
-//            }
-            call_user_func_array(array($stmt, 'bind_param'), $this->refs($variables));
-            $stmt->execute();
-//            $stmt->bind_result($id, $title, $text, $date, $visible, $tags);
-//            $x = $stmt->fetch();
-            $result = $stmt->get_result();
-            while ($row = $result->fetch_assoc()) {
-                $row = str_replace("_", " ", $row);
-                $row = str_replace("[a]", " ", $row);
-                $row = str_replace("[/a]", " ", $row);
-                $row = str_replace("http://", " ", $row);
-                $row["post_text"] = htmlentities($row["post_text"]);
-                $posts[] = $row;
-            }
+        $posts = $this->Connection->Return_PDO_Array($get_posts, $variables);
+        foreach ($posts as $key => $post) {
+            $post["post_title"] = htmlentities($this->replace($post["post_title"]));
+            $post["post_text"] = htmlentities($this->replace($post["post_text"]));
+            $post["post_tags"] = htmlentities($this->replace($post["post_tags"]));
+            $posts[$key] = $post;
         }
         return $posts;
     }
 
-    function refs(array $ar) {
+    public function refs(array $ar) {
         $r = array();
         foreach ($ar as $k => $v) {
             $r[$k] = &$ar[$k];
         }
         return $r;
+    }
+
+    private function replace($String) {
+        $String = str_replace("_", " ", $String);
+        $String = str_replace("[a]", " ", $String);
+        $String = str_replace("[/a]", " ", $String);
+        $String = str_replace("http://", " ", $String);
+        return $String;
     }
 
 }

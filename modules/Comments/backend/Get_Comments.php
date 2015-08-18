@@ -9,40 +9,27 @@
  */
 class Get_Comments {
 
+    public function __construct() {
+        $this->Connection = new DB_Connect();
+    }
+
     public function Comments_Count($post) {
-        $connection = new sql_connect();
-        $connection = $connection->mysqli();
         $post_id = intval($post);
 
         if (isset($post_id)) {
-            $sql_str = "SELECT * FROM blog_comments WHERE post_id = ? AND comment_valid = 1";
-            if ($stmt = $connection->prepare($sql_str)) {
-                $stmt->bind_param("i", $post_id);
-                $stmt->execute();
-                $return = $stmt->get_result();
-                while ($row = $return->fetch_assoc()) {
-                    $comments[] = $row;
-                }
-            }
+            $SQL_String = "SELECT * FROM blog_comments WHERE post_id = :Post_ID AND comment_valid = 1";
+            $Parameters = array(":Post_ID" => $post_id);
+            $comments = $this->Connection->Return_PDO_Array($SQL_String, $Parameters);
         }
         return count($comments);
     }
 
     public function Show_Comments($post) {
-        $connection = new sql_connect();
-        $connection = $connection->mysqli();
         $id = intval($post);
-        $sql_str = "SELECT * FROM blog_comments WHERE `post_id` = ?";
 
-        if ($stmt = $connection->prepare($sql_str)) {
-            $stmt->bind_param("i", $id);
-            $stmt->execute();
-            $return = $stmt->get_result();
-            while ($row = $return->fetch_assoc()) {
-                $comments[] = $row;
-            }
-        }
-        $connection->close();
+        $SQL_String = "SELECT * FROM blog_comments WHERE post_id = :Post_ID AND comment_valid = 1";
+        $Parameters = array(":Post_ID" => $id);
+        $comments = $this->Connection->Return_PDO_Array($SQL_String, $Parameters);
 
         foreach ($comments as $comment) {
             if ($comment["comment_valid"] == 1) {

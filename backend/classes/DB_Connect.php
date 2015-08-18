@@ -63,12 +63,12 @@ class DB_Connect {
      */
 
     public function Execute_PDO_Command($Query, $Parameter = null) {
-        $return = NULL;
-        $Connection = $this->connect_to_database();
+            $return = NULL;
+            $Connection = $this->connect_to_database();
 
-        if ($PDO_Stmt = $Connection->prepare($Query)) {
-            $return = $PDO_Stmt->execute($Parameter);
-        }
+            if ($PDO_Stmt = $Connection->prepare($Query)) {
+                $return = $PDO_Stmt->execute($Parameter);
+            }
         $Connection = null;
         return $return;
     }

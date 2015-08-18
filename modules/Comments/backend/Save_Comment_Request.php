@@ -9,9 +9,11 @@
  */
 class Save_Comment_Request {
 
+    public function __construct() {
+        $this->Connection = new DB_Connect();
+    }
+
     public function Write_Comment($post_id) {
-        $connection = new sql_connect();
-        $connection = $connection->mysqli();
         $post_id = intval($post_id);
         $comment_name = filter_input(INPUT_POST, "user_name");
         $comment_mail = $this->check_mail(filter_input(INPUT_POST, "user_mail")) ? null : filter_input(INPUT_POST, "user_mail");
@@ -20,13 +22,9 @@ class Save_Comment_Request {
         $comment_valid = 0;
 
         if ($comment_mail != null) {
-            $sql_str = "INSERT INTO blog_comments (`post_id`, `comment_name`, `comment_mail`, `comment_text`, `comment_date`, `comment_valid`) VALUES (?, ?, ?, ?, ?, ?)";
-
-            if ($stmt = $connection->prepare($sql_str)) {
-                $stmt->bind_param("issssi", $post_id, $comment_name, $comment_mail, $comment_text, $comment_date, $comment_valid);
-                $return = $stmt->execute(); //returns true if succeed and otherwise false
-            }
-            $connection->close();
+            $SQL_String = "INSERT INTO blog_comments (`post_id`, `comment_name`, `comment_mail`, `comment_text`, `comment_date`, `comment_valid`) VALUES (:Post_ID, :Comment_Name, :Comment_Mail, :Comment_Text, :Comment_Date, :Comment_Valid)";
+            $Parameters = array(":Post_ID" => $post_id, ":Comment_Name" => $comment_name, ":Comment_Mail" => $comment_mail, ":Comment_Text" => $comment_text, ":Comment_Date" => $comment_date, ":Comment_Valid" => $comment_valid);
+            $return = $this->Connection->Execute_PDO_Command($SQL_String, $Parameters);
             return $return;
         }
     }
@@ -37,7 +35,7 @@ class Save_Comment_Request {
     }
 
     function check_mail($mail) {
-        return preg_match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", $mail);
+        return preg_match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$^", $mail);
     }
 
 }
