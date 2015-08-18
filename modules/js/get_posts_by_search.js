@@ -7,7 +7,7 @@ $(document).ready(function() {
     search_bar.keyup(function() {
         $(".blog__entry").remove();
         $.ajax({
-            url: "modules/blog_core/full_text_search.php",
+            url: "backend/full_text_search.php",
             type: "POST",
             data: {search_tag: search_bar.val()}
         })

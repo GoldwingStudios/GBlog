@@ -9,11 +9,10 @@
  */
 class page {
 
-    function _page() {
+    public function _page() {
         $DB_Connect = new DB_Connect();
-        $param = $_GET["p"];
-        $lang = $_GET["l"];
-        $news = false;
+        $param = filter_input(INPUT_GET, "p");
+        $lang = filter_input(INPUT_GET, "l");
         if (!isset($param)) {
             $page = "1";
             $query = 'Select * '
@@ -29,14 +28,18 @@ class page {
                     . 'WHERE id="0" AND visible="1"';
         }
 
-        if (isset($lang)) {
-            define("text_lang", $lang);
-        } else {
-            define("text_lang", lang);
-        }
+        $this->lang_set($lang);
         $db_page = $DB_Connect->Return_PDO_Row($query);
         define("content", "frontend/sites/" . $db_page["template"] . ".php");
         define("css", $db_page["template"] . ".css");
+    }
+
+    private function lang_set($lang) {
+        if (isset($lang)) {
+            define("TEXT_LANG", $lang);
+        } else {
+            define("TEXT_LANG", lang);
+        }
     }
 
 }

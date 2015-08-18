@@ -27,10 +27,10 @@ class Show_Social_Media {
     }
 
     private function get_social_media_data() {
-        $connection = new sql_connect();
+        $Connection = new DB_Connect();
 
         $sql_str = "SELECT * FROM blog_social_media_links ORDER BY sml_id ASC";
-        $links = $connection->return_array($sql_str);
+        $links = $Connection->Return_PDO_Array($sql_str);
         return $links;
     }
 

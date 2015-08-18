@@ -20,7 +20,7 @@ if (isset($Username) && isset($Password)) {
 
         $User_DB_Config = $DB_Connect->Return_PDO_Row($User_Config_Sql, $Parameters);
 
-        $User_Password = md5($Password);
+        $User_Password = hash("sha512", $Password);
         $Config_Username = $User_DB_Config["usr_username"];
         $Config_Password = $User_DB_Config["usr_password"];
         $User_Type = $User_DB_Config["usr_type"];

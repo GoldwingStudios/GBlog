@@ -13,6 +13,8 @@
         <?php
         include './frontend/templates/meta.php';
         ?>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="./assets/css/general_.css"/>
         <link rel="stylesheet" type="text/css" href="./assets/css/<?php echo PAGE_CSS; ?>"/>
         <script src="./modules/js/jquery.js"></script>
