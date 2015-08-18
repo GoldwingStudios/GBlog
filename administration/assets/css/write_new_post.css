@@ -1,0 +1,120 @@
+/**
+ * GBlog
+ *
+ * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
+ * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
+ * 
+ */
+
+div.post_photo
+{
+    position: relative;
+    margin-top: 36px;
+    border: 1px darkred solid;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    padding: 10px;
+    height: 85px;
+    width: 350px;
+}
+
+div.post_title
+{
+    position: relative;
+    margin-top: 15px;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border: 1px darkred solid;
+    width: 445px;
+    height: 25px;
+}
+
+div.post_text
+{
+    position: relative;
+    margin-top: 15px;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border: 1px darkred solid;
+    width: 445px;
+    height: 102px;
+}
+
+div.post_tags
+{
+    position: relative;
+    margin-top: 25px;
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border: 1px darkred solid;
+    width: 445px;
+    height: 25px;
+}
+
+div.post_finish
+{
+    position: relative;
+    margin-top: 15px;
+}
+
+span.post_text
+{
+    position: relative;
+    margin-top: 2px;
+    left: 15px;
+}
+
+span.post_textarea
+{
+    position: relative;
+    margin-top: 35px;
+    left: 15px;
+    vertical-align: middle;
+}
+
+textarea.input_field
+{
+    position: relative;
+    float: right;
+    width: 350px;
+    height: 102px;
+    resize: none;
+    margin-top: -1px;
+    margin-right: -1px;
+    padding: 0;
+    border: 1px darkred solid;
+}
+
+input.input_field
+{
+    position: relative;
+    float: right;
+    width: 350px;
+    height: 25px;
+    margin-top: -1px;
+    margin-right: -1px;
+    padding: 0;
+    border: 1px darkred solid;
+}
+
+span
+{
+    position: relative;
+    width: 75px;
+}
+
+span.post_photo_text
+{
+    display: block;
+    width: 100%;
+    margin-bottom: 7.5px;
+}
+
+input.post_photo_upload
+{
+    width: 100%;
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--/**
+* GBlog
+*
+* Autor: GOLDWINGSTUDIOS - goldwingstudios.de
+* License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
+* 
+*/-->
+<links>
+    
+    
+    
+    <link_twitch>
+        <type>twitch</type>
+        <link>http://www.twitch.tv/goldwingstudios</link>
+        <date_time>29.05.2015, 22:00</date_time>
+    </link_twitch>
+</links>

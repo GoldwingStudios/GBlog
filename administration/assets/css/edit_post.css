@@ -1,0 +1,331 @@
+/**
+ * GBlog
+ *
+ * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
+ * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
+ * 
+ */
+
+div.post_list
+{
+    position: relative;
+    margin-top: 75px;
+    min-height: 250px;
+    width: 100%;
+}
+
+div.blog_post_container
+{
+    position: relative;
+    margin: 7px auto;
+    width: 450px;
+    border: 1px #000000 solid;
+    padding: 5px;
+    cursor: pointer;
+}
+
+div.blog_post_container_success
+{
+    position: relative;
+    background: green;
+    margin: 7px auto;
+    width: 450px;
+    border: 1px #000000 solid;
+    padding: 5px;
+    cursor: pointer;
+}
+
+div.blog_post
+{
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+div.delete_blog_post
+{
+    position: absolute;
+    top: 5px;
+    padding: 1px;
+    height: 20px;
+    width: 16px;
+    left: 95%;
+    z-index: 9999;
+    cursor: pointer;
+    border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    background: #9F9F9F;
+    text-align: center;
+}
+
+div.edit_post_keys__visible
+{
+    width: 125px;
+    line-height: 25px;
+}
+
+div.edit_post_keys__visible *
+{
+
+}
+
+div.edit_post_keys__delete
+{
+    width: 110px;
+}
+
+div.edit_post_keys__delete_example
+{
+    position: relative;
+    float: right;
+    padding: 1px;
+    height: 20px;
+    width: 16px;
+    z-index: 9999;
+    border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    background: #9F9F9F;
+    text-align: center;
+}
+
+img.edit_post_keys__visible_example
+{
+    float: right;
+}
+
+div.show_hide_blog_post
+{
+    position: absolute;
+    top: 5px;
+    padding: 1px;
+    height: 20px;
+    width: 47px;
+    left: 83%;
+    z-index: 9999;
+    cursor: pointer;
+    border-radius: 2px 2px 2px 2px;
+    -moz-border-radius: 2px 2px 2px 2px;
+    -webkit-border-radius: 2px 2px 2px 2px;
+    background: #9F9F9F;
+}
+
+div.delete_blog_post:hover
+{
+    background: darkorange;
+}
+
+div.show_hide_blog_post:hover
+{
+    background: darkorange;  
+}
+
+div.post_title
+{
+    position: relative;
+    display: inline-block;
+    top: 10px;
+    left: 50px;
+    width: 400px;
+    height: 100px;
+}
+
+div.post_date
+{
+    position: relative;
+    display: inline-block;
+    top: 10px;
+    left: 20%;
+    width: 250px;
+    height: 100px;
+}
+
+div.post_text
+{
+    position: relative;
+    display: inline-block;
+    top: 2px;
+    left: 50px;
+    width: 650px;
+    height: 350px;
+}
+
+div.post_tags
+{
+    position: relative;
+    display: inline-block;
+    top: 45px;
+    left: 50px;
+    width: 450px;
+    height: 65px;
+}
+
+div.middle_object_large
+{
+    position: relative;
+    margin: 0 auto;
+    width: 600px;
+    height: 350px;
+}
+
+div.middle_object
+{
+    position: relative;
+    margin: 0 auto;
+    width: 350px;
+    height: 25px;
+}
+
+div.middle_object_small
+{
+    position: relative;
+    margin: 0 auto;
+    width: 205px;
+    height: 30px;
+}
+
+div.date_legend
+{
+    width: 205px;
+    height: 30px;
+    margin: 0 auto;
+}
+
+div.date_legend_inline
+{
+    display: inline-block;
+    height: 25px;
+    width: 100px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+div.submit_container
+{
+    position: relative;
+    display: inline-block;
+    top: 46px;
+    left: 15%;
+    width: 250px;
+    height: 100px;
+}
+
+div.edit_submit
+{
+    position: relative;
+    margin: 0 auto;
+    width: 200px;
+    height: 30px;
+}
+
+div.backlink
+{
+    position: absolute;
+    top: 45px;
+    cursor: pointer;
+}
+
+input
+{
+    border: 1px #000000 solid;
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+}
+
+input.input_field_title
+{
+    width: 350px;
+    height: 24px;
+    margin-top: 2px;
+}
+
+input.input_field_title_red
+{
+    width: 350px;
+    height: 24px;
+    margin-top: 2px;
+    border: 1px #FF0000 solid;
+}
+
+input.input_field_date
+{
+    width: 100px;
+    height: 24px;
+    margin-top: 2px;
+    text-align: center;
+}
+
+input.input_field_date_red
+{
+    width: 100px;
+    height: 24px;
+    margin-top: 2px;
+    text-align: center;
+    border: 1px #FF0000 solid;
+}
+
+input.input_field_tags
+{
+    width: 400px;
+    height: 24px;
+    margin-top: 5px;
+}
+
+input.input_field_tags_red
+{
+    width: 400px;
+    height: 24px;
+    margin-top: 5px;
+    border: 1px #FF0000 solid;
+}
+
+input.edit_submit
+{
+    font-size: 20px;
+    font-family: Calibri;
+    cursor: pointer;
+}
+
+textarea
+{
+
+    border-radius: 3px 3px 3px 3px;
+    -moz-border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius: 3px 3px 3px 3px;
+    margin-top: 5px;
+}
+
+textarea.input_field_text
+{
+    border: 1px #000000 solid;
+    height: 350px;
+    width: 475px;
+    font-family: Calibri;
+    font-size: 12px;
+}
+
+textarea.input_field_text_red
+{
+    height: 350px;
+    width: 475px;
+    font-family: Calibri;
+    font-size: 12px;
+    border: 1px #FF0000 solid;
+}
+.tooltip {
+    background-color:#000;
+    border:1px solid #fff;
+    padding:10px 15px;
+    width:200px;
+    display:none;
+    color:#fff;
+    text-align:left;
+    font-size:12px;
+
+    /* outline radius for mozilla/firefox only */
+    -moz-box-shadow:0 0 10px #000;
+    -webkit-box-shadow:0 0 10px #000;
+}
