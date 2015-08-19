@@ -57,9 +57,9 @@ class Post_Search {
 
         $posts = $this->Connection->Return_PDO_Array($get_posts, $variables);
         foreach ($posts as $key => $post) {
-            $post["post_title"] = htmlentities($this->replace($post["post_title"]));
-            $post["post_text"] = htmlentities($this->replace($post["post_text"]));
-            $post["post_tags"] = htmlentities($this->replace($post["post_tags"]));
+            $post["post_title"] = $this->replace($post["post_title"]);
+            $post["post_text"] = $this->replace($post["post_text"]);
+            $post["post_tags"] = $this->replace($post["post_tags"]);
             $posts[$key] = $post;
         }
         return $posts;
