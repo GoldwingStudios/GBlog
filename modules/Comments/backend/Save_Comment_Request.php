@@ -16,7 +16,7 @@ class Save_Comment_Request {
     public function Write_Comment($post_id) {
         $post_id = intval($post_id);
         $comment_name = filter_input(INPUT_POST, "user_name");
-        $comment_mail = $this->check_mail(filter_input(INPUT_POST, "user_mail")) ? null : filter_input(INPUT_POST, "user_mail");
+        $comment_mail = $this->check_mail(filter_input(INPUT_POST, "user_mail"));
         $comment_text = filter_input(INPUT_POST, "user_text");
         $comment_date = $this->get_date();
         $comment_valid = 0;
@@ -35,7 +35,7 @@ class Save_Comment_Request {
     }
 
     function check_mail($mail) {
-        return preg_match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$^", $mail);
+        return filter_var($mail, FILTER_VALIDATE_EMAIL);
     }
 
 }

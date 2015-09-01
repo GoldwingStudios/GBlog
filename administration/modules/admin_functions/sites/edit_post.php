@@ -45,17 +45,17 @@ if ((isset($mode) || isset($post_id)) && USER_LOGGED_IN) {
                     <span class="page_description">Here you can adapt existing Posts!</span>
                 </div>
                 <div class="page_content">
-                    <div class="edit_post_keys">
-                        <div class="edit_post_keys__visible">
-                            Visibility: <img class="edit_post_keys__visible_example" src="./assets/images/edit_post/visible.png"/>
-                        </div>
-                        <div class="edit_post_keys__delete">
-                            Delete: <div class="edit_post_keys__delete_example">X</div>
-                        </div>
-                    </div>
                     <?php
                     if (isset($return_post) && $return_post == "" && !is_array($edit_return)) {
-                        ?> 
+                        ?>
+                        <div class="edit_post_keys">
+                            <div class="edit_post_keys__visible">
+                                Visibility: <img class="edit_post_keys__visible_example" src="./assets/images/edit_post/visible.png"/>
+                            </div>
+                            <div class="edit_post_keys__delete">
+                                Delete: <div class="edit_post_keys__delete_example">X</div>
+                            </div>
+                        </div>
                         <div class="post_list">
                             <?php
                             $Post_Edit = new Post_Edit();

@@ -45,8 +45,7 @@ class Post_Edit {
         $Post_Tags = $this->check_input(filter_input(INPUT_POST, "post_tags"), "post_tags");
         $Post_Visible = $this->check_input(filter_input(INPUT_POST, "post_visible"), "post_visible");
 
-        $count = count($this->inputs);
-        if ($count !== 0) {
+        if ($this->inputs !== 0) {
             return $this->inputs;
         } else {
             $Sql_Query = "UPDATE blog_posts SET `post_id` = :Post_ID, `post_title` = :Post_Title, `post_text` = :Post_Text, `post_date` = :Post_Date, `post_visible` = :Post_Visible, `post_tags` = :Post_Tags WHERE `post_id` = :Post_ID";
@@ -82,7 +81,7 @@ class Post_Edit {
             case "vis":
                 $ID = intval($post_id);
 
-                $sql_str = "UPDATE blog_posts SET `post_visible`='1' WHERE `post_id` = :Post_ID ";
+                $Sql_Query = "UPDATE blog_posts SET `post_visible`='1' WHERE `post_id` = :Post_ID ";
                 $Parameter = array(":Post_ID" => $ID);
 
                 $return = $this->Connection->Execute_PDO_Command($Sql_Query, $Parameter);
@@ -90,7 +89,7 @@ class Post_Edit {
             case "hid":
                 $ID = intval($post_id);
 
-                $sql_str = "UPDATE blog_posts SET `post_visible`='0' WHERE `post_id` = :Post_ID ";
+                $Sql_Query = "UPDATE blog_posts SET `post_visible`='0' WHERE `post_id` = :Post_ID ";
                 $Parameter = array(":Post_ID" => $ID);
 
                 $return = $this->Connection->Execute_PDO_Command($Sql_Query, $Parameter);
@@ -115,32 +114,32 @@ class Post_Edit {
                 if ($edit_return) {
                     if ($p["post_visible"] == 1) {
                         echo '<div id="post_' . $id . '" class="blog_post_container_success" >'
-                        . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=hid&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'>X</div>'
+                        . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=hid&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'><div class="delete_blog_post__center_x">X</div></div>'
                         . '</div>';
                     } else {
                         echo '<div id="post_' . $id . '" class="blog_post_container_success" >'
-                        . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=vis&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/not_visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'>X</div>'
+                        . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=vis&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/not_visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'><div class="delete_blog_post__center_x">X</div></div>'
                         . '</div>';
                     }
                 } else {
                     if ($p["post_visible"] == 1) {
                         echo '<div id="post_' . $id . '" class="blog_post_container" >'
-                        . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=hid&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'>X</div>'
+                        . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=hid&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'><div class="delete_blog_post__center_x">X</div></div>'
                         . '</div>';
                     } else {
                         echo '<div id="post_' . $id . '" class="blog_post_container" >'
-                        . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=vis&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/not_visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'>X</div>'
+                        . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=vis&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/not_visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'><div class="delete_blog_post__center_x">X</div></div>'
                         . '</div>';
                     }
                 }
             } else {
                 if ($p["post_visible"] == 1) {
                     echo '<div id="post_' . $id . '" class="blog_post_container" >'
-                    . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=hid&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'>X</div>'
+                    . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=hid&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'><div class="delete_blog_post__center_x">X</div></div>'
                     . '</div>';
                 } else {
                     echo '<div id="post_' . $id . '" class="blog_post_container" >'
-                    . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=vis&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/not_visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'>X</div>'
+                    . '<div class="blog_post" onclick=\'window.location.href="index.php?sm=edit&id=' . $id . '"\' title="Date: ' . $date . '"><span class="post_title_t">' . $title . '</span></div><div class="show_hide_blog_post" title="Show/Hide this post!" onclick=\'window.location.href="index.php?sm=edit&m=soh&func=vis&id=' . $id . '"\'><img alt="visible" src="./assets/images/edit_post/not_visible.png"/></div><div class="delete_blog_post" title="Delete this post!" onclick=\'window.location.href="index.php?sm=edit&m=del&id=' . $id . '"\'><div class="delete_blog_post__center_x">X</div></div>'
                     . '</div>';
                 }
             }

@@ -6,7 +6,7 @@ abstract class Enumerations {
 
     public static function getConstants() {
         if (self::$constCacheArray == NULL) {
-            self::$constCacheArray = [];
+            self::$constCacheArray = array();
         }
         $calledClass = get_called_class();
         if (!array_key_exists($calledClass, self::$constCacheArray)) {

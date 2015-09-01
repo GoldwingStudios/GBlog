@@ -23,8 +23,8 @@ class Change_Password {
 
         $same = $Old_Password == $Current_Password;
         if ($Old_Password == $Current_Password["usr_password"]) {
-            $New_Password = md5(filter_input(INPUT_POST, "new_pass"));
-            $New_Password_Confirm = md5(filter_input(INPUT_POST, "new_pass_confirmation"));
+            $New_Password = hash("sha512", filter_input(INPUT_POST, "new_pass"));
+            $New_Password_Confirm = hash("sha512", filter_input(INPUT_POST, "new_pass_confirmation"));
             $same_p = $New_Password == $New_Password_Confirm;
             if ($New_Password == $New_Password_Confirm && $New_Password != $Current_Password) {
                 $Sql_Query = "UPDATE blog_users SET usr_password = :User_Password WHERE usr_username = :Username ";
