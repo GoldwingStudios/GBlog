@@ -5,57 +5,66 @@ $(document).ready(function() {
     search_bar.empty();
 
     search_bar.keyup(function() {
-        $(".blog__entry").remove();
-        $.ajax({
-            url: "backend/full_text_search.php",
-            type: "POST",
-            data: {search_tag: search_bar.val()}
-        })
-                .done(function(data) {
-                    $(".blog__entry").remove();
-                    if (data.length > 0)
-                    {
-                        try
+        var search_string = search_bar.val();
+        var lastChar = search_string.substr(search_string.length - 1)
+        if (lastChar != " " && lastChar != "")
+        {
+            $(".blog__entry").remove();
+            $.ajax({
+                url: "backend/full_text_search.php",
+                type: "POST",
+                data: {search_tag: search_bar.val()}
+            })
+                    .done(function(data) {
+                        $(".blog__entry").remove();
+                        if (data.length > 0)
                         {
-                            var return_ = JSON.parse(data);
-                            for (var i = 0; i < return_.length; i++)
+                            try
                             {
-                                console.log(return_);
-                                var id = generate_blog_id(return_[i]["post_id"]);
-                                var title = return_[i]["post_title"];
-                                var date = convert_date(return_[i]["post_date"]);
-                                var text = get_preview(return_[i]["post_text"]);
-                                var xy = '<a class="blog__entry" href="index.php?post=' + id + '"> \
+                                var return_ = JSON.parse(data);
+                                for (var i = 0; i < return_.length; i++)
+                                {
+                                    console.log(return_);
+                                    var id = generate_blog_id(return_[i]["post_id"]);
+                                    var title = return_[i]["post_title"];
+                                    var date = convert_date(return_[i]["post_date"]);
+                                    var text = get_preview(return_[i]["post_text"]);
+                                    var xy = '<a class="blog__entry" href="index.php?post=' + id + '"> \
                                                 <div class="blog__entry__header"> \
                                                     <h2>' + title + '</h2> \
                                                     <span class="blog__entry__date">' + date + '</span> \
                                                 </div> \
                                                 <p>' + text + ' ...</p>\
                                                 </a>';
-                                blog_posts.append(xy);
-                            }
-                            if (return_.length == 0)
-                            {
-                                blog_posts.append('<a class="blog__entry"> \
+                                    blog_posts.append(xy);
+                                }
+                                if (return_.length == 0)
+                                {
+                                    blog_posts.append('<a class="blog__entry"> \
                                                     <div class="blog__entry__header"> \
                                                     <h2>No Posts found!</h2> \
                                                     <span class="blog__entry__date"></span> \
                                                 </div> \
                                                 <p></p>\
                                                 </a>');
+                                }
+                            } catch (e)
+                            {
+                                console.log(e);
                             }
-                        } catch (e)
-                        {
-                            console.log(e);
                         }
-                    }
-                })
-                .fail(function() {
+                    })
+                    .fail(function() {
 
-                })
-                .always(function() {
+                    })
+                    .always(function() {
 
-                });
+                    });
+        }
+        else if (search_string == "")
+        {
+            $(".blog__entry").remove();
+        }
     });
 
     function generate_blog_id(id) {
