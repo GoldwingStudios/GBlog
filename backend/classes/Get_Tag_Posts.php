@@ -141,7 +141,7 @@ class Get_Tag_Posts {
      */
 
     private function get_posts() {
-        $get_posts = "SELECT * FROM blog_posts";
+        $get_posts = "SELECT * FROM blog_posts ORDER BY post_date DESC";
         $posts = $this->Connection->Return_PDO_Array($get_posts);
         return $posts;
     }
