@@ -9,3 +9,10 @@
 body {    
     background-color: #f4f4f4;
 }
+
+.invisible_block
+{
+    position:absolute;
+    clip: rect(1px 1px 1px 1px); /* IE6 & 7 */
+    clip: rect(1px, 1px, 1px, 1px);
+}
