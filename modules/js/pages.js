@@ -24,5 +24,6 @@ $(document).ready(function() {
         post_count_per_site = ID * 10;
         $(".blog__content > a").removeClass("blog__entry").addClass("invisible_block");
         $(".blog__content > a").slice(post_count_start, post_count_per_site).removeClass("invisible_block").addClass("blog__entry");
+        window.scrollTo(0, 0);
     });
 });
