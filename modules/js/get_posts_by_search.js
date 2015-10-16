@@ -1,10 +1,13 @@
 $(document).ready(function() {
     var search_bar = $("#search_bar");
     var blog_posts = $(".blog__content");
+    var typingTimer;                //timer identifier
+    var doneTypingInterval = 20;  //time in ms, 5 second for example
 
     search_bar.empty();
 
     search_bar.keyup(function() {
+        clearTimeout(typingTimer);
         var search_string = search_bar.val();
         var lastChar = search_string.substr(search_string.length - 1)
         if (lastChar != " " && lastChar != "")
@@ -65,6 +68,7 @@ $(document).ready(function() {
         {
             $(".blog__entry").remove();
         }
+        typingTimer = setTimeout(doneTyping, doneTypingInterval);
     });
 
     function generate_blog_id(id) {
@@ -139,4 +143,27 @@ $(document).ready(function() {
             }
         }
     }
+
+    var doneTyping = function() {
+        $('[id^="post__page"]').remove();
+        var post_count_per_site = 10;
+        var posts_count = $(".blog__entry").length;
+        if (posts_count > 0)
+        {
+            var pages = Math.ceil(posts_count / 10);
+            for (var i = 1; i <= pages; i++)
+            {
+                if (post_count_per_site / 10 == i)
+                {
+                    $(".blog__content").append('<div class="post__page_disabled" id="post__page' + i + '">' + i + "</div>");
+                }
+                else
+                {
+                    $(".blog__content").append('<div class="post__page" id="post__page' + i + '">' + i + "</div>");
+                }
+            }
+
+            $(".blog__entry").slice(post_count_per_site, $(".blog__entry").length).removeClass("blog__entry").addClass("invisible_block");
+        }
+    };
 });
