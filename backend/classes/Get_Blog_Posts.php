@@ -24,7 +24,7 @@ class Blog_Posts {
      */
 
     private function output_post($Post) {
-        $Post_ID = $this->General_Functions->generate_blog_id($Post["post_title"]);
+        $Post_ID = $this->General_Functions->Generate_Blog_ID($Post["post_title"]);
         $Post_Date = new DateTime($Post["post_date"]);
         $Post_Date_Formatted = $Post_Date->format("d.m.Y, H:i");
         $Post_Title = htmlentities($Post["post_title"], ENT_COMPAT, "UTF-8");

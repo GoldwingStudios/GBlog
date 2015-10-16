@@ -29,7 +29,7 @@ class Show_Post {
 
     private function clean_up($ID) {
         foreach ($this->Post_Data as $post) {
-            if ($ID == $this->General_Functions->generate_blog_id($post["post_title"])) {
+            if ($ID == $this->General_Functions->Generate_Blog_ID($post["post_title"])) {
                 $this->Post_ID_numeric = $post["post_id"];
                 $this->Title = htmlentities($post["post_title"], ENT_COMPAT, "UTF-8");
                 $this->Text = $this->prepare_text($post["post_text"]);
@@ -59,6 +59,7 @@ class Show_Post {
     }
 
     private function output_post($set_up_post, $Post_ID_numeric, $Post_ID_string) {
+        $this->General_Functions->Change_HTML_Title($this->Title);
         echo '<div class="blog__fullentry">';
         echo $set_up_post;
         echo '</div>';

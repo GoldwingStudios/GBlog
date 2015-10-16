@@ -6,7 +6,7 @@ class General_Functions {
      * The Blog-ID is visible in the URL
      */
 
-    public function generate_blog_id($id) {
+    public function Generate_Blog_ID($id) {
 
         $id = str_replace("~", "_", $id);
         $id = str_replace("-", "_", $id);
@@ -55,6 +55,11 @@ class General_Functions {
 
 
         return $id;
+    }
+
+    public function Change_HTML_Title($text) {
+        $text_decoded = html_entity_decode($text);
+        echo "<script>$(document).attr('title', 'Post: $text_decoded --- ' + $(document).attr('title'));</script>";
     }
 
 }
