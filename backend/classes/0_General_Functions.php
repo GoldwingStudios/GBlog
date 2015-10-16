@@ -59,7 +59,8 @@ class General_Functions {
 
     public function Change_HTML_Title($text) {
         $text_decoded = html_entity_decode($text);
-        echo "<script>$(document).attr('title', 'Post: $text_decoded --- ' + $(document).attr('title'));</script>";
+        $output_title = "<script>$(document).attr('title'," . "\"Post: $text_decoded --- \" + $(document).attr('title'));</script>";
+        echo $output_title;
     }
 
 }
