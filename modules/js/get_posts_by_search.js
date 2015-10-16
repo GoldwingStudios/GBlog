@@ -25,7 +25,7 @@ $(document).ready(function() {
                                 for (var i = 0; i < return_.length; i++)
                                 {
                                     console.log(return_);
-                                    var id = generate_blog_id(return_[i]["post_id"]);
+                                    var id = generate_blog_id(return_[i]["post_title"]);
                                     var title = return_[i]["post_title"];
                                     var date = convert_date(return_[i]["post_date"]);
                                     var text = get_preview(return_[i]["post_text"]);
@@ -68,11 +68,45 @@ $(document).ready(function() {
     });
 
     function generate_blog_id(id) {
-        var return_ = id;
-        while (return_.length <= 3) {
-            return_ = "0" + return_;
-        }
-        return return_;
+        id = id.replace(/~/g, "_");
+        id = id.replace(/-/g, "_");
+        id = id.replace(/ /g, '_');
+        id = id.replace(/ä/g, "ae");
+        id = id.replace(/ö/g, "oe");
+        id = id.replace(/ü/g, "ue");
+        id = id.replace(/ß/g, "ss");
+
+        id = id.replace(/\./g, "");
+        id = id.replace(/:/g, "");
+        id = id.replace(/,/g, "");
+        id = id.replace(/;/g, "");
+        id = id.replace(/|/g, "");
+        id = id.replace(/</g, "");
+        id = id.replace(/>/g, "");
+        id = id.replace(/@/g, "");
+        id = id.replace(/µ/g, "");
+        id = id.replace(/#/g, "");
+        id = id.replace(/\+/g, "");
+        id = id.replace(/'/g, "");
+        id = id.replace(/!/g, "");
+        id = id.replace(/\?/g, "");
+        id = id.replace(/\\/g, "");
+        id = id.replace(/\*/g, "");
+        id = id.replace(/{/g, "");
+        id = id.replace(/}/g, "");
+        id = id.replace(/\(/g, "");
+        id = id.replace(/\)/g, "");
+        id = id.replace(/\[/g, "");
+        id = id.replace(/\]/g, "");
+        id = id.replace(/=/g, "");
+        id = id.replace(/´/g, "");
+        id = id.replace(/`/g, "");
+        id = id.replace(/"/g, "");
+        id = id.replace(/§/g, "");
+        id = id.replace(/%/g, "");
+        id = id.replace(/&/g, "und");
+        id = id.replace(/\\/g, "");
+        return id.toLowerCase();
     }
 
     var convert_date = function(date_) {

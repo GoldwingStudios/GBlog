@@ -47,13 +47,13 @@ class Post_Search {
                     $variables[$tag_1] = "%$tag%";
                     $variables[$tag_2] = "%$tag%";
                     $variables[$tag_3] = "%$tag%";
-                    $get_posts = "SELECT * FROM ($source_string) AS $random_string WHERE post_title LIKE $tag_1 OR post_text LIKE $tag_2 OR post_tags LIKE $tag_3 ";
+                    $get_posts = "SELECT * FROM ($source_string) AS $random_string WHERE post_title LIKE $tag_1 OR post_text LIKE $tag_2 OR post_tags LIKE $tag_3 ORDER BY post_date DESC ";
                     $source_string = $get_posts;
                 } else {
                     $tag_1 = ":TAG" . $i++;
                     $tag_2 = ":TAG" . $i++;
                     $tag_3 = ":TAG" . $i++;
-                    $source_string = "SELECT * FROM blog_posts WHERE post_title LIKE $tag_1 OR post_text LIKE $tag_2 OR post_tags LIKE $tag_3 ";
+                    $source_string = "SELECT * FROM blog_posts WHERE post_title LIKE $tag_1 OR post_text LIKE $tag_2 OR post_tags LIKE $tag_3 ORDER BY post_date DESC ";
                     $variables[$tag_1] = "%$tag%";
                     $variables[$tag_2] = "%$tag%";
                     $variables[$tag_3] = "%$tag%";
