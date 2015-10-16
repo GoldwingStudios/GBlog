@@ -3,7 +3,7 @@
 class Blog_Posts {
 
     public function __construct() {
-        
+        $this->General_Functions = new General_Functions();
     }
 
     /*
@@ -24,7 +24,7 @@ class Blog_Posts {
      */
 
     private function output_post($Post) {
-        $Post_ID = $this->generate_blog_id($Post["post_id"]);
+        $Post_ID = $this->General_Functions->generate_blog_id($Post["post_title"]);
         $Post_Date = new DateTime($Post["post_date"]);
         $Post_Date_Formatted = $Post_Date->format("d.m.Y, H:i");
         $Post_Title = htmlentities($Post["post_title"], ENT_COMPAT, "UTF-8");
@@ -46,19 +46,6 @@ class Blog_Posts {
         . '<h2>' . $Post_Title . '</h2><span class="blog__entry__date">' . $Post_Date_Formatted . '</span></div>'
         . '<p>' . $Post_Text . ' [...]</p>'
         . '</a>';
-    }
-
-    /*
-     * Generates a blog-ID for the specific post-ID.
-     * The Blog-ID is visible in the URL
-     */
-
-    private function generate_blog_id($id) {
-        $return = $id;
-        while (strlen($return) <= 3) {
-            $return = "0" . $return;
-        }
-        return $return;
     }
 
     /*

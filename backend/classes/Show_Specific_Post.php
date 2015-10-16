@@ -2,56 +2,42 @@
 
 class Show_Post {
 
-    var $id, $title, $text, $date, $visible;
+    var $title, $text, $date, $visible;
 
     public function __construct() {
         $this->Connection = new DB_Connect();
+        $this->General_Functions = new General_Functions();
     }
 
-    public function GetSpecificPost($ID) {
+    public function GetSpecificPost($Post_ID_string) {
         $set_up_post = "";
-        if (is_numeric($ID)) {
-            $id_ = intval($ID);
-            $id = (string) $ID;
-            $this->get_post_data($id_);
-            if (!empty($this->Post_Data)) {
-                $this->clean_up();
-                $set_up_post = $this->set_up();
-            }
+        $this->get_post_data($Post_ID_string);
+        if (!empty($this->Post_Data)) {
+            $this->clean_up($Post_ID_string);
+            $set_up_post = $this->set_up();
+            $this->output_post($set_up_post, $this->Post_ID_numeric, $Post_ID_string);
         } else {
-            $set_up_post = '<script>window.location.replace("index.php");</script>';
+            echo '<script>window.location.replace("index.php");</script>';
         }
-        echo '<div class="blog__fullentry">';
-        echo $set_up_post;
-        echo '</div>';
-        include "modules/Comments/frontend/Comment_Section.php";
     }
 
-    private function get_post_data($id_) {
+    private function get_post_data() {
 
-        $SQL_String = "SELECT * FROM blog_posts WHERE post_id = :Post_ID ";
-        $Parameter = array(":Post_ID" => $id_);
-
-        $this->Post_Data = $this->Connection->Return_PDO_Array($SQL_String, $Parameter);
+        $SQL_String = "SELECT * FROM blog_posts ORDER BY post_date DESC ";
+        $this->Post_Data = $this->Connection->Return_PDO_Array($SQL_String);
     }
 
-    private function clean_up() {
-        $this->Title = htmlentities($this->Post_Data[0]["post_title"], ENT_COMPAT, "UTF-8");
-        $this->Text = $this->prepare_text($this->Post_Data[0]["post_text"]);
-        $this->Date = htmlentities($this->prepare_date($this->Post_Data[0]["post_date"]), ENT_COMPAT, "UTF-8");
-        $this->Visible = htmlentities($this->Post_Data[0]["post_visible"], ENT_COMPAT, "UTF-8");
-
-        $tags = htmlentities($this->Post_Data[0]["post_tags"], ENT_COMPAT, "UTF-8");
-        $tag_str = "";
-        $tags = explode(",", $tags);
-        $tags = str_replace(" ", "", $tags);
-        foreach ($tags as $t) {
-            if ($t != "") {
-                $tag_url = $this->switch_from_special($t);
-                $tag_str .= '<a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
+    private function clean_up($ID) {
+        foreach ($this->Post_Data as $post) {
+            if ($ID == $this->General_Functions->generate_blog_id($post["post_title"])) {
+                $this->Post_ID_numeric = $post["post_id"];
+                $this->Title = htmlentities($post["post_title"], ENT_COMPAT, "UTF-8");
+                $this->Text = $this->prepare_text($post["post_text"]);
+                $this->Date = htmlentities($this->prepare_date($post["post_date"]), ENT_COMPAT, "UTF-8");
+                $this->Visible = htmlentities($post["post_visible"], ENT_COMPAT, "UTF-8");
+                $this->set_Tags(htmlentities($post["post_tags"], ENT_COMPAT, "UTF-8"));
             }
         }
-        $this->Tags = $tag_str;
     }
 
     private function set_up() {
@@ -72,6 +58,26 @@ class Show_Post {
         return $output_post;
     }
 
+    private function output_post($set_up_post, $Post_ID_numeric, $Post_ID_string) {
+        echo '<div class="blog__fullentry">';
+        echo $set_up_post;
+        echo '</div>';
+        include "modules/Comments/frontend/Comment_Section.php";
+    }
+
+    private function set_Tags($tags) {
+        $tag_str = "";
+        $tags = explode(",", $tags);
+        $tags = str_replace(" ", "", $tags);
+        foreach ($tags as $t) {
+            if ($t != "") {
+                $tag_url = $this->switch_from_special($t);
+                $tag_str .= '<a href="index.php?tag=' . $tag_url . '">' . $t . '</a>';
+            }
+        }
+        $this->Tags = $tag_str;
+    }
+
     private function switch_from_special($str) {
         $str = str_replace("&auml;", "ae", $str);
         $str = str_replace("&ouml;", "oe", $str);
@@ -81,8 +87,6 @@ class Show_Post {
     }
 
     private function prepare_text($value) {
-        //Umlaute
-
         $value = str_replace("\r\n", "<br>", $value);
         $value = str_replace("_", "<br>", $value);
 
