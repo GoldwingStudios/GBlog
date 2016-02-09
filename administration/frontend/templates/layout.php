@@ -7,8 +7,8 @@
  * 
  */
 if ((USER_LOGGED_IN && isset($_GET["logout"])) || (!USER_LOGGED_IN && isset($_GET["logout"]))) {
-    $Logout_Module = new Logout();
-    $Logout_Module->Run();
+	$Logout_Module = new Logout();
+	$Logout_Module->Run();
 }
 
 $p = new Page();
@@ -18,9 +18,9 @@ echo '<div class="container">';
 ?>
 
 <div class = "image_container">
-    <a href="http://www.goldwingstudios.de" target="_blank">
-        <img class="gws_banner" src="assets/images/fgws.png"/>
-    </a>
+	<a href="http://www.goldwingstudios.de" target="_blank">
+		<img class="gws_banner" src="assets/images/fgws.png"/>
+	</a>
 </div>
 
 <?php

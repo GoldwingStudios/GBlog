@@ -35,14 +35,15 @@ class Show_Post {
                 $this->Text = $this->prepare_text($post["post_text"]);
                 $this->Date = htmlentities($this->prepare_date($post["post_date"]), ENT_COMPAT, "UTF-8");
                 $this->Visible = htmlentities($post["post_visible"], ENT_COMPAT, "UTF-8");
+                $this->Post_Image_Path = $post["post_image_path"];
                 $this->set_Tags(htmlentities($post["post_tags"], ENT_COMPAT, "UTF-8"));
             }
         }
     }
 
     private function set_up() {
-        if (!empty($this->Post_Data[0]["post_image_path"])) {
-            $post_image = '<img class="blog__entry__image__spec" src="' . $this->Post_Data[0]["post_image_path"] . '"/><br><br>';
+        if (!empty($this->Post_Image_Path)) {
+            $post_image = '<img class="blog__entry__image__spec" src="' . $this->Post_Image_Path . '"/><br><br>';
         } else {
             $post_image = "";
         }
@@ -108,7 +109,7 @@ class Show_Post {
     }
 
     private function prepare_date($date) {
-        $date_object = date("d.m.Y, H:i:s", strtotime($date));
+        $date_object = date("d.m.Y, H:i", strtotime($date));
         return $date_object;
     }
 

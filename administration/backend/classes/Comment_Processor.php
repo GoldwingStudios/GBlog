@@ -17,7 +17,7 @@ class Comment_Processor {
                 break;
             case "delete":
                 $Post_ID = intval($id);
-                $Sql_Query = "UPDATE blog_comments SET `comment_valid`='0' WHERE `id` = :Post_ID ";
+                $Sql_Query = "UPDATE blog_comments SET `comment_valid`='-1' WHERE `id` = :Post_ID ";
                 $Parameter = array(":Post_ID" => $Post_ID);
                 $return = $this->Connection->Execute_PDO_Command($Sql_Query, $Parameter);
                 break;
@@ -40,11 +40,13 @@ class Comment_Processor {
                     }
                 }
             }
+        } else {
+            echo '<div class="label label-warning" style="font-size: 17px;">No Comments!</div>';
         }
     }
 
     private function Get_Comments() {
-        $Sql_Query = "SELECT * FROM blog_comments WHERE comment_valid != 1";
+        $Sql_Query = "SELECT * FROM blog_comments WHERE comment_valid = '0'";
 
         $Comments = $this->Connection->Return_PDO_Array($Sql_Query);
         return $Comments;

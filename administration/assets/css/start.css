@@ -6,13 +6,12 @@
  * 
  */
 
-div.start
-{
+ div.start
+ {
     position: relative;
     margin: 50px auto;
     width: 90%;
     z-index: 100;
-    min-height: 100%;
 }
 
 div.blog_posts
@@ -112,8 +111,6 @@ div.post_text
 div.login_form__login
 {
     position: relative;
-    float: left;
-    height: 100%;
     width: 45%;
     margin: 0 auto;
 }
@@ -121,11 +118,10 @@ div.login_form__login
 div.login_form__explanation
 {
     position: relative;
-    float: right;
     width: 45%;
-    height: 100%;
-    /*    text-align: center;*/
     margin: 0 auto;
+    color: #FFFFFF;
+    margin-bottom: 15px;
 }
 
 div.login_form__explanation > h1
@@ -133,6 +129,7 @@ div.login_form__explanation > h1
     width: 100%;
     height: 43px;
     margin: 45px auto;
+    margin-bottom: 0;
     text-align: center;
 }
 
@@ -149,14 +146,14 @@ div.login_header
 {
     position: relative;
     margin-top: 35px;
-    left: 45px;
+    margin-left: 45px;
 }
 
 div.login_text
 {
     position: relative;
     margin-top: 25px;
-    left: 45px;
+    margin-left: 45px;
 }
 
 div.login_form
@@ -165,66 +162,96 @@ div.login_form
     margin: 0 auto;
     margin-top: 50px;
     margin-bottom: 20px;
-    /*    left: 45px;*/
     width: 55%;
     height: 375px;
-    background: #F7F2E0;
+    background: rgba(75, 75, 75, 0.6);
     border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
     -webkit-border-radius: 5px 5px 5px 5px;
-    border: 2px #000000 dashed;
+    border: 2px #a52a2a solid;
 }
 
 div.login_form_input_usr
 {
     position: relative;
-    margin-left: 45px;
-    margin-top: 45px;
+    text-align: center;
 }
 
 div.login_form_input_psw
 {
     position: relative;
-    margin-left: 45px;
-    margin-top: 25px;
+    text-align: center;
 }
 
 div.login_form_submit
 {
     position: relative;
     margin: 0 auto;
-    margin-top: 35px;
+    margin-top: 20px;
     width: 90%;
-    text-align: right;
+    text-align: center;
 }
 
-input.login_input
+.login_input
 {
-    width: 75%;
+    display: block;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px; 
+    border-radius: 4px;
 }
 
-input.login_input_red
-{
-    width: 250px;
-    border: 1px #FF0000 solid;
-}
-
-span.login_form_text
+.login_form_text
 {
     font-size: 22px;
     margin-left: 2px;
+    color: #FFFFFF;
 }
 
+.login_form_input
+{
+    width: 75%;
+    margin: 0 auto;
+}
 
+.submit_button
+{
+    text-decoration:none; text-align:center; 
+    padding:11px 32px; 
+    border:solid 1px #004F72; 
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px; 
+    border-radius: 4px; 
+    font:15px Georgia, "Times New Roman", Times, serif; 
+    font-weight:bold; 
+    color:#FFFFFF; 
+    background:#a52a2a; 
+    -webkit-box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff; 
+    -moz-box-shadow: 0px 0px 2px #bababa,  inset 0px 0px 1px #ffffff;  
+    box-shadow:0px 0px 2px #bababa, inset 0px 0px 1px #ffffff;  
+    opacity:0.86; 
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=86); 
+    filter: alpha(opacity=86); 
+    text-shadow: 0px 0px 6px #ffffff; 
+    filter: dropshadow(color=#ffffff, offx=0, offy=0);
+}
+.submit_button:hover
+{
+ padding:11px 32px; 
+ border:solid 1px #004F72; 
+ -webkit-border-radius:4px;
+ -moz-border-radius:4px; 
+ border-radius: 4px; 
+ font:15px Georgia, "Times New Roman", Times, serif; 
+ font-weight:bold; 
+ color:#FFFFFF; 
+ background: #a30c0c; 
+ -webkit-box-shadow:0px 0px 2px #bababa, inset 0px 0px 4px #ffffff; 
+ -moz-box-shadow: 0px 0px 2px #bababa,  inset 0px 0px 4px #ffffff;  
+ box-shadow:0px 0px 2px #bababa, inset 0px 0px 4px #ffffff;  
 
-
-
-
-
-
-
-
-
+ text-shadow: 0px 0px 6px #ffffff; 
+ filter: dropshadow(color=#ffffff, offx=0, offy=0);
+}
 
 span.post_title_t
 {

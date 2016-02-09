@@ -4,10 +4,10 @@
  * Autor: GOLDWINGSTUDIOS - goldwingstudios.de
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
- */
+ **/
 
-html
-{
+ html
+ {
     width: 100%;
     height: 100%;
     margin: 0px;
@@ -38,7 +38,7 @@ div.container
 {
     position: relative;
     top: 0px;
-    height: 75%;
+    max-height: 100%;
     width: 80%;
     margin: 0 auto;
     display: block;
@@ -48,7 +48,6 @@ div.content_layout
 {
     position: relative;
     margin: 0 auto;
-    top: 50px;
     width: 100%;
     height: 100%;
     background: #FFFFFF;
@@ -70,7 +69,7 @@ div.page_content_
 
 div.navigation
 {
-    position: absolute;
+    position: relative;
     height: 50px;
     width: 100%;
     top: 0px;
@@ -114,7 +113,6 @@ div.start
     margin: 50px auto;
     width: 90%;
     z-index: 100;
-    min-height: 100%;
 }
 
 div.page_title
@@ -131,6 +129,17 @@ div.page_content
     margin: 7.5% auto;
     width: 80%;
     height: 55%;
+}
+
+.hovering-message
+{
+    position: fixed;
+    min-height: 100px;
+    width: 175px;
+    background: #FFFFFF;
+    border: 2px solid #FE2E2E;
+    word-wrap: break-word;
+    z-index: 9999;
 }
 
 span.page_title
@@ -199,6 +208,13 @@ a.delete-installer
     display: block;
     float: right;
     margin-bottom: 5px;
+}
+
+.clearfix
+{
+    content: '';
+    content: none;
+    clear: both;
 }
 
 @font-face {

@@ -5,21 +5,10 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */-->
-<?php
-if (file_exists("installer.php")) {
-    ?>
-    <div class="alert alert-warning">
-        <span>
-            The Installer-File still exists!<br/>Please delete it soon!
-        </span>
-        <a class="btn btn-info delete-installer" href="modules/admin_functions/functions/delete_installer.php">
-            Delete!
-        </a>
-    </div>
-    <?php
-}
-$user_type = $_SESSION["User_Type"];
-if ($user_type == "Blog-Autor" || $user_type == "Administrator") {
+ <?php
+ include "modules/admin_functions/functions/sites/delete_installer.php";
+ $user_type = $_SESSION["User_Type"];
+ if ($user_type == "Blog-Autor" || $user_type == "Administrator") {
     ?>
     <div class="function_category">
         <u><b><span>Posts</span></b></u>
@@ -38,6 +27,7 @@ if ($user_type == "Account Manager" || $user_type == "Administrator") {
         <ul>
             <!--        <li><a href="?sm=ubf">Updates</a></li>-->
             <li><a href="?sm=ums">User Management System</a></li>
+            <!--<li><a href="?sm=blw">Change Blog Layout</a></li>-->
             <li><a href="?sm=some">SocialMedia Links</a></li>
             <!--<li><a href="?sm=analytics">View Analytics</a></li>-->
         </ul>

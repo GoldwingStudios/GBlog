@@ -12,7 +12,8 @@ if (isset($Social_Media_Links->links) && $Social_Media_Links->links != "" && $_S
 }
 $Return_SML = $Social_Media_Links->Get_SML();
 ?>
-<script src="modules/js/SML_AddNewLink.js"></script>
+<script src="modules/js/General/Hover_Messages.js"></script>
+<script src="modules/js/SML/SML_AddNewLink.js"></script>
 <div class="start">
     <div class="navigation">
         <?php
@@ -49,33 +50,42 @@ $Return_SML = $Social_Media_Links->Get_SML();
                         ?>
 
                         <form id="social_media_form" method="post" action="index.php?sm=some">
-                            <?php
-                            if (!empty($Return_SML)) {
-                                $counter = 1;
-                                foreach ($Return_SML as $sml_link) {
-                                    ?>
-                                    <div class="social_media">
-                                        <?php
-                                        if (isset($sml_link["sml_link"])) {
-                                            ?>
-                                            <div id="SML_ID_<?php echo $counter; ?>" class = "social_media">
-                                                <input id="<?php echo $counter; ?>_type" class="social_media_input_type" name="<?php echo $sml_link["sml_type"] ?>_type" type="text" placeholder="Input a type" value="<?php echo $sml_link["sml_type"] ?>"/>
-                                                <input id="<?php echo $counter; ?>_link" class="social_media_input_link" name="<?php echo $sml_link["sml_type"] ?>_link" type="text" placeholder="Input a link" value="<?php echo $sml_link["sml_link_text"] ?>" />
-                                                <img id="<?php echo $counter; ?>" class="SML_delete_Link" src="../assets/images/delete.svg" />
-                                            </div>
-                                            <?php
-                                        } else {
-                                            ?>
-                                            <input class="social_media_input" type="text" name="youtube_link" placeholder="Input a <?php ucfirst($sml_link["sml_type"]) ?> link" />
-                                            <?php
-                                        }
+                            <div class="SML_Entry_Container">
+                                <?php
+                                if (!empty($Return_SML)) {
+                                    $counter = 1;
+                                    foreach ($Return_SML as $sml_link) {
                                         ?>
-                                    </div>
-                                    <?php
+                                        <div class="social_media">
+                                            <?php
+                                            if (isset($sml_link["sml_link"])) {
+                                                ?>
+                                                <div id="SML_ID_<?php echo $counter; ?>" class="social_media">
+                                                    <input id="<?php echo $counter; ?>_type" class="social_media_input_type" name="sml_type[]" type="text" placeholder="Input a type" value="<?php echo $sml_link["sml_type"] ?>"/>
+                                                    <input id="<?php echo $counter; ?>_link" class="social_media_input_link" name="sml_link[]" type="text" placeholder="Input a link" value="<?php echo $sml_link["sml_link"] ?>" />
+                                                    <img id="<?php echo $counter; ?>" class="SML_delete_Link" src="../assets/images/delete.svg" />
+                                                    <?php
+                                                    if (isset($sml_link["image_message"])) {
+                                                        ?>
+                                                        <div class="label label-warning message-on-hover" data-message="<?php echo $sml_link["image_message"] ?>">Info</div>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </div>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <input class="social_media_input" type="text" name="youtube_link" placeholder="Input a <?php ucfirst($sml_link["sml_type"]) ?> link" />
+                                                <?php
+                                            }
+                                            ?>
+                                        </div>
+                                        <?php
+                                    }
+                                    $counter++;
                                 }
-                                $counter++;
-                            }
-                            ?>
+                                ?>
+                            </div>
                             <div class="SML_control_container">
                                 <input class="SML_AddSocialMediaLink" id="AddSocialMediaLink" type="button" value="Add Social Media Link" />
                                 <input class="SML_Submit" name="submitted" type="submit" value="Save" />

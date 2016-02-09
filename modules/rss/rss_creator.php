@@ -4,6 +4,7 @@ class Rss_Creator {
 
     public function __construct() {
         $this->Connection = new DB_Connect();
+        $this->General_Functions = new General_Functions();
     }
 
     public function show_rss() {
@@ -25,7 +26,7 @@ class Rss_Creator {
         $sql_str = "SELECT * FROM blog_posts WHERE post_visible='1' ORDER BY post_date DESC ";
         $posts = $this->Connection->Return_PDO_Array($sql_str);
         foreach ($posts as $p) {
-            $id = $this->generate_blog_id($p["post_id"]);
+            $id = $this->General_Functions->Generate_Blog_ID($p["post_title"]);
             $date = new DateTime($p["post_date"]);
             $title = htmlentities($p["post_title"], ENT_COMPAT, "UTF-8");
             $text = $this->get_preview(str_replace("_", " ", $p["post_text"]));
@@ -52,14 +53,6 @@ class Rss_Creator {
         }
         echo "</channel>";
         echo "</rss>";
-    }
-
-    private function generate_blog_id($id) {
-        $return = $id;
-        while (strlen($return) <= 3) {
-            $return = "0" . $return;
-        }
-        return $return;
     }
 
     private function get_preview($text) {

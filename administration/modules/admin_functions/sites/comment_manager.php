@@ -5,11 +5,11 @@
  * License: (CC BY-SA 4.0) - http://creativecommons.org/licenses/by-sa/4.0/
  * 
  */-->
-<?php
-$id = filter_input(INPUT_GET, "id");
-$cmd = filter_input(INPUT_GET, "cmd");
-$Comment_Processor = new Comment_Processor();
-if (isset($id) && isset($cmd)) {
+ <?php
+ $id = filter_input(INPUT_GET, "id");
+ $cmd = filter_input(INPUT_GET, "cmd");
+ $Comment_Processor = new Comment_Processor();
+ if (isset($id) && isset($cmd)) {
     $Comment_Processor->Process_Comment($id, $cmd);
 }
 ?>

@@ -42,24 +42,24 @@
     display: inline-block;
     padding: 0px 20px;
     height: 80px;
-    line-height: 80px;
     color: white;
     letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
     font-size: 14px;
+    vertical-align: top;
+    text-align: center;
 }
 
-.nav__item > a {
+.nav__list > a {
+    display: inline-block;
     color: inherit;
     font: inherit;
     text-transform: inherit;
     letter-spacing: inherit;
-    width: 100%;
-    height: 100%;
     text-decoration: none;
-    height: 80px;
-    line-height: 80px;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .blog__wrapper {
@@ -259,18 +259,19 @@
     flex: 1;
     height: 60px;
     padding: 0 10px;
+    text-align: center;
 }
 
 .social__media__badge__title {
-    height: 35px;
-    line-height: 35px;
+    display: inline-block;
     letter-spacing: 1px;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 18px;
+    vertical-align: middle;
 }
 
 .social__media__badge__desc {
-    height: 25px;
+    display: block;
     letter-spacing: 1px;    
     font-size: 13px;
     color: gray;

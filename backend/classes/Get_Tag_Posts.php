@@ -11,6 +11,7 @@ class Get_Tag_Posts {
 
     public function __construct() {
         $this->Connection = new DB_Connect();
+        $this->General_Functions = new General_Functions();
     }
 
     /*
@@ -51,7 +52,7 @@ class Get_Tag_Posts {
      */
 
     private function writetofrontend($Post) {
-        $Post_ID = $this->generate_blog_id($Post["post_id"]);
+        $Post_ID = $this->General_Functions->Generate_Blog_ID($Post["post_title"]);
         $Post_Date = new DateTime($Post["post_date"]);
         $Post_Date_Formatted = $Post_Date->format("d.m.Y, H:i");
         $Post_Title = htmlentities($Post["post_title"], ENT_COMPAT, "UTF-8");

@@ -15,98 +15,75 @@ class Social_Media_Links {
     }
 
     public function Get_Links() {
-        foreach ($_POST as $SML_key => $SML_link) {
-            $contains_type = strpos($SML_key, "_type");
-            $contains_link = strpos($SML_key, "_link");
-            if (($contains_type === 0 || $contains_type !== FALSE) || ($contains_link === 0 || $contains_link != FALSE)) {
-                $type = str_replace("_type", "", $SML_key);
-                if ($contains_type === 0 || $contains_type !== FALSE) {
-                    if (!isset($this->links[$type])) {
-                        $this->links[$type]["type"] = $type;
-                    }
-                } else if ((int) $contains_link == 0 || $contains_link != FALSE) {
-                    $type = str_replace("_link", "", $SML_key);
-                    if (!isset($this->links[$type])) {
-                        return;
-                    } else {
-                        if ($SML_link != "") {
-                            $this->links[$type]["link"] = $SML_link;
-                        }
-                    }
-                }
+        $post_types = $_POST["sml_type"];
+        $post_links = $_POST["sml_link"];
+        $counter = 0;
+        if (count($post_types) > 0) {
+            foreach ($post_types as $SML_key => $SML_type) {
+                $this->links[$SML_type]["link"] = $post_links[$counter];
+                $counter++;
             }
         }
         if (isset($_POST["submitted"])) {
-            $this->delete_links($_POST);
+            if (count($post_types) > 0) {
+                $this->delete_links($post_types);
+            }
         }
     }
 
     public function Set_SML() {
         foreach ($this->links as $key => $value) {
-            $type = $value["type"];
+            $type = $key;
             $link = $value["link"];
             if ($type != "" && $link != "") {
-                $link_text = $this->link_setup($link);
+                $link = $this->link_setup($link);
 
                 if ($this->is_link_active($key)) {
-                    $sql_str = "UPDATE blog_social_media_links SET `sml_link`=?, `sml_link_text`=? WHERE `sml_type`=?";
-
-                    if ($stmt = $connection->prepare($sql_str)) {
-                        $stmt->bind_param("sss", $link, $link_text, $key);
-                        $return = $stmt->execute(); //returns true if succeed and otherwise false
-                    }
+                    $SQL_Str = "UPDATE blog_social_media_links SET `sml_link`=:SML_Link WHERE `sml_type`=:SML_Type";
+                    $Paramters = array(":SML_Type" => $type, ":SML_Link" => $link);
+                    $return = $this->Connection->Execute_PDO_Command($SQL_Str, $Paramters);
                 } else {
-                    $sql_str = "INSERT INTO blog_social_media_links (`sml_type`, `sml_link`, `sml_link_text`) VALUES (?, ?, ?)";
-
-                    if ($stmt = $connection->prepare($sql_str)) {
-                        $stmt->bind_param("sss", $key, $link_text, $link);
-                        $return = $stmt->execute(); //returns true if succeed and otherwise false
-                    }
+                    $SQL_Str = "INSERT INTO blog_social_media_links (`sml_type`, `sml_link`) VALUES (:SML_Type, :SML_Link)";
+                    $Paramters = array(":SML_Type" => $type, ":SML_Link" => $link);
+                    $return = $this->Connection->Execute_PDO_Command($SQL_Str, $Paramters);
                 }
-                $connection->close();
-                $connection = null;
-                break;
             }
         }
+        return $return;
     }
 
     public function Get_SML() {
         $Sql_Query = "SELECT * FROM blog_social_media_links ORDER BY sml_id ASC";
         $links = $this->Connection->Return_PDO_Array($Sql_Query);
+        $counter = 0;
+        foreach ($links as $link) {
+            $files = glob("../assets/images/social_media/" . $link["sml_type"] . ".{jpg,jpeg,png,gif,svg}", GLOB_BRACE);
+            if (count($files) == 0) {
+                $links[$counter]["image_message"] = "No Image for this Link available! Please upload one soon ;)";
+            }
+
+            $counter++;
+        }
         return $links;
     }
 
     private function is_link_active($link_type) {
-        $connection = new sql_connect();
-        $connection = $connection->mysqli();
         $sql_str = "SELECT sml_link as link FROM blog_social_media_links WHERE sml_type = '$link_type'";
 
-        if ($stmt = $connection->prepare($sql_str)) {
-            $stmt->execute(); //returns true if succeed and otherwise false
-            $stmt->bind_result($link);
-            $stmt->fetch();
-            $return = !empty($link);
-        }
-        $connection->close();
+        $return = count($this->Connection->Return_PDO_Array($sql_str)) == 1;
         return $return;
     }
 
     private function delete_links($post) {
         $links = $this->Get_SML();
-        foreach ($links as $link) {
-            $type = $link["sml_type"] . "_type";
-            if (!isset($post["$type"])) {
-                $connection = new sql_connect();
-                $connection = $connection->mysqli();
-
-                $sql_type = $link["sml_type"];
-                $SML_delete_sql = "DELETE FROM blog_social_media_links WHERE sml_type = ? ";
-
-                if ($stmt = $connection->prepare($SML_delete_sql)) {
-                    $stmt->bind_param("s", $sql_type);
-                    $return = $stmt->execute(); //returns true if succeed and otherwise false
+        if (count($links) > 0) {
+            foreach ($links as $link) {
+                $type = $link["sml_type"];
+                if (!in_array($type, $post)) {
+                    $SQL_Str = "DELETE FROM blog_social_media_links WHERE sml_type = :SML_Type ";
+                    $Paramters = array(":SML_Type" => $type);
+                    $return = $this->Connection->Execute_PDO_Command($SQL_Str, $Paramters);
                 }
-                $connection->close();
             }
         }
     }

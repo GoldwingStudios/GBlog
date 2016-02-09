@@ -21,9 +21,6 @@
             } else if (USER_LOGGED_IN && isset($_GET["logout"])) {
                 $Logout_Module = new Logout();
                 $Logout_Module->Run();
-            } else if (USER_LOGIN_ERROR) {
-                $Logout_Module = new Logout();
-                $Logout_Module->Run();
             }
             ?>
         </div>

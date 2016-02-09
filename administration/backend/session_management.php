@@ -31,6 +31,8 @@ if (isset($Username) && isset($Password)) {
             $_SESSION["User_Type"] = $User_Type;
             unset($_POST["usr_post"]);
             unset($_POST["psw_post"]);
+            header("Location: index.php");
+            exit();
         } else {
             echo '<script>alert("There was an error during the Login-Process!\nPlease check your input and try again!");</script>';
             $_SESSION["Login_Error"] = TRUE;

@@ -46,15 +46,15 @@ class Installer {
         if ($this->notexisting('blog_comments')) {
 
             $q = "CREATE TABLE `blog_comments` (
-	  `id` int(11) NOT NULL AUTO_INCREMENT,
-	  `post_id` int(11) NOT NULL,
-	  `comment_name` varchar(75) NOT NULL,
-	  `comment_mail` varchar(75) NOT NULL,
-	  `comment_text` longtext NOT NULL,
-	  `comment_date` datetime NOT NULL,
-	  `comment_valid` int(1) NOT NULL DEFAULT '0',
-	  PRIMARY KEY (`id`)
-	) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;";
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NOT NULL,
+  `comment_name` varchar(75) NOT NULL,
+  `comment_mail` varchar(75) NOT NULL,
+  `comment_text` longtext NOT NULL,
+  `comment_date` datetime NOT NULL,
+  `comment_valid` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
             if ($r = $this->mysqli->query($q)) {
                 return true;

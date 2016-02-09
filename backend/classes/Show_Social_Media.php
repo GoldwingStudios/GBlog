@@ -11,18 +11,27 @@ class Show_Social_Media {
 
     public function Show_Social_Media_Links() {
         $media = $this->get_social_media_data();
+        if(count($media) > 0)
+        {
+            echo '<h2>Social Media</h2><div class="blog__social__media">';
+        }
         foreach ($media as $m) {
             if ($m["sml_link"] != "") {
                 $output = '' .
-                        '<div class="social__media__badge">' .
-                        '<img class="social__media__badge__icon" src="assets/images/' . $m["sml_type"] . '.svg">' .
-                        '<div class="social__media__badge__content">' .
-                        '<h1 class="social__media__badge__title">' . ucfirst($m["sml_type"]) . '</h1>' .
-                        '<a href="http://' . $m["sml_link"] . '" class="social__media__badge__desc">' . $m["sml_link_text"] . '</a>' .
-                        '</div>' .
-                        '</div>';
+                '<a href="http://' . $m["sml_link"] . '" class="social__media__badge__desc"><div class="social__media__badge">' .
+                '<img class="social__media__badge__icon" src="assets/images/social_media/' . $m["sml_type"] . '.svg">' .
+                '<div class="social__media__badge__content">' .
+                '<div class="helper"></div>' .
+                '<h1 class="social__media__badge__title">' . ucfirst($m["sml_type"]) . '</h1>' .
+                '</div>' .
+                '</div>' .
+                '</a>' ;
                 echo $output;
             }
+        }
+        if(count($media) > 0)
+        {
+            echo "</div>";
         }
     }
 

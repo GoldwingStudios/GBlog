@@ -22,7 +22,6 @@ class Write_Post {
         $Sql_Query = "INSERT INTO blog_posts (`post_title`, `post_text`, `post_date`, `post_tags`, `post_image_path`) VALUES (:post_title, :post_text, :post_date, :post_tags, :post_image_path)";
         $Parameter = array(":post_title" => $Post_Title, ":post_text" => $Post_Preview, ":post_date" => $Post_Date, ":post_tags" => $Post_Tags, ":post_image_path" => $Image_Path);
         $return = $Connection->Execute_PDO_Command($Sql_Query, $Parameter);
-
         return $return;
     }
 
